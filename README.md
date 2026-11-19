@@ -28,7 +28,7 @@ data types and allowed values.
 ├── study-level-metadata/        the study record (study.json, JSON-LD) and its readable page
 ├── resource-level-metadata/     readable overview of the resource graph
 ├── structural-metadata/
-│   └── schemas/                 JSON Schemas of the released tables (open these in Schema Explorer)
+│   └── schemas/                 JSON Schemas of the released tables
 │       ├── questionnaires/R0 … R5/
 │       ├── derived/
 │       ├── administration/  linkage/  biospecimens/  biomarker_assays/

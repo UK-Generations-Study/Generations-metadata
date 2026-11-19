@@ -7,8 +7,12 @@ The schema files are in **[`schemas/`](schemas/)**, grouped by data source.
 
 ## How to use the schemas
 
-- **Browse them** in [Schema Explorer](../README.md#viewing-the-schemas-in-schema-explorer): download or clone the
-  repository, open the explorer and drop the `schemas/` folder (or one dataset's folder) onto the page.
+- **Browse them in Schema Explorer:**
+  1. Get a local copy of this repository: **Code → Download ZIP** at the top of the repository page, or `git clone`.
+  2. Open **[Schema Explorer](https://jeyabbalas.github.io/schema-explorer/)**.
+  3. Drag the `structural-metadata/schemas/` folder (or one dataset's folder) onto the page.
+
+  Full steps, and what you will see: [Viewing the schemas in Schema Explorer](../README.md#viewing-the-schemas-in-schema-explorer).
 - **Match them to your data**: use the version of this repository tagged with your data release. Each table's
   version is listed in [`VERSIONS.json`](../VERSIONS.json).
 - Guides for loading the data and using the schemas in R and Python will be added to [`guides/`](../guides/).
