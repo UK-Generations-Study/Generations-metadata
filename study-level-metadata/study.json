@@ -1,0 +1,570 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "gs": "https://github.com/UK-Generations-Study/Generations-metadata/terms#",
+      "populationSize": "gs:populationSize",
+      "followUp": "gs:followUp",
+      "pathway": "gs:pathway",
+      "materialType": "gs:materialType",
+      "purpose": "gs:purpose",
+      "datasetType": "gs:datasetType",
+      "subTypes": "gs:subTypes",
+      "source": "gs:source",
+      "collectionSource": "gs:collectionSource",
+      "imageContrast": "gs:imageContrast",
+      "publishingFrequency": "gs:publishingFrequency",
+      "timeLag": "gs:timeLag",
+      "dataUseLimitation": "gs:dataUseLimitation",
+      "dataUseRequirements": "gs:dataUseRequirements",
+      "accessServiceCategory": "gs:accessServiceCategory",
+      "accessRequestCost": "gs:accessRequestCost",
+      "deliveryLeadTime": "gs:deliveryLeadTime",
+      "jurisdiction": "gs:jurisdiction",
+      "dataController": "gs:dataController",
+      "vocabularyEncodingScheme": "gs:vocabularyEncodingScheme",
+      "conformsTo": "gs:conformsTo",
+      "linkableDatasets": "gs:linkableDatasets",
+      "observations": "gs:observations",
+      "observedNode": "gs:observedNode",
+      "assay": "gs:assay",
+      "platform": "gs:platform",
+      "previousVersions": "gs:previousVersions"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "#study",
+      "@type": [
+        "Dataset",
+        "MedicalObservationalStudy"
+      ],
+      "name": "Breast Cancer Now Generations Study",
+      "alternateName": [
+        "UK Generations Study",
+        "GS",
+        "Breakthrough Generations Study"
+      ],
+      "abstract": "The Breast Cancer Now Generations Study is a UK prospective cohort of ~113,000 women aged 16+, recruited 2004–2011 and followed for over 20 years. Focused on breast cancer causes, prognosis, and outcomes, the study has collected five rounds of questionnaires, NHS and cancer registry linkages, a biobank (plasma, DNA, urine; ~92% with blood samples), tumour tissue, mammograms, accelerometry, and pathology data. Over 190 peer-reviewed publications to date.",
+      "description": "The Breast Cancer Now Generations Study (BGS) is a large prospective cohort study of women's health in the UK. Between 2004 and 2011, approximately 113,000 women aged 16 and over were recruited from across the UK, with the aim of following participants for 40 years. The primary scientific focus is understanding the causes and outcomes of breast cancer, with a broader remit covering other cancers and conditions affecting women's health. Participants were recruited through supporters of Breakthrough Breast Cancer (now Breast Cancer Now), responses to publicity, and invitations of friends and family members from existing participants. Approximately 30% of participants are first-degree relatives of other cohort members; the cohort includes over 15,000 family units. Geographically, participants are predominantly from England (89%), with Scotland (7%), Wales (4%), and Northern Ireland (1%) also represented. The cohort is overrepresented by women of higher socioeconomic status and White ethnicity relative to the UK population. All participants completed a 44-page baseline questionnaire at recruitment covering demographics, reproductive and menstrual history, hormone use, lifestyle, medical history, anthropometrics, and family cancer history. Follow-up questionnaires were administered approximately 2, 6, 9, 13, and 17 years post recruitment. Participants were recruited between 2004 and 2009. The first follow-up took place between 2007 and 2012, the second between 2010 and 2015, the third between 2014 and 2019, the fourth between 2017 and 2023, and the fifth in 2025. Response rates were very high in the first and second follow-up which was on-paper (99%, 97%), and the third and fourth follow-up which were a combination of on-paper and online (96%, 83%) and the fifth follow-up which was online only (59.4%). More than 500,000 questionnaires have been completed in total. Blood samples were provided by approximately 92% of participants at baseline (27ml) and a subset of 8938 participants approximately 6 years after enrolment (18 ml). Each blood sample was processed into plasma and buffy coat aliquots; over 3.2 million 0.5 ml barcoded straws are held in a biorepository in LN2 tanks (-180°C). Urine samples were collected from a subset of 847 pre- and post-menopausal women not using hormonal contraception. Whole section H&E slides from diagnostic paraffin-embedded blocks, tumour tissue microarrays (TMAs) and loose tissue cores are available for participants who subsequently developed breast or ovarian cancer. Diagnostic biopsy H&E's from participants with benign breast disease are also being collected. Screening mammograms have been collected for a nested case-control sub-study, with ongoing expansion to serial mammograms from approximately 50,000 women of screening age in the cohort. More than 12,000 participants wore wrist-worn triaxial accelerometers continuously for 8 days at 100 Hz. Genotyping array data are available for nested case-control studies of breast and ovarian cancer, with polygenic risk scores derived for cases and controls. Whole exome sequencing of DNA samples from all eligible participants is underway. Hormone and biomarker assay data - including oestradiol, testosterone, progesterone, prolactin, SHBG, IGF-1, leptin, and AMH - are available for subsets of participants. Health outcomes are self-reported by participants, and cancers are confirmed through data linkages to national cancer registries and deaths via national death registries in England and Scotland.  Other health outcomes are available from NHS electronic medical records in England (hospital in-patient and out-patient). NHS flagging through the National Health Service Central Registers has tracked vital status from 2003, fully for England and partly for Scotland. Individually identifiable health record data have been supplied to the ICR by NHS England and National Records of Scotland under ethics committee and Health Research Authority approvals. Key scientific contributions include identification of over 300 common genetic variants associated with breast cancer risk, characterisation of hormonal and reproductive risk factors, and evidence linking physical inactivity and adolescent smoking to increased risk. More than 190 peer-reviewed publications have used Generations Study data, catalogued in a PubMed collection https://pubmed.ncbi.nlm.nih.gov/collections/64898594/. The study is jointly governed by Breast Cancer Now and The Institute of Cancer Research as legal custodians, with the ICR acting as data controller. Research applications are reviewed by the study Principal Investigators and an Access Committee on scientific merit, feasibility, consistency with participant consent, and governance requirements. Survey data, health outcomes, genomic and biomarker data, imaging-derived data, registry-linked data, and biological samples are available to researchers for not-for-profit purposes following a Data Access Agreement.",
+      "keywords": [
+        "UK",
+        "Female",
+        "Prospective cohort",
+        "Women's health",
+        "Breast cancer",
+        "Breast cancer risk",
+        "Epidemiology",
+        "Questionnaire",
+        "Blood sample",
+        "Biobank",
+        "Cancer",
+        "Pathology",
+        "Mammogram",
+        "Imaging",
+        "Accelerometer",
+        "Physical activity",
+        "Genotyping",
+        "Polygenic risk score",
+        "Hormone",
+        "Reproductive health",
+        "Data linkage"
+      ],
+      "studyDesign": {
+        "@id": "https://schema.org/CohortStudy"
+      },
+      "healthCondition": {
+        "@type": "MedicalCondition",
+        "name": "Breast cancer"
+      },
+      "url": "https://thegenerationsstudy.co.uk/",
+      "version": "1.0.3",
+      "previousVersions": [
+        "1.0.0",
+        "1.0.1",
+        "1.0.2"
+      ],
+      "datePublished": "2026-03-13",
+      "dateModified": "2026-06-30",
+      "creativeWorkStatus": "Available",
+      "publisher": {
+        "@type": "Organization",
+        "identifier": "e633bd6b-833d-473e-a9b5-3fa4d018c02d",
+        "name": "Breast Cancer Now and The Institute of Cancer Research",
+        "description": "The Breast Cancer Now and the Institute of Cancer Research are joint legal custodians for the Generations study and retain ultimate oversight of and decision making for the study.",
+        "logo": "https://ukhealthdata.org/wp-content/uploads/2023/12/GS-logo-300x66.jpg",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "Generations.Scientific@icr.ac.uk"
+        },
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Alliance"
+        }
+      },
+      "dataController": {
+        "@type": "Organization",
+        "name": "The Institute of Cancer Research"
+      },
+      "populationSize": 113000,
+      "typicalAgeRange": "16-102",
+      "spatialCoverage": {
+        "@type": "Place",
+        "name": "United Kingdom, Isle of Man, Channel Islands"
+      },
+      "temporalCoverage": "2003-06-01/..",
+      "followUp": "> 10 Years",
+      "pathway": "Prospective volunteer cohort of women recruited 2004–2011 across all four UK nations. Linked to national cancer registries (currently England, Scotland; planned for Wales, Northern Ireland), NHS electronic medical records, and national death registries. Covers the full patient pathway from primary prevention and cancer risk assessment through screening, diagnosis, treatment, and long-term outcomes.",
+      "materialType": [
+        "Plasma",
+        "DNA",
+        "Urine",
+        "Tissue"
+      ],
+      "purpose": [
+        "Research cohort"
+      ],
+      "datasetType": [
+        {
+          "name": "Health and disease",
+          "subTypes": [
+            "Cancer"
+          ]
+        }
+      ],
+      "source": [
+        "Electronic survey",
+        "EPR",
+        "LIMS",
+        "Machine generated",
+        "Paper-based",
+        "Other"
+      ],
+      "collectionSource": [
+        "Cohort, study, trial",
+        "Home",
+        "Community",
+        "Patient report outcome",
+        "Wearables"
+      ],
+      "imageContrast": "Not stated",
+      "publishingFrequency": "Irregular",
+      "timeLag": "More than 6 months",
+      "creditText": "We thank Breast Cancer Now and The Institute of Cancer Research for support and funding of the Generations Study, and the study participants, study staff, and the doctors, nurses, and other health-care providers and health information sources who have contributed to the study. The ICR acknowledges NHS funding to the Royal Marsden/ICR NIHR Biomedical Research Centre.",
+      "usageInfo": "https://thegenerationsstudy.co.uk/forresearchers",
+      "conditionsOfAccess": "Data are currently available to approved researchers via secure data transfer following execution of a Data Sharing Agreement. Approved extracts are delivered as CSV and JSON formats. To initiate a request, contact Generations.Scientific@icr.ac.uk with a description of the proposed research and the data or samples required. Requests are reviewed by the study Principal Investigators and Access Committee on scientific merit, feasibility, consistency with participant consent, and data governance requirements.",
+      "dataUseLimitation": [
+        "Research use only"
+      ],
+      "dataUseRequirements": [
+        "Project-specific restrictions",
+        "Return to database or resource",
+        "User-specific restriction",
+        "Time limit on use"
+      ],
+      "accessServiceCategory": "Varies based on project",
+      "accessRequestCost": "Cost recovery varies according to project scope and requested services.",
+      "deliveryLeadTime": "2-6 months",
+      "jurisdiction": [
+        "GB-ENG"
+      ],
+      "inLanguage": [
+        "en"
+      ],
+      "encodingFormat": [
+        "application/json",
+        "text/csv",
+        "image/dicom",
+        "OTHER"
+      ],
+      "vocabularyEncodingScheme": [
+        "ICD10",
+        "ICD9",
+        "ICDO3",
+        "LOCAL"
+      ],
+      "conformsTo": [
+        "DICOM",
+        "LOCAL",
+        "NHS DATA DICTIONARY",
+        "NHS SCOTLAND DATA DICTIONARY",
+        "NHS WALES DATA DICTIONARY"
+      ],
+      "linkableDatasets": [
+        {
+          "@type": "Dataset",
+          "name": "National Disease Registration Service (NDRS) — England cancer registry / SACT / RTDS",
+          "url": "https://digital.nhs.uk/ndrs/data/data-sets"
+        },
+        {
+          "@type": "Dataset",
+          "name": "NHS England Electronic Health Records",
+          "url": "https://digital.nhs.uk/data"
+        },
+        {
+          "@type": "Dataset",
+          "name": "NHS England Hospital Episode Statistics",
+          "url": "https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/hospital-episode-statistics"
+        },
+        {
+          "@type": "Dataset",
+          "name": "Welsh Cancer Intelligence and Surveillance Unit (WCISU)",
+          "url": "https://publichealthwales.nhs.wales/services-and-teams/welsh-cancer-intelligence-and-surveillance-unit-wcisu/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "Scottish Cancer Registry (SMR06)",
+          "url": "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/national-data-catalogue/national-datasets/search-the-datasets/scottish-cancer-registry-smr06/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "Scottish Morbidity Registry (SMR00)",
+          "url": "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/national-data-catalogue/national-datasets/search-the-datasets/outpatient-appointments-and-attendances-scottish-morbidity-record-smr00/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "Scottish Breast Cancer Screening System (SBSS)",
+          "url": "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/national-data-catalogue/national-datasets/search-the-datasets/scottish-breast-screening-system-sbss/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "Scotland Prescribing Information System (PIS)",
+          "url": "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/national-data-catalogue/national-datasets/search-the-datasets/prescribing-information-system-pis/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "National Records of Scotland (NRS): Deaths Data",
+          "url": "https://publichealthscotland.scot/resources-and-tools/health-intelligence-and-data-management/national-data-catalogue/national-datasets/search-the-datasets/national-records-of-scotland-nrs-deaths-data/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "Northern Ireland Cancer Registry (NICR)",
+          "url": "https://www.qub.ac.uk/research-centres/nicr/"
+        },
+        {
+          "@type": "Dataset",
+          "name": "ONS Mortality Data (national death registry)",
+          "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/"
+        }
+      ],
+      "subjectOf": [
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/UK-Generations-Study/Study-Documents"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/UK-Generations-Study/Schema_and_Derivation_Utils"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "sameAs": "https://doi.org/10.1038/bjc.2011.337"
+        }
+      ],
+      "observations": [
+        {
+          "@type": "Observation",
+          "description": "Total participants recruited",
+          "measuredProperty": "Count",
+          "observedNode": "Persons",
+          "value": 113000,
+          "observationDate": "2011-12-31"
+        },
+        {
+          "@type": "Observation",
+          "description": "Participants with blood samples in biobank (~92% of total)",
+          "measuredProperty": "Count",
+          "observedNode": "Persons",
+          "value": 103000,
+          "observationDate": "2011-12-31"
+        },
+        {
+          "@type": "Observation",
+          "description": "Total incident cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 22839,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Breast cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 6568,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Uterus cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 1574,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Colon cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 957,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Bronchus and Lung cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 640,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Ovary cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 604,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Melanoma cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 497,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Lymphoma cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 336,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Rectum cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 291,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Pancreas cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 269,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Kidney cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 216,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Thyroid cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 198,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Brain cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 171,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Incident Oesophagus cancer cases recorded since recruitment",
+          "measuredProperty": "Count",
+          "observedNode": "Events",
+          "value": 124,
+          "observationDate": "2026-02-01"
+        },
+        {
+          "@type": "Observation",
+          "description": "Peer-reviewed publications using Generations Study data",
+          "measuredProperty": "Count",
+          "observedNode": "Findings",
+          "value": 190,
+          "observationDate": "2026-03-01"
+        }
+      ],
+      "assay": "Genotyping by array",
+      "platform": "Other"
+    },
+    {
+      "@id": "gs:populationSize",
+      "@type": "rdf:Property",
+      "rdfs:label": "populationSize",
+      "rdfs:comment": "Number of participants in the study."
+    },
+    {
+      "@id": "gs:followUp",
+      "@type": "rdf:Property",
+      "rdfs:label": "followUp",
+      "rdfs:comment": "Length of participant follow-up."
+    },
+    {
+      "@id": "gs:pathway",
+      "@type": "rdf:Property",
+      "rdfs:label": "pathway",
+      "rdfs:comment": "Where the data sit along the patient pathway, and which records the cohort is linked to."
+    },
+    {
+      "@id": "gs:materialType",
+      "@type": "rdf:Property",
+      "rdfs:label": "materialType",
+      "rdfs:comment": "Types of biological sample held."
+    },
+    {
+      "@id": "gs:purpose",
+      "@type": "rdf:Property",
+      "rdfs:label": "purpose",
+      "rdfs:comment": "Purpose for which the data were collected."
+    },
+    {
+      "@id": "gs:datasetType",
+      "@type": "rdf:Property",
+      "rdfs:label": "datasetType",
+      "rdfs:comment": "Broad type of data held, with narrower subtypes."
+    },
+    {
+      "@id": "gs:subTypes",
+      "@type": "rdf:Property",
+      "rdfs:label": "subTypes",
+      "rdfs:comment": "Narrower types within a dataset type."
+    },
+    {
+      "@id": "gs:source",
+      "@type": "rdf:Property",
+      "rdfs:label": "source",
+      "rdfs:comment": "Kinds of source the data come from, such as electronic surveys or patient records."
+    },
+    {
+      "@id": "gs:collectionSource",
+      "@type": "rdf:Property",
+      "rdfs:label": "collectionSource",
+      "rdfs:comment": "Settings in which the data were collected."
+    },
+    {
+      "@id": "gs:imageContrast",
+      "@type": "rdf:Property",
+      "rdfs:label": "imageContrast",
+      "rdfs:comment": "Whether imaging data were acquired with contrast."
+    },
+    {
+      "@id": "gs:publishingFrequency",
+      "@type": "rdf:Property",
+      "rdfs:label": "publishingFrequency",
+      "rdfs:comment": "How often the data are updated or released."
+    },
+    {
+      "@id": "gs:timeLag",
+      "@type": "rdf:Property",
+      "rdfs:label": "timeLag",
+      "rdfs:comment": "Typical delay between data collection and availability."
+    },
+    {
+      "@id": "gs:dataUseLimitation",
+      "@type": "rdf:Property",
+      "rdfs:label": "dataUseLimitation",
+      "rdfs:comment": "Limits on how the data may be used."
+    },
+    {
+      "@id": "gs:dataUseRequirements",
+      "@type": "rdf:Property",
+      "rdfs:label": "dataUseRequirements",
+      "rdfs:comment": "Conditions that approved users must meet."
+    },
+    {
+      "@id": "gs:accessServiceCategory",
+      "@type": "rdf:Property",
+      "rdfs:label": "accessServiceCategory",
+      "rdfs:comment": "How access to the data is provided."
+    },
+    {
+      "@id": "gs:accessRequestCost",
+      "@type": "rdf:Property",
+      "rdfs:label": "accessRequestCost",
+      "rdfs:comment": "Cost of accessing the data."
+    },
+    {
+      "@id": "gs:deliveryLeadTime",
+      "@type": "rdf:Property",
+      "rdfs:label": "deliveryLeadTime",
+      "rdfs:comment": "Typical time from an approved request to data delivery."
+    },
+    {
+      "@id": "gs:jurisdiction",
+      "@type": "rdf:Property",
+      "rdfs:label": "jurisdiction",
+      "rdfs:comment": "Legal jurisdictions the data are held under."
+    },
+    {
+      "@id": "gs:dataController",
+      "@type": "rdf:Property",
+      "rdfs:label": "dataController",
+      "rdfs:comment": "Organisation acting as data controller."
+    },
+    {
+      "@id": "gs:vocabularyEncodingScheme",
+      "@type": "rdf:Property",
+      "rdfs:label": "vocabularyEncodingScheme",
+      "rdfs:comment": "Coding systems used in the data, such as ICD-10."
+    },
+    {
+      "@id": "gs:conformsTo",
+      "@type": "rdf:Property",
+      "rdfs:label": "conformsTo",
+      "rdfs:comment": "Data standards the data follow."
+    },
+    {
+      "@id": "gs:linkableDatasets",
+      "@type": "rdf:Property",
+      "rdfs:label": "linkableDatasets",
+      "rdfs:comment": "External datasets the study data can be linked to."
+    },
+    {
+      "@id": "gs:observations",
+      "@type": "rdf:Property",
+      "rdfs:label": "observations",
+      "rdfs:comment": "Key counts describing the study, each with the date it was measured."
+    },
+    {
+      "@id": "gs:observedNode",
+      "@type": "rdf:Property",
+      "rdfs:label": "observedNode",
+      "rdfs:comment": "What a key count counts, such as persons or events."
+    },
+    {
+      "@id": "gs:assay",
+      "@type": "rdf:Property",
+      "rdfs:label": "assay",
+      "rdfs:comment": "Omics assay used."
+    },
+    {
+      "@id": "gs:platform",
+      "@type": "rdf:Property",
+      "rdfs:label": "platform",
+      "rdfs:comment": "Omics platform used."
+    },
+    {
+      "@id": "gs:previousVersions",
+      "@type": "rdf:Property",
+      "rdfs:label": "previousVersions",
+      "rdfs:comment": "Earlier versions of this study record."
+    }
+  ]
+}

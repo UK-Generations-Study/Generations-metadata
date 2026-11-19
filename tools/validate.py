@@ -1,8 +1,8 @@
-"""Check the data dictionary. Runs locally and on every push (GitHub Actions).
+"""Check the Generations metadata repository. Runs locally and on every push (GitHub Actions).
 
 Checks:
   1. Every .json file in the repository parses.
-  2. Every file under variable-level-metadata/schemas/ is a valid JSON Schema (draft 2020-12)
+  2. Every file under structural-metadata/schemas/ is a valid JSON Schema (draft 2020-12)
      and every $ref in it resolves to a file in that folder.
   3. ro-crate-metadata.json: IDs are unique, every "#..." link points to an entity in the graph,
      and every local file the graph names exists.

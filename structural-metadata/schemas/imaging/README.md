@@ -1,6 +1,6 @@
 # Imaging
 
-Screening mammograms.
+Imaging data other than mammograms (mammograms have their own folder, `mammograms/`).
 
 **Placeholder: no released schema yet.**
 

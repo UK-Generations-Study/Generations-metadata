@@ -10,7 +10,7 @@
     {
       "@id": "./",
       "@type": "Dataset",
-      "name": "Generations Study data dictionary",
+      "name": "Generations Study metadata",
       "description": "Placeholder. The resource graph (data collections, instruments, released tables and how they relate) will be added once its content is agreed.",
       "datePublished": "2026-11-18",
       "license": {"@id": "https://creativecommons.org/licenses/by/4.0/"}

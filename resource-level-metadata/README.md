@@ -2,6 +2,10 @@
 
 # Resources overview
 
-What the Generations Study holds and how it fits together. Terms are explained in [terms.md](terms.md).
+What the Generations Study holds and how it fits together.
 
 Placeholder. The resource graph (data collections, instruments, released tables and how they relate) will be added once its content is agreed.
+
+## Terms
+
+No Generations-specific terms are defined in the resource graph yet.
