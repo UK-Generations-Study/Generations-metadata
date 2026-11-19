@@ -46,7 +46,7 @@ data types, valid values and constraints in a browsable, searchable form
 (source and documentation: [github.com/jeyabbalas/schema-explorer](https://github.com/jeyabbalas/schema-explorer)).
 
 It runs entirely in your browser and reads schemas **from your own computer only**. It cannot open a GitHub link,
-and this repository is private. So you first get a local copy, then give it the folder:
+so you first get a local copy, then give it the folder:
 
 1. **Get a local copy of this repository.** Either:
    - click **Code → Download ZIP** at the top of this page and unzip it, or
