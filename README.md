@@ -18,79 +18,32 @@ data types and allowed values.
 ## Repository layout
 
 ```
-Generations-metadata/
-│
-├── README.md
-│   Overview of the repository, the metadata model and how to use it
-│
-├── LICENSE
-│   CC BY 4.0: metadata and documentation
-│
-├── LICENSE-CODE
-│   MIT: scripts in tools/
-│
-├── CHANGELOG.md
-│   Record of changes to the repository
-│
-├── VERSIONS.json
-│   Version of every released table schema (generated automatically)
-│
-├── ro-crate-metadata.json
-│   Resource graph describing how the study's resources link together
-│   (initially a placeholder)
-│
-├── release-notes/
-│   One page describing each data release
-│
+├── README.md                    Overview of the repository, the metadata model and how to use it
+├── LICENSE                      CC BY 4.0: metadata and documentation
+├── LICENSE-CODE                 MIT: scripts in tools/
+├── CHANGELOG.md                 Record of changes to the repository
+├── VERSIONS.json                Version of every released table schema (generated automatically)
+├── ro-crate-metadata.json       Resource graph describing how the study's resources link together
+│                                (initially a placeholder)
+├── release-notes/               One page describing each data release
 ├── study-level-metadata/
-│   │
-│   ├── README.md
-│   │   Human-readable description of the study-level metadata
-│   │
-│   └── study.json
-│       Machine-readable description of the Generations Study as a whole
-│
+│   ├── README.md                Human-readable description of the study-level metadata
+│   └── study.json               Machine-readable description of the Generations Study as a whole
 ├── resource-level-metadata/
-│   │
-│   └── README.md
-│       Human-readable overview of the resources, their relationships
-│       and the terminology used to describe them
-│
+│   └── README.md                Human-readable overview of the resources, their relationships
+│                                and the terminology used to describe them
 ├── structural-metadata/
-│   │
-│   ├── README.md
-│   │   Explains the structural metadata, schema organisation,
-│   │   naming/versioning conventions and how to use the schemas
-│   │
-│   └── schemas/
-│       │   JSON Schemas describing released data tables, including
-│       │   variables, data types, constraints and allowed values
-│       │
-│       ├── questionnaires/
-│       │   ├── R0/
-│       │   ├── R1/
-│       │   ├── R2/
-│       │   ├── R3/
-│       │   ├── R4/
-│       │   └── R5/
-│       │
+│   ├── README.md                Explains the structural metadata, schema organisation,
+│   │                            naming/versioning conventions and how to use the schemas
+│   └── schemas/                 JSON Schemas describing released data tables, including
+│       │                        variables, data types, constraints and allowed values
+│       ├── questionnaires/R0 … R5/
 │       ├── derived/
-│       ├── administration/
-│       ├── linkage/
-│       ├── biospecimens/
-│       ├── biomarker_assays/
-│       ├── pathology/
-│       ├── imaging/
-│       ├── mammograms/
-│       ├── accelerometry/
-│       └── genomics/
-│
-├── guides/
-│   Practical guides for analysts using Generations data
-│
-└── tools/
-    Scripts that validate the metadata, generate VERSIONS.json
-    and generate human-readable pages
+│       ├── administration/  linkage/  biospecimens/  biomarker_assays/
+│       └── pathology/  imaging/  mammograms/  accelerometry/  genomics/
+├── guides/                      Practical guides for analysts using Generations data
+└── tools/                       Scripts that validate the metadata, generate VERSIONS.json
+                                 and generate human-readable pages
 ```
 
 Questionnaire rounds are named **R0** (baseline) to **R5** (fifth follow-up). R1 is also known as TwoHalfQ.
