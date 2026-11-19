@@ -4,7 +4,13 @@
 
 What the Generations Study holds and how it fits together.
 
+About: [Breast Cancer Now Generations Study](../study-level-metadata/README.md).
+
 Placeholder. The resource graph (data collections, instruments, released tables and how they relate) will be added once its content is agreed.
+
+| ID | Type | Name | Description | Links |
+|---|---|---|---|---|
+| study-level-metadata/study.json | File | [Study record](../study-level-metadata/study.json) | Study-level metadata for the Generations Study, in JSON-LD (schema.org). | about → [Breast Cancer Now Generations Study](../study-level-metadata/README.md) |
 
 ## Terms
 

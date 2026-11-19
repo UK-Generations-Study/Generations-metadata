@@ -260,7 +260,11 @@ def resource_level(outputs: dict):
     linked_away = {i for i in ref_ids(root.get("license"))}
     items = [e for e in graph if e["@id"] not in CRATE_FRAME | linked_away and not is_term(e)]
 
+    study = next((e for e in load(STUDY_RECORD).get("@graph", []) if str(e.get("@id", "")).endswith("#study")), {})
+
     def label(i):
+        if study and i == study.get("@id"):        # the study is described in study.json, not in the graph
+            return f"[{study.get('name', i)}]({rel(STUDY_DIR / 'README.md', page)})"
         name = ent[i].get("name", i) if i in ent else i
         if i in ent and not i.startswith("#") and "://" not in i:
             return f"[{name}]({rel(ROOT / i, page)})"
@@ -268,9 +272,11 @@ def resource_level(outputs: dict):
 
     out = [NOTE.format(src=f"[ro-crate-metadata.json]({rel(CRATE, page)})"), "# Resources overview\n\n",
            "What the Generations Study holds and how it fits together.\n\n"]
-    if not items:
-        out.append(root.get("description", "Placeholder. The resource graph has not been filled in yet.") + "\n")
-    else:
+    if root.get("about"):
+        out.append(f"About: {', '.join(label(i) for i in ref_ids(root.get('about')))}.\n\n")
+    if root.get("description"):
+        out.append(root["description"] + "\n\n")
+    if items:
         rows = []
         for e in items:
             links = [f"{k} → {', '.join(label(t) for t in ref_ids(v))}" for k, v in e.items()
