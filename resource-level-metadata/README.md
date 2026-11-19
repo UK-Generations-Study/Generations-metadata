@@ -8,4 +8,34 @@ Placeholder. The resource graph (data collections, instruments, released tables 
 
 ## Terms
 
-No Generations-specific terms are defined in the resource graph yet.
+Generations-specific terms used in this repository's JSON-LD files, where [schema.org](https://schema.org) has no suitable term. Each term's definition lives in the file listed. A term's full address is this page's address followed by `#` and the term, for example `…/resource-level-metadata/README.md#populationSize`.
+
+| Term | Kind | Meaning | Defined in |
+|---|---|---|---|
+| <a id="accessRequestCost"></a>`accessRequestCost` | property | Cost of accessing the data. | `study-level-metadata/study.json` |
+| <a id="accessServiceCategory"></a>`accessServiceCategory` | property | How access to the data is provided. | `study-level-metadata/study.json` |
+| <a id="assay"></a>`assay` | property | Omics assay used. | `study-level-metadata/study.json` |
+| <a id="collectionSource"></a>`collectionSource` | property | Settings in which the data were collected. | `study-level-metadata/study.json` |
+| <a id="conformsTo"></a>`conformsTo` | property | Data standards the data follow. | `study-level-metadata/study.json` |
+| <a id="dataController"></a>`dataController` | property | Organisation acting as data controller. | `study-level-metadata/study.json` |
+| <a id="datasetType"></a>`datasetType` | property | Broad type of data held, with narrower subtypes. | `study-level-metadata/study.json` |
+| <a id="dataUseLimitation"></a>`dataUseLimitation` | property | Limits on how the data may be used. | `study-level-metadata/study.json` |
+| <a id="dataUseRequirements"></a>`dataUseRequirements` | property | Conditions that approved users must meet. | `study-level-metadata/study.json` |
+| <a id="deliveryLeadTime"></a>`deliveryLeadTime` | property | Typical time from an approved request to data delivery. | `study-level-metadata/study.json` |
+| <a id="followUp"></a>`followUp` | property | Length of participant follow-up. | `study-level-metadata/study.json` |
+| <a id="imageContrast"></a>`imageContrast` | property | Whether imaging data were acquired with contrast. | `study-level-metadata/study.json` |
+| <a id="jurisdiction"></a>`jurisdiction` | property | Legal jurisdictions the data are held under. | `study-level-metadata/study.json` |
+| <a id="linkableDatasets"></a>`linkableDatasets` | property | External datasets the study data can be linked to. | `study-level-metadata/study.json` |
+| <a id="materialType"></a>`materialType` | property | Types of biological sample held. | `study-level-metadata/study.json` |
+| <a id="observations"></a>`observations` | property | Key counts describing the study, each with the date it was measured. | `study-level-metadata/study.json` |
+| <a id="observedNode"></a>`observedNode` | property | What a key count counts, such as persons or events. | `study-level-metadata/study.json` |
+| <a id="pathway"></a>`pathway` | property | Where the data sit along the patient pathway, and which records the cohort is linked to. | `study-level-metadata/study.json` |
+| <a id="platform"></a>`platform` | property | Omics platform used. | `study-level-metadata/study.json` |
+| <a id="populationSize"></a>`populationSize` | property | Number of participants in the study. | `study-level-metadata/study.json` |
+| <a id="previousVersions"></a>`previousVersions` | property | Earlier versions of this study record. | `study-level-metadata/study.json` |
+| <a id="publishingFrequency"></a>`publishingFrequency` | property | How often the data are updated or released. | `study-level-metadata/study.json` |
+| <a id="purpose"></a>`purpose` | property | Purpose for which the data were collected. | `study-level-metadata/study.json` |
+| <a id="source"></a>`source` | property | Kinds of source the data come from, such as electronic surveys or patient records. | `study-level-metadata/study.json` |
+| <a id="subTypes"></a>`subTypes` | property | Narrower types within a dataset type. | `study-level-metadata/study.json` |
+| <a id="timeLag"></a>`timeLag` | property | Typical delay between data collection and availability. | `study-level-metadata/study.json` |
+| <a id="vocabularyEncodingScheme"></a>`vocabularyEncodingScheme` | property | Coding systems used in the data, such as ICD-10. | `study-level-metadata/study.json` |

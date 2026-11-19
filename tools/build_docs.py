@@ -69,16 +69,39 @@ def is_term(entity: dict) -> bool:
     return bool(TERM_TYPES & set(as_list(entity.get("@type"))))
 
 
-def terms_section(terms: list[dict], where: str) -> str:
-    """'Terms' section listing the Generations-specific terms a JSON-LD file defines."""
+def term_label(t: dict) -> str:
+    return t.get("rdfs:label") or str(t["@id"]).split(":")[-1].split("#")[-1]
+
+
+def collect_terms() -> list[tuple[dict, str]]:
+    """Every Generations-specific term defined in the repository's JSON-LD files, with the file it is in."""
+    found = []
+    for path in (STUDY_RECORD, CRATE):
+        for e in load(path).get("@graph", []):
+            if is_term(e):
+                found.append((e, path.relative_to(ROOT).as_posix()))
+    return found
+
+
+def terms_section(entries: list[tuple[dict, str]]) -> str:
+    """The one Terms section: each row carries a bookmark, so a term's full address opens its own definition."""
     out = "## Terms\n\n"
-    if not terms:
-        return out + f"No Generations-specific terms are defined in {where} yet.\n"
-    out += (f"Terms used in {where} that are not part of [schema.org](https://schema.org), "
-            "as defined in the file itself.\n\n")
-    rows = [[f"`{t.get('rdfs:label', t['@id'])}`", "type" if "rdfs:Class" in as_list(t.get("@type")) else "property",
-             t.get("rdfs:comment", "")] for t in sorted(terms, key=lambda t: t.get("rdfs:label", t["@id"]).lower())]
-    return out + table(["Term", "Kind", "Meaning"], rows)
+    if not entries:
+        return out + "No Generations-specific terms are defined yet.\n"
+    out += ("Generations-specific terms used in this repository's JSON-LD files, where "
+            "[schema.org](https://schema.org) has no suitable term. Each term's definition lives in the file "
+            "listed. A term's full address is this page's address followed by `#` and the term, for example "
+            "`…/resource-level-metadata/README.md#populationSize`.\n\n")
+    rows, seen = [], set()
+    for t, src in sorted(entries, key=lambda e: term_label(e[0]).lower()):
+        label = term_label(t)
+        if (label, src) in seen:
+            continue
+        seen.add((label, src))
+        rows.append([f'<a id="{label}"></a>`{label}`',
+                     "type" if "rdfs:Class" in as_list(t.get("@type")) else "property",
+                     t.get("rdfs:comment", ""), f"`{src}`"])
+    return out + table(["Term", "Kind", "Meaning", "Defined in"], rows)
 
 
 # --------------------------------------------------------------------------- schemas
@@ -156,7 +179,7 @@ def study_level(outputs: dict):
     """Study at a glance, from study.json (JSON-LD, schema.org + Generations-specific terms)."""
     page = STUDY_DIR / "README.md"
     graph = load(STUDY_RECORD)["@graph"]
-    s = next(e for e in graph if e.get("@id") == "#study")
+    s = next(e for e in graph if str(e.get("@id", "")).endswith("#study"))
     terms = [e for e in graph if is_term(e)]
     pub = s.get("publisher") or {}
 
@@ -221,7 +244,9 @@ def study_level(outputs: dict):
     if pubs:
         out.append("## Publications about the study\n\n" + "".join(
             f"- [{p['sameAs'].split('doi.org/')[-1]}]({p['sameAs']})\n" for p in pubs if p.get("sameAs")) + "\n")
-    out.append(terms_section(terms, "study.json"))
+    if terms:
+        out.append("## Terms\n\nGenerations-specific terms used in `study.json` are defined in the "
+                   f"[Resources overview]({rel(RESOURCE_DIR / 'README.md', page)}#terms).\n")
     outputs[page] = "".join(out).rstrip() + "\n"
 
 
@@ -233,7 +258,6 @@ def resource_level(outputs: dict):
     ent = {e["@id"]: e for e in graph}
     root = ent.get("./", {})
     linked_away = {i for i in ref_ids(root.get("license"))}
-    terms = [e for e in graph if is_term(e)]
     items = [e for e in graph if e["@id"] not in CRATE_FRAME | linked_away and not is_term(e)]
 
     def label(i):
@@ -254,7 +278,7 @@ def resource_level(outputs: dict):
             rows.append([e["@id"].lstrip("#"), ", ".join(as_list(e.get("@type"))), label(e["@id"]),
                          e.get("description", ""), "; ".join(links)])
         out.append(table(["ID", "Type", "Name", "Description", "Links"], rows))
-    out.append("\n" + terms_section(terms, "the resource graph"))
+    out.append("\n" + terms_section(collect_terms()))
     outputs[page] = "".join(out)
 
 

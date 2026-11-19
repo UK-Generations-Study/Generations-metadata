@@ -97,34 +97,4 @@ We thank Breast Cancer Now and The Institute of Cancer Research for support and 
 
 ## Terms
 
-Terms used in study.json that are not part of [schema.org](https://schema.org), as defined in the file itself.
-
-| Term | Kind | Meaning |
-|---|---|---|
-| `accessRequestCost` | property | Cost of accessing the data. |
-| `accessServiceCategory` | property | How access to the data is provided. |
-| `assay` | property | Omics assay used. |
-| `collectionSource` | property | Settings in which the data were collected. |
-| `conformsTo` | property | Data standards the data follow. |
-| `dataController` | property | Organisation acting as data controller. |
-| `datasetType` | property | Broad type of data held, with narrower subtypes. |
-| `dataUseLimitation` | property | Limits on how the data may be used. |
-| `dataUseRequirements` | property | Conditions that approved users must meet. |
-| `deliveryLeadTime` | property | Typical time from an approved request to data delivery. |
-| `followUp` | property | Length of participant follow-up. |
-| `imageContrast` | property | Whether imaging data were acquired with contrast. |
-| `jurisdiction` | property | Legal jurisdictions the data are held under. |
-| `linkableDatasets` | property | External datasets the study data can be linked to. |
-| `materialType` | property | Types of biological sample held. |
-| `observations` | property | Key counts describing the study, each with the date it was measured. |
-| `observedNode` | property | What a key count counts, such as persons or events. |
-| `pathway` | property | Where the data sit along the patient pathway, and which records the cohort is linked to. |
-| `platform` | property | Omics platform used. |
-| `populationSize` | property | Number of participants in the study. |
-| `previousVersions` | property | Earlier versions of this study record. |
-| `publishingFrequency` | property | How often the data are updated or released. |
-| `purpose` | property | Purpose for which the data were collected. |
-| `source` | property | Kinds of source the data come from, such as electronic surveys or patient records. |
-| `subTypes` | property | Narrower types within a dataset type. |
-| `timeLag` | property | Typical delay between data collection and availability. |
-| `vocabularyEncodingScheme` | property | Coding systems used in the data, such as ICD-10. |
+Generations-specific terms used in `study.json` are defined in the [Resources overview](../resource-level-metadata/README.md#terms).

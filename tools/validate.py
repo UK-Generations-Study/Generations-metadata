@@ -6,7 +6,9 @@ Checks:
      and every $ref in it resolves to a file in that folder.
   3. ro-crate-metadata.json: IDs are unique, every "#..." link points to an entity in the graph,
      and every local file the graph names exists.
-  4. The generated pages and VERSIONS.json are up to date (python tools/build_docs.py --check).
+  4. Generations-specific terms: every term a JSON-LD file maps to the gs: prefix is defined in that file,
+     and no term is defined differently in two files.
+  5. The generated pages and VERSIONS.json are up to date (python tools/build_docs.py --check).
 
 Usage:  python tools/validate.py      (exit code 1 if anything fails)
 """
@@ -85,13 +87,33 @@ def check_crate(errors: list) -> int:
     return len(graph)
 
 
+def check_terms(errors: list) -> int:
+    entries = bd.collect_terms()
+    meaning: dict[str, tuple[str, str]] = {}
+    for t, src in entries:
+        label, comment = bd.term_label(t), t.get("rdfs:comment", "")
+        if label in meaning and meaning[label][0] != comment:
+            errors.append(f"term '{label}' is defined differently in {meaning[label][1]} and {src}")
+        meaning.setdefault(label, (comment, src))
+    for path in (bd.STUDY_RECORD, bd.CRATE):
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        defined = {bd.term_label(e) for e in doc.get("@graph", []) if bd.is_term(e)}
+        for ctx in bd.as_list(doc.get("@context")):
+            if isinstance(ctx, dict):
+                for key, value in ctx.items():
+                    if isinstance(value, str) and value.startswith("gs:") and value[3:] not in defined:
+                        errors.append(f"term '{value[3:]}' is used in {path.name} but not defined there")
+    return len({bd.term_label(t) for t, _ in entries})
+
+
 def main() -> int:
     errors: list[str] = []
     check_json(errors)
     n_tables = check_schemas(errors)
     n_entities = check_crate(errors)
+    n_terms = check_terms(errors)
     errors += bd.stale(bd.generate())
-    print(f"Released tables: {n_tables}. Resource graph entities: {n_entities}.")
+    print(f"Released tables: {n_tables}. Resource graph entities: {n_entities}. Generations-specific terms: {n_terms}.")
     if errors:
         print(f"{len(errors)} problem(s):")
         for e in errors:

@@ -4,7 +4,7 @@
     {
       "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
       "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "gs": "https://github.com/UK-Generations-Study/Generations-metadata/terms#",
+      "gs": "https://github.com/UK-Generations-Study/Generations-metadata/blob/main/resource-level-metadata/README.md#",
       "populationSize": "gs:populationSize",
       "followUp": "gs:followUp",
       "pathway": "gs:pathway",
@@ -36,7 +36,7 @@
   ],
   "@graph": [
     {
-      "@id": "#study",
+      "@id": "https://github.com/UK-Generations-Study/Generations-metadata#study",
       "@type": [
         "Dataset",
         "MedicalObservationalStudy"
