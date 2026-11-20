@@ -110,22 +110,73 @@ This repository describes the data. It does not contain any participant data. Fo
 
 ## For maintainers
 
-The readable pages and `VERSIONS.json` are generated. Edit the sources (the study record, `ro-crate-metadata.json`
-and the schema files), then run:
+The readable pages and `VERSIONS.json` are generated from the source files. Edit only the sources, then
+regenerate and validate before pushing.
+
+### 1. Clone the repository
+
+```
+git clone https://github.com/UK-Generations-Study/Generations-metadata <filepath>
+cd <filepath>/Generations-metadata
+```
+
+### 2. Install the requirements
+
+Once only. Needs Python 3.
 
 ```
 pip install -r tools/requirements.txt
-python tools/build_docs.py      # regenerate the readable pages and VERSIONS.json
-python tools/validate.py        # check schemas, links and that generated files are up to date
 ```
 
-The same check runs automatically on every push (`.github/workflows/validate.yml`).
+### 3. Edit the sources
 
-To add a released dataset:
-1. Copy the dataset folder from the release export into the matching folder under `structural-metadata/schemas/`.
-2. Add the dataset to `ro-crate-metadata.json` (once the graph's content is agreed).
-3. Run `python tools/build_docs.py`, then `python tools/validate.py`.
-4. Add a release-notes page and a `CHANGELOG.md` entry.
+| Level | Edit | Do not edit (generated) |
+|---|---|---|
+| Study-level | `study-level-metadata/study.json` | `study-level-metadata/README.md` |
+| Resource-level | `ro-crate-metadata.json` (once its content is agreed) | `resource-level-metadata/README.md` |
+| Structural | Schema folders under `structural-metadata/schemas/` | `VERSIONS.json` |
+
+To add a released dataset, copy its folder from the release export into the matching source folder under
+`structural-metadata/schemas/`. Keep its `common/` and table folders exactly as exported, so the links between
+schema files keep working.
+
+### 4. Regenerate the readable pages
+
+```
+python tools/build_docs.py
+```
+
+This rewrites the study and resource pages and `VERSIONS.json` from the sources.
+
+### 5. Validate
+
+```
+python tools/validate.py
+```
+
+It must end with `All checks passed.` If not, fix the problems it lists and repeat steps 4 and 5.
+
+### 6. Record the change
+
+Add a line to `CHANGELOG.md`. For a data release, also add a page in `release-notes/`, starting from `TEMPLATE.md`.
+
+### 7. Commit and push
+
+```
+git add -A
+git commit -m "<what changed>"
+git push
+```
+
+The same checks run on GitHub after every push (`.github/workflows/validate.yml`). Confirm there is a green ✔ in
+the **Actions** tab.
+
+### 8. Tag a data release (data releases only)
+
+```
+git tag release-<YYYY.N>
+git push origin release-<YYYY.N>
+```
 
 ## Licence
 
