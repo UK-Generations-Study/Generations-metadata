@@ -158,7 +158,8 @@ It must end with `All checks passed.` If not, fix the problems it lists and repe
 
 ### 6. Record the change
 
-Add a line to `CHANGELOG.md`. For a data release, also add a page in `release-notes/`, starting from `TEMPLATE.md`.
+Add a line to `CHANGELOG.md` (when it is a change to the repository structure). For a data release, also add a page
+in `release-notes/`, starting from `TEMPLATE.md`.
 
 ### 7. Commit and push
 
