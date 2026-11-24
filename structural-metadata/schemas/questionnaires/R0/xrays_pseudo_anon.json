@@ -1,0 +1,1193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/xrays_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — X-rays (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from xrays.json containing Chest X-rays by age range, special X-ray examinations, radiation treatments to the chest or neck, and the details of each examination or treatment, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_ChestLungXray": {
+      "title": "Whether the participant has ever had an X-ray to the chest or lungs",
+      "description": "Whether the participant has ever had a chest or lung X-ray.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1280",
+          "S02:p.30 Q9:1 Have you ever had an X-ray to your chest or lungs (such as for asthma, or tuberculosis, or for a hospital admission or routine examination)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_1_1_1",
+      "x-questionID": 1800,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "ChestXrayEvents": {
+      "title": "Number of chest X-rays by age range",
+      "description": "The number of plain chest X-rays in each age range (under 20, 20-39, 40-59, 60 and older). A range the participant has not reached or left blank carries -999.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 27"
+        ],
+        "maxItems": "S01:ArrayDef row 27"
+      },
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_ChestXray_Num": {
+            "x-role": "entity key",
+            "title": "Age range this number refers to",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 27",
+              "values": "S01:ArrayDef row 27"
+            },
+            "oneOf": [
+              {
+                "const": "U20",
+                "title": "Under age 20"
+              },
+              {
+                "const": "20-39",
+                "title": "Between ages 20 and 39"
+              },
+              {
+                "const": "40-59",
+                "title": "Between ages 40 and 59"
+              },
+              {
+                "const": "60+",
+                "title": "Age 60 and older"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_ChestXray": {
+            "title": "Number of chest X-rays in the age range",
+            "description": "Total chest X-rays the participant received at age range specified.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1281",
+                "S02:p.30 Q9:1 If yes, please state below the number of chest X-rays you have had. Total number of X-rays"
+              ],
+              "minimum": "S01:Questions row 1281"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_ChestLungXray = 1 (Yes); 9:1 says 'If yes, please state below the number of chest X-rays'.",
+            "x-formerName": [
+              "Q9_1_2",
+              "Q9_1_3",
+              "Q9_1_4",
+              "Q9_1_5"
+            ],
+            "x-questionID": 1801,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_ChestXray_Num",
+          "R0_ChestXray"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_SpineClavicleNeckXray": {
+      "title": "Whether the participant has ever had an X-ray of the spine, collar bone or neck",
+      "description": "Whether the participant has had spine/collarbone/neck X-rays.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1285",
+          "S02:p.30 Q9:2 X-ray to your spine, collar bone or neck? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_1_1",
+      "x-questionID": 1805,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_BariumSwallowXray": {
+      "title": "Whether the participant has ever had a barium swallow",
+      "description": "Whether the participant has undergone a barium swallow X-ray.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1286",
+          "S02:p.30 Q9:2 Barium swallow? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_2_1",
+      "x-questionID": 1806,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_EsophagusStomachXray": {
+      "title": "Whether the participant has ever had an X-ray of the oesophagus or stomach without a barium swallow",
+      "description": "Whether the participant has had esophageal/stomach X-rays without barium.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1287",
+          "S02:p.30 Q9:2 X-ray to your oesophagus or stomach, for which you were not given a barium swallow? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_3_1",
+      "x-questionID": 1807,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_CoronaryAngiogram": {
+      "title": "Whether the participant has ever had a coronary angiogram or angioplasty",
+      "description": "Whether the participant has undergone coronary angiography/angioplasty.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1288",
+          "S02:p.30 Q9:2 Coronary angiogram or angioplasty? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_4_1",
+      "x-questionID": 1808,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_LungStomachArteriogram": {
+      "title": "Whether the participant has ever had an arteriogram of the lung or stomach",
+      "description": "Whether the participant has had lung/stomach arteriograms.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1289",
+          "S02:p.30 Q9:2 Arteriogram of the lung or stomach? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_5_1",
+      "x-questionID": 1809,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_CTChestNeckScan": {
+      "title": "Whether the participant has ever had a CT scan of the chest or neck",
+      "description": "Whether the participant has had chest/neck CT/CAT scans.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1290",
+          "S02:p.31 Q9:2 CT or CAT (computerised tomography) scan of the chest or neck? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_6_1",
+      "x-questionID": 1810,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_GallbladderXray": {
+      "title": "Whether the participant has ever had an X-ray of the gall bladder (cholecystogram)",
+      "description": "Whether the participant has had gallbladder X-rays.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1291",
+          "S02:p.31 Q9:2 X-ray of your gall bladder (cholecystogram)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_7_1",
+      "x-questionID": 1811,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_KidneyPyelogramXray": {
+      "title": "Whether the participant has ever had an intravenous pyelogram X-ray of the kidneys",
+      "description": "Whether the participant has had kidney pyelogram X-rays.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1292",
+          "S02:p.31 Q9:2 Intravenous pyelogram X-ray of your kidneys? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_8_1",
+      "x-questionID": 1812,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_FullMouthDentalXray": {
+      "title": "Whether the participant has ever had a full-mouth (panoramic) dental X-ray",
+      "description": "Whether the participant has had panoramic dental X-rays.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1293",
+          "S02:p.31 Q9:2 A full-mouth (panoramic) dental X-ray? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_9_1",
+      "x-questionID": 1813,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_SingleSideDentalXray": {
+      "title": "Whether the participant has ever had a large dental X-ray of all the teeth on one side of the head",
+      "description": "Whether the participant has had single-side dental X-rays.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1294",
+          "S02:p.31 Q9:2 A large dental x-ray to all the teeth on one side of your head? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_10_1",
+      "x-questionID": 1814,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_FluoroscopicChestXray": {
+      "title": "Whether the participant has ever had a fluoroscopic chest X-ray after tuberculosis",
+      "description": "Whether the participant has had post-TB fluoroscopic chest X-rays.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1295",
+          "S02:p.31 Q9:2 Fluoroscopic chest x-ray examination after tuberculosis? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_2_11_1",
+      "x-questionID": 1815,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_ChestNeckRadiotherapy": {
+      "title": "Whether the participant has ever had chest or neck radiotherapy for Hodgkin's disease or other cancer",
+      "description": "Whether the participant received chest/neck radiotherapy for cancer.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1296",
+          "S02:p.31 Q9:3 Chest or neck radiotherapy for Hodgkin's disease or for other cancer or tumour (including breast cancer)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_3_1_1",
+      "x-questionID": 1816,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_ChestNeckRadiationOther": {
+      "title": "Whether the participant has ever had radiation treatment to the chest or neck for another condition",
+      "description": "Whether the participant received chest/neck radiation for non-cancer conditions.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1297",
+          "S02:p.31 Q9:3 Radiation treatment to the chest or neck for any other condition? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q9_3_2_1",
+      "x-questionID": 1817,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "XrayEvents": {
+      "title": "X-ray examinations and radiation treatments",
+      "description": "One entry per X-ray examination or radiation treatment reported under 9:2 and 9:3, up to 12, in the order reported. The first three are printed on pages 31 and 32; further ones go on page 15:1 and are flagged by R0_XrayMoreEvents, and more than twelve by R0_XrayMoreThanTwelve.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 56",
+          "S02:p.31 Q9:4 please fill in details here of these x-ray examinations or treatments"
+        ],
+        "minItems": "S01:ArrayDef row 56",
+        "maxItems": "S01:ArrayDef row 56"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 12,
+      "x-universe": "Only completed when the participant answered Yes to at least one of the X-ray examinations or treatments in 9:2 and 9:3; 9:4 says 'If you answered yes to any of the questions in 9:2 or 9:3, please fill in details here'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_Xray_Num": {
+            "x-role": "entity key",
+            "title": "Which examination or treatment this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 56",
+              "maximum": "S01:ArrayDef row 56"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12,
+            "x-pii": false
+          },
+          "R0_XrayType": {
+            "title": "Type of X-ray examination or treatment",
+            "description": "The type of X-ray procedure the participant underwent.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1298",
+                "S02:p.31 Q9:4 Type of x-ray examination or treatment"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the participant answered Yes to at least one of the X-ray examinations or treatments in 9:2 and 9:3; 9:4 says 'If you answered yes to any of the questions in 9:2 or 9:3, please fill in details here'.",
+            "x-formerName": [
+              "Q9_4_1_1",
+              "Q9_4_2_1",
+              "Q9_4_3_1",
+              "xradtype4",
+              "xradtype5",
+              "xradtype6",
+              "xradtype7",
+              "xradtype8",
+              "xradtype9",
+              "xradtype10",
+              "xradtype11",
+              "xradtype12"
+            ],
+            "x-questionID": 1818,
+            "x-pii": false
+          },
+          "R0_XRayDate_Shifted": {
+            "title": "R0_XRayDate_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_XrayYear",
+              "R0_XrayMonth"
+            ],
+            "x-pii": false
+          },
+          "XrayEventsExtra": {
+            "title": "Further timing details of the 4th to 12th examination or treatment",
+            "description": "When it took place: an age or age range, a month, or a range of months and years.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 57"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                9,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                12,
+                1
+              ]
+            ],
+            "x-universe": "Only the 4th to 12th examination or treatment have it (the dictionary block XrayEventsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_XrayAge": {
+                  "title": "Age at the examination or treatment (years)",
+                  "description": "Age at time of X-ray for any extra X-ray.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1319"
+                    ],
+                    "minimum": "S01:Questions row 1319"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 4th to 12th examination or treatment have it (the dictionary block XrayEventsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "xradage4",
+                    "xradage5",
+                    "xradage6",
+                    "xradage7",
+                    "xradage8",
+                    "xradage9",
+                    "xradage10",
+                    "xradage11",
+                    "xradage12"
+                  ],
+                  "x-questionID": 1839,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_XrayFromAge": {
+                  "title": "Age when it started (years)",
+                  "description": "Age at which the X-ray examination or treatment started, for any extra X-ray.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1321"
+                    ],
+                    "minimum": "S01:Questions row 1321"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 4th to 12th examination or treatment have it (the dictionary block XrayEventsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "fromage4",
+                    "fromage5",
+                    "fromage6",
+                    "fromage7",
+                    "fromage8",
+                    "fromage9",
+                    "fromage10",
+                    "fromage11",
+                    "fromage12"
+                  ],
+                  "x-questionID": 1841,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_XrayToAge": {
+                  "title": "Age when it ended (years)",
+                  "description": "Age at which the X-ray examination or treatment ended, for any extra X-ray.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1322"
+                    ],
+                    "minimum": "S01:Questions row 1322"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 4th to 12th examination or treatment have it (the dictionary block XrayEventsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "toage4",
+                    "toage5",
+                    "toage6",
+                    "toage7",
+                    "toage8",
+                    "toage9",
+                    "toage10",
+                    "toage11",
+                    "toage12"
+                  ],
+                  "x-questionID": 1842,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_XRay_RangeStart_Shifted": {
+                  "title": "R0_XRay_RangeStart_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_XrayFromMth",
+                    "R0_XrayFromYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_XRay_RangeEnd_Shifted": {
+                  "title": "R0_XRay_RangeEnd_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_XrayToMth",
+                    "R0_XrayToYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_XrayAge",
+                "R0_XrayFromAge",
+                "R0_XrayToAge",
+                "R0_XRay_RangeStart_Shifted",
+                "R0_XRay_RangeEnd_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_Xray_Num",
+          "R0_XrayType",
+          "R0_XRayDate_Shifted",
+          "XrayEventsExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_XrayMoreEvents": {
+      "title": "More X-ray examinations or radiation treatments than the three printed",
+      "description": "Whether the participant has additional X-ray events not listed.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'Additional events exist').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1313",
+          "S02:p.32 Q9:4 If you have had more X-ray examinations or radiation treatments, please cross this box and fill in the details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant answered Yes to at least one of the X-ray examinations or treatments in 9:2 and 9:3; 9:4 says 'If you answered yes to any of the questions in 9:2 or 9:3, please fill in details here'.",
+      "x-formerName": "Q9_4_more",
+      "x-questionID": 1833,
+      "x-answerIDs": {
+        "1": 2009
+      },
+      "x-pii": false
+    },
+    "R0_XrayMoreThanTwelve": {
+      "title": "More than 12 X-ray examinations or radiation treatments",
+      "description": "Whether the participant has had more than 12 X-ray events.",
+      "$comment": "Not printed on the questionnaire pages 30 to 32; the dictionary's box for the extra page 15:1. Source coding: 1 Flagged (dictionary AnswerText 'More than 12 events').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1431"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "xradmorethan",
+      "x-questionID": 1951,
+      "x-answerIDs": {
+        "1": 2010
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_ChestLungXray",
+    "ChestXrayEvents",
+    "R0_SpineClavicleNeckXray",
+    "R0_BariumSwallowXray",
+    "R0_EsophagusStomachXray",
+    "R0_CoronaryAngiogram",
+    "R0_LungStomachArteriogram",
+    "R0_CTChestNeckScan",
+    "R0_GallbladderXray",
+    "R0_KidneyPyelogramXray",
+    "R0_FullMouthDentalXray",
+    "R0_SingleSideDentalXray",
+    "R0_FluoroscopicChestXray",
+    "R0_ChestNeckRadiotherapy",
+    "R0_ChestNeckRadiationOther",
+    "XrayEvents",
+    "R0_XrayMoreEvents",
+    "R0_XrayMoreThanTwelve"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R053: the participant did not answer Yes to ever having had an X-ray to the chest or lungs (0 or 2), so the numbers of chest X-rays are structurally not applicable -- every age range of ChestXrayEvents keeps its place and carries the missing-numeric sentinel. Questionnaire p.30 Q9:1: 'If yes, please state below the number of chest X-rays you have had'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.30 Q9:1 If yes, please state below the number of chest X-rays you have had"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_ChestLungXray"
+        ],
+        "properties": {
+          "R0_ChestLungXray": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ChestXrayEvents": {
+            "items": {
+              "properties": {
+                "R0_ChestXray": {
+                  "const": -999
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R054: the participant did not answer Yes to any of the thirteen X-ray examinations and treatments of 9:2 and 9:3 (every answer 0 or 2), so the details of 9:4 are not asked -- XrayEvents is empty and R0_XrayMoreEvents carries the missing-numeric sentinel. Questionnaire p.31 Q9:2 and Q9:4: 'If you answer yes to any of these, please fill in the details in question 9:4'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.31 Q9:4 If you answered yes to any of the questions in 9:2 or 9:3, please fill in details here"
+        ]
+      },
+      "if": {
+        "allOf": [
+          {
+            "required": [
+              "R0_SpineClavicleNeckXray"
+            ],
+            "properties": {
+              "R0_SpineClavicleNeckXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_BariumSwallowXray"
+            ],
+            "properties": {
+              "R0_BariumSwallowXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_EsophagusStomachXray"
+            ],
+            "properties": {
+              "R0_EsophagusStomachXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_CoronaryAngiogram"
+            ],
+            "properties": {
+              "R0_CoronaryAngiogram": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_LungStomachArteriogram"
+            ],
+            "properties": {
+              "R0_LungStomachArteriogram": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_CTChestNeckScan"
+            ],
+            "properties": {
+              "R0_CTChestNeckScan": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_GallbladderXray"
+            ],
+            "properties": {
+              "R0_GallbladderXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_KidneyPyelogramXray"
+            ],
+            "properties": {
+              "R0_KidneyPyelogramXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_FullMouthDentalXray"
+            ],
+            "properties": {
+              "R0_FullMouthDentalXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_SingleSideDentalXray"
+            ],
+            "properties": {
+              "R0_SingleSideDentalXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_FluoroscopicChestXray"
+            ],
+            "properties": {
+              "R0_FluoroscopicChestXray": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_ChestNeckRadiotherapy"
+            ],
+            "properties": {
+              "R0_ChestNeckRadiotherapy": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "required": [
+              "R0_ChestNeckRadiationOther"
+            ],
+            "properties": {
+              "R0_ChestNeckRadiationOther": {
+                "enum": [
+                  0,
+                  2
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "XrayEvents": {
+            "maxItems": 0
+          },
+          "R0_XrayMoreEvents": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

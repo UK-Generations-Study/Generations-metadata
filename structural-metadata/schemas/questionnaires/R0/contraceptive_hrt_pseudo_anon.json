@@ -1,0 +1,1717 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/contraceptive_hrt_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Contraceptive and HRT (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from contraceptive_hrt.json containing Use of the contraceptive pill, other hormonal contraception, hormone replacement therapy (HRT) and other sex hormone treatments, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_ContracepPillUse": {
+      "title": "Whether the participant has ever used the contraceptive pill",
+      "description": "Participant's use of contraceptive pills.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 504",
+          "S02:p.17 Q6:1 Have you ever used “the pill”? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_1_1",
+      "x-questionID": 801,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "ContracepPill": {
+      "title": "Contraceptive pill episodes",
+      "description": "One entry per period of use of the contraceptive pill (\"the pill\"), up to 9, in the order reported; a pill stopped and re-started within 6 months is one episode (page 17). The first three are printed on page 17 and further ones go on page 15:1; more than three are flagged by R0_ContracepPill_MoreThanThree and more than nine by R0_ContracepPill_MoreThanNine.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 6",
+          "S02:p.17 Q6:1 Have you ever used “the pill”?"
+        ],
+        "minItems": "S01:ArrayDef row 6",
+        "maxItems": "S01:ArrayDef row 6"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_ContracepPill_Num": {
+            "x-role": "entity key",
+            "title": "Which episode this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 6",
+              "maximum": "S01:ArrayDef row 6"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9,
+            "x-pii": false
+          },
+          "R0_ContracepPill_Name": {
+            "title": "Name of the contraceptive pill",
+            "description": "Brand/formulation name provided by participant.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 505",
+                "S02:p.17 Q6:1 1) Name of pill"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_ContracepPillUse = 1 (Yes); 6:1 says 'If no go to question 6:2'.",
+            "x-formerName": [
+              "Q6_1_1_1",
+              "Q6_1_2_1",
+              "Q6_1_3_1",
+              "ocname4",
+              "ocname5",
+              "ocname6",
+              "ocname7",
+              "ocname8",
+              "ocname9"
+            ],
+            "x-questionID": 802,
+            "x-pii": false
+          },
+          "R0_ContracepPill_Unknown": {
+            "title": "Cannot remember the name of the pill",
+            "description": "Participant's inability to recall pill name.",
+            "$comment": "Tick box. Source coding: 1 = Don't remember (AnswerID 5). Titled \"Doesn't remember\" so the sentinel step's title match leaves it a flag, as for the other 'Don't remember' tick boxes.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 506",
+                "S02:p.17 Q6:1 Name of pill Cannot remember"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't remember"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_ContracepPillUse = 1 (Yes); 6:1 says 'If no go to question 6:2'.",
+            "x-formerName": [
+              "Q6_1_1_2",
+              "Q6_1_2_2",
+              "Q6_1_3_2",
+              "ocname4nk",
+              "ocname5nk",
+              "ocname6nk",
+              "ocname7nk",
+              "ocname8nk",
+              "ocname9nk"
+            ],
+            "x-questionID": 803,
+            "x-answerIDs": {
+              "1": 5
+            },
+            "x-pii": false
+          },
+          "R0_ContracepPill_StartAge": {
+            "title": "Age when the pill was started (years)",
+            "description": "Age when participant began this contraceptive pill.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 507",
+                "S02:p.17 Q6:1 At what age did you start and stop using it? From age to age"
+              ],
+              "minimum": "S01:Questions row 507"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_ContracepPillUse = 1 (Yes); 6:1 says 'If no go to question 6:2'.",
+            "x-formerName": [
+              "Q6_1_1_3",
+              "Q6_1_2_3",
+              "Q6_1_3_3",
+              "ocfromage4",
+              "ocfromage5",
+              "ocfromage6",
+              "ocfromage7",
+              "ocfromage8",
+              "ocfromage9"
+            ],
+            "x-questionID": 804,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_ContracepPill_StopAge": {
+            "title": "Age when the pill was stopped (years)",
+            "description": "Age when participant discontinued this contraceptive pill.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 508",
+                "S02:p.17 Q6:1 At what age did you start and stop using it? From age to age or Still using"
+              ],
+              "minimum": "S01:Questions row 508"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_ContracepPillUse = 1 (Yes); 6:1 says 'If no go to question 6:2'.",
+            "x-formerName": [
+              "Q6_1_1_4",
+              "Q6_1_2_4",
+              "Q6_1_3_4",
+              "octoage4",
+              "octoage5",
+              "octoage6",
+              "octoage7",
+              "octoage8",
+              "octoage9"
+            ],
+            "x-questionID": 805,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_ContracepPill_CurrentUse": {
+            "title": "Whether the participant is still using the pill",
+            "description": "Participant's current usage status of this pill.",
+            "$comment": "Source coding: 0 No; 1 Yes (Still using).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 509",
+                "S02:p.17 Q6:1 At what age did you start and stop using it? From age to age or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_ContracepPillUse = 1 (Yes); 6:1 says 'If no go to question 6:2'.",
+            "x-formerName": [
+              "Q6_1_1_5",
+              "Q6_1_2_5",
+              "Q6_1_3_5",
+              "occurr4",
+              "occurr5",
+              "occurr6",
+              "occurr7",
+              "occurr8",
+              "occurr9"
+            ],
+            "x-questionID": 806,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 804
+            },
+            "x-pii": false
+          },
+          "ContracepPillExtra": {
+            "title": "Further timing details of pills 4 to 9",
+            "description": "Month and year of start and stop of the 4th to the 9th pill.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 29"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                9,
+                1
+              ]
+            ],
+            "x-universe": "Only the 4th to 9th pill have it (the dictionary block ContracepPillExtra).",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_ContracepPill_Start_Shifted": {
+                  "title": "R0_ContracepPill_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_ContracepPill_StartMnth",
+                    "R0_ContracepPill_StartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_ContracepPill_End_Shifted": {
+                  "title": "R0_ContracepPill_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_ContracepPill_StopMnth",
+                    "R0_ContracepPill_StopYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_ContracepPill_Start_Shifted",
+                "R0_ContracepPill_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_ContracepPill_Num",
+          "R0_ContracepPill_Name",
+          "R0_ContracepPill_Unknown",
+          "R0_ContracepPill_StartAge",
+          "R0_ContracepPill_StopAge",
+          "R0_ContracepPill_CurrentUse",
+          "ContracepPillExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_ContracepPill_MoreThanThree": {
+      "title": "More than 3 episodes of the contraceptive pill",
+      "description": "Participant's indication of multiple contraceptive pill uses.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 520",
+          "S02:p.18 Q6:1 More than 3 episodes"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_1_more",
+      "x-questionID": 817,
+      "x-answerIDs": {
+        "1": 805
+      },
+      "x-pii": false
+    },
+    "R0_ContracepPill_MoreThanNine": {
+      "title": "More than 9 episodes of the contraceptive pill",
+      "description": "Participant's indication of extensive contraceptive pill use.",
+      "$comment": "Not printed on the questionnaire pages 17 to 20; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 610"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "ocmore9",
+      "x-questionID": 907,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_OtherHormonalContracep": {
+      "title": "Whether the participant has ever used another type of hormonal contraception",
+      "description": "Participant's use of non-pill contraceptive methods.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 521",
+          "S02:p.18 Q6:2 Have you ever used any other type of hormonal contraception, such as contraception that was injected or implanted under your skin or applied with a patch on your skin? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_2_1",
+      "x-questionID": 818,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "OtherContracep": {
+      "title": "Other hormonal contraception episodes",
+      "description": "One entry per period of use of another type of hormonal contraception (injected, implanted under the skin or applied with a patch), up to 5, in the order reported. The first two are printed on page 18 and further ones go on page 15:1; more than two are flagged by R0_OtherContracep_MoreThanTwo and more than five by R0_OtherContracep_MoreThan5.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 14",
+          "S02:p.18 Q6:2 Have you ever used any other type of hormonal contraception?"
+        ],
+        "minItems": "S01:ArrayDef row 14",
+        "maxItems": "S01:ArrayDef row 14"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_OtherContracep_Num": {
+            "x-role": "entity key",
+            "title": "Which episode this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 14",
+              "maximum": "S01:ArrayDef row 14"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "x-pii": false
+          },
+          "R0_OtherContracep_Name": {
+            "title": "Name of the contraception",
+            "description": "Name of non-pill contraceptive method used.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 522",
+                "S02:p.18 Q6:2 1) Name of contraception"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherHormonalContracep = 1 (Yes); 6:2 says 'If no, go to question 6:3'.",
+            "x-formerName": [
+              "Q6_2_1_1",
+              "Q6_2_2_1",
+              "hcname3",
+              "hcname4",
+              "hcname5"
+            ],
+            "x-questionID": 819,
+            "x-pii": false
+          },
+          "R0_OtherContracep_StartAge": {
+            "title": "Age when the contraception was started (years)",
+            "description": "Age participant began this contraceptive method.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 523",
+                "S02:p.18 Q6:2 At what age did you start and stop using it? From age to age"
+              ],
+              "minimum": "S01:Questions row 523"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherHormonalContracep = 1 (Yes); 6:2 says 'If no, go to question 6:3'.",
+            "x-formerName": [
+              "Q6_2_1_2",
+              "Q6_2_2_2",
+              "hcfromage3",
+              "hcfromage4",
+              "hcfromage5"
+            ],
+            "x-questionID": 820,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_OtherContracep_StopAge": {
+            "title": "Age when the contraception was stopped (years)",
+            "description": "Age participant discontinued this contraceptive method.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 524",
+                "S02:p.18 Q6:2 At what age did you start and stop using it? From age to age or Still using"
+              ],
+              "minimum": "S01:Questions row 524"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherHormonalContracep = 1 (Yes); 6:2 says 'If no, go to question 6:3'.",
+            "x-formerName": [
+              "Q6_2_1_3",
+              "Q6_2_2_3",
+              "hctoage3",
+              "hctoage4",
+              "hctoage5"
+            ],
+            "x-questionID": 821,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_OtherContracep_CurrentUse": {
+            "title": "Whether the participant is still using the contraception",
+            "description": "Participant's current usage status of this method.",
+            "$comment": "Source coding: 0 No; 1 Yes (Still using).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 525",
+                "S02:p.18 Q6:2 At what age did you start and stop using it? From age to age or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherHormonalContracep = 1 (Yes); 6:2 says 'If no, go to question 6:3'.",
+            "x-formerName": [
+              "Q6_2_1_4",
+              "Q6_2_2_4",
+              "hccurr3",
+              "hccurr4",
+              "hccurr5"
+            ],
+            "x-questionID": 822,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 804
+            },
+            "x-pii": false
+          },
+          "OtherContracepExtra": {
+            "title": "Further timing details of contraception 3 to 5",
+            "description": "Month and year of start and stop of the 3rd to the 5th contraception.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 43"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ]
+            ],
+            "x-universe": "Only the 3rd to 5th contraception have it (the dictionary block OtherContracepExtra).",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_OtherContracep_Start_Shifted": {
+                  "title": "R0_OtherContracep_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OtherContracep_StartMnth",
+                    "R0_OtherContracep_StartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_OtherContracep_End_Shifted": {
+                  "title": "R0_OtherContracep_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OtherContracep_StopMnth",
+                    "R0_OtherContracep_StopYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_OtherContracep_Start_Shifted",
+                "R0_OtherContracep_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_OtherContracep_Num",
+          "R0_OtherContracep_Name",
+          "R0_OtherContracep_StartAge",
+          "R0_OtherContracep_StopAge",
+          "R0_OtherContracep_CurrentUse",
+          "OtherContracepExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_OtherContracep_MoreThanTwo": {
+      "title": "More than 2 episodes of other hormonal contraception",
+      "description": "Participant's indication of multiple contraceptive method uses.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 530",
+          "S02:p.18 Q6:2 More than 2 episodes"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_2_more",
+      "x-questionID": 827,
+      "x-answerIDs": {
+        "1": 810
+      },
+      "x-pii": false
+    },
+    "R0_OtherContracep_MoreThan5": {
+      "title": "More than 5 episodes of other hormonal contraception",
+      "description": "Whether the participant has had more than 5 episodes of hormonal contraceptive use.",
+      "$comment": "Not printed on the questionnaire pages 17 to 20; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 635"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "hcmore5",
+      "x-questionID": 932,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_OtherContracep5_Still": {
+      "title": "Whether the participant is still using the new 5th contraception",
+      "description": "Whether the participant is still using their 5th hormonal contraceptive.",
+      "$comment": "Not printed on the questionnaire; a stand-alone dictionary question besides the 5th entry's own 'still using' answer. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 718"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "hccurr5new",
+      "x-questionID": 1015,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_HRT_Use": {
+      "title": "Whether the participant has ever had hormone replacement therapy (HRT)",
+      "description": "Participant's history of HRT use.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 531",
+          "S02:p.19 Q6:3 Have you ever had hormone replacement therapy? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_3_1",
+      "x-questionID": 828,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "HRT": {
+      "title": "Hormone replacement therapy (HRT) episodes",
+      "description": "One entry per period of use of a hormone replacement therapy preparation, up to 8, in the order reported. The first three are printed on page 19 and further ones go on page 15:1; more than three are flagged by R0_HRT_MoreThanThree and more than eight by R0_HRT_MoreThanEight.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 8",
+          "S02:p.19 Q6:3 Have you ever had hormone replacement therapy?"
+        ],
+        "minItems": "S01:ArrayDef row 8",
+        "maxItems": "S01:ArrayDef row 8"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_HRT_Num": {
+            "x-role": "entity key",
+            "title": "Which episode this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 8",
+              "maximum": "S01:ArrayDef row 8"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8,
+            "x-pii": false
+          },
+          "R0_HRT_Name": {
+            "title": "Name of the hormone preparation",
+            "description": "Name of HRT preparation used by participant.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 532",
+                "S02:p.19 Q6:3 1) Name of hormone preparation"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_HRT_Use = 1 (Yes); 6:3 says 'If no, go to question 6:5'.",
+            "x-formerName": [
+              "Q6_3_1_1",
+              "Q6_3_2_1",
+              "Q6_3_3_1",
+              "hrtname4",
+              "hrtname5",
+              "hrtname6",
+              "hrtname7",
+              "hrtname8"
+            ],
+            "x-questionID": 829,
+            "x-pii": false
+          },
+          "R0_HRT_StartAge": {
+            "title": "Age when the HRT preparation was started (years)",
+            "description": "Age participant began this HRT preparation.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 533",
+                "S02:p.19 Q6:3 At what age did you start and stop using it? From age to age"
+              ],
+              "minimum": "S01:Questions row 533"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_HRT_Use = 1 (Yes); 6:3 says 'If no, go to question 6:5'.",
+            "x-formerName": [
+              "Q6_3_1_2",
+              "Q6_3_2_2",
+              "Q6_3_3_2",
+              "hrtfromage4",
+              "hrtfromage5",
+              "hrtfromage6",
+              "hrtfromage7",
+              "hrtfromage8"
+            ],
+            "x-questionID": 830,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_HRT_StopAge": {
+            "title": "Age when the HRT preparation was stopped (years)",
+            "description": "Age participant discontinued this HRT preparation.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 534",
+                "S02:p.19 Q6:3 At what age did you start and stop using it? From age to age or Still using"
+              ],
+              "minimum": "S01:Questions row 534"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_HRT_Use = 1 (Yes); 6:3 says 'If no, go to question 6:5'.",
+            "x-formerName": [
+              "Q6_3_1_3",
+              "Q6_3_2_3",
+              "Q6_3_3_3",
+              "hrttoage4",
+              "hrttoage5",
+              "hrttoage6",
+              "hrttoage7",
+              "hrttoage8"
+            ],
+            "x-questionID": 831,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_HRT_CurrentUse": {
+            "title": "Whether the participant is still using the HRT preparation",
+            "description": "Participant's current usage status of this HRT.",
+            "$comment": "Source coding: 0 No; 1 Yes (Still using).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 535",
+                "S02:p.19 Q6:3 At what age did you start and stop using it? From age to age or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_HRT_Use = 1 (Yes); 6:3 says 'If no, go to question 6:5'.",
+            "x-formerName": [
+              "Q6_3_1_4",
+              "Q6_3_2_4",
+              "Q6_3_3_4",
+              "hrtcurr4",
+              "hrtcurr5",
+              "hrtcurr6",
+              "hrtcurr7",
+              "hrtcurr8"
+            ],
+            "x-questionID": 832,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 804
+            },
+            "x-pii": false
+          },
+          "HRTExtra": {
+            "title": "Further timing details of HRT preparations 4 to 8",
+            "description": "Month and year of start and stop of the 4th to the 8th HRT preparation.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 35"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                8,
+                1
+              ]
+            ],
+            "x-universe": "Only the 4th to 8th preparation have it (the dictionary block HRTExtra).",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_HRT_Start_Shifted": {
+                  "title": "R0_HRT_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_HRT_StartMnth",
+                    "R0_HRT_StartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_HRT_End_Shifted": {
+                  "title": "R0_HRT_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_HRT_StopMnth",
+                    "R0_HRT_StopYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_HRT_Start_Shifted",
+                "R0_HRT_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_HRT_Num",
+          "R0_HRT_Name",
+          "R0_HRT_StartAge",
+          "R0_HRT_StopAge",
+          "R0_HRT_CurrentUse",
+          "HRTExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_HRT_MoreThanThree": {
+      "title": "More than 3 episodes of HRT",
+      "description": "Participant's indication of multiple HRT preparations.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 544",
+          "S02:p.19 Q6:3 More than 3 episodes"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_3_more",
+      "x-questionID": 841,
+      "x-answerIDs": {
+        "1": 805
+      },
+      "x-pii": false
+    },
+    "R0_HRT_MoreThanEight": {
+      "title": "More than 8 episodes of HRT",
+      "description": "Participant's indication of extensive HRT use.",
+      "$comment": "Not printed on the questionnaire pages 17 to 20; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 676"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "hrtmore8",
+      "x-questionID": 973,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_HRT_HrmnLevelsChecked": {
+      "title": "Whether a doctor measured the hormone levels when HRT was being considered",
+      "description": "Participant's recollection of pre-HRT testing.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No; 3 Don't know.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 545",
+          "S02:p.19 Q6:4 When you were being considered for hormone replacement therapy, did a doctor measure your hormone levels? Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_4_1",
+      "x-questionID": 842,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_OtherSexHrmnUse": {
+      "title": "Whether the participant has ever used another sex hormone treatment or preparation",
+      "description": "Participant's use of non-HRT sex hormones.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 546",
+          "S02:p.20 Q6:5 Have you ever used any other type of sex hormone treatment or preparation, not mentioned above? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_5_1",
+      "x-questionID": 843,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "OtherSexHrmn": {
+      "title": "Other sex hormone treatment episodes",
+      "description": "One entry per period of use of another sex hormone treatment or preparation (for instance for osteoporosis, heart disease or pre-menopausal symptoms), up to 7, in the order reported. The first two are printed on page 20 and further ones go on page 15:1; more than two are flagged by R0_OtherSexHrmn_MoreThanTwo and more than seven by R0_OtherSexHrmn_MoreSeven.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 17",
+          "S02:p.20 Q6:5 Have you ever used any other type of sex hormone treatment or preparation?"
+        ],
+        "minItems": "S01:ArrayDef row 17",
+        "maxItems": "S01:ArrayDef row 17"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_OtherSexHrmn_Num": {
+            "x-role": "entity key",
+            "title": "Which episode this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 17",
+              "maximum": "S01:ArrayDef row 17"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7,
+            "x-pii": false
+          },
+          "R0_OtherSexHrmn_Name": {
+            "title": "Name of the treatment or preparation",
+            "description": "Name of hormone preparation used.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 547",
+                "S02:p.20 Q6:5 1) Name of treatment/preparation"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherSexHrmnUse = 1 (Yes); 6:5 says 'If yes, please give the name of the treatment or preparation'.",
+            "x-formerName": [
+              "Q6_5_1_1",
+              "Q6_5_2_1",
+              "otherhormonesname3",
+              "otherhormonesname4",
+              "otherhormonesname5",
+              "otherhormonesname6",
+              "otherhormonesname7"
+            ],
+            "x-questionID": 844,
+            "x-pii": false
+          },
+          "R0_OtherSexHrmn_StartAge": {
+            "title": "Age when the hormone treatment was started (years)",
+            "description": "Age participant began this hormone treatment.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 548",
+                "S02:p.20 Q6:5 At what age did you start and stop using it? From age to age"
+              ],
+              "minimum": "S01:Questions row 548"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherSexHrmnUse = 1 (Yes); 6:5 says 'If yes, please give the name of the treatment or preparation'.",
+            "x-formerName": [
+              "Q6_5_1_2",
+              "Q6_5_2_2",
+              "otherhormonesfromage3",
+              "otherhormonesfromage4",
+              "otherhormonesfromage5",
+              "otherhormonesfromage6",
+              "otherhormonesfromage7"
+            ],
+            "x-questionID": 845,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_OtherSexHrmn_StopAge": {
+            "title": "Age when the hormone treatment was stopped (years)",
+            "description": "Age participant discontinued this hormone treatment.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 549",
+                "S02:p.20 Q6:5 At what age did you start and stop using it? From age to age or Still using"
+              ],
+              "minimum": "S01:Questions row 549"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherSexHrmnUse = 1 (Yes); 6:5 says 'If yes, please give the name of the treatment or preparation'.",
+            "x-formerName": [
+              "Q6_5_1_3",
+              "Q6_5_2_3",
+              "otherhormonestoage3",
+              "otherhormonestoage4",
+              "otherhormonestoage5",
+              "otherhormonestoage6",
+              "otherhormonestoage7"
+            ],
+            "x-questionID": 846,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_OtherSexHrmn_CurrentUse": {
+            "title": "Whether the participant is still using the hormone treatment",
+            "description": "Participant's current usage status of this hormone treatment.",
+            "$comment": "Source coding: 0 No; 1 Yes (Still using).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 550",
+                "S02:p.20 Q6:5 At what age did you start and stop using it? From age to age or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_OtherSexHrmnUse = 1 (Yes); 6:5 says 'If yes, please give the name of the treatment or preparation'.",
+            "x-formerName": [
+              "Q6_5_1_4",
+              "Q6_5_2_4",
+              "otherhormonescurr3",
+              "otherhormonescurr4",
+              "otherhormonescurr5",
+              "otherhormonescurr6",
+              "otherhormonescurr7"
+            ],
+            "x-questionID": 847,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 804
+            },
+            "x-pii": false
+          },
+          "OtherSexHrmnExtra": {
+            "title": "Further timing details of hormone treatments 3 to 7",
+            "description": "Month and year of start and stop of the 3rd to the 7th hormone treatment.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 45"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                7,
+                1
+              ]
+            ],
+            "x-universe": "Only the 3rd to 7th treatment have it (the dictionary block OtherSexHrmnExtra).",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_OtherSexHormones_Start_Shifted": {
+                  "title": "R0_OtherSexHormones_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OtherSexHrmn_StartMnth",
+                    "R0_OtherSexHrmn_StartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_OtherSexHormones_End_Shifted": {
+                  "title": "R0_OtherSexHormones_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OtherSexHrmn_StopMnth",
+                    "R0_OtherSexHrmn_StopYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_OtherSexHormones_Start_Shifted",
+                "R0_OtherSexHormones_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_OtherSexHrmn_Num",
+          "R0_OtherSexHrmn_Name",
+          "R0_OtherSexHrmn_StartAge",
+          "R0_OtherSexHrmn_StopAge",
+          "R0_OtherSexHrmn_CurrentUse",
+          "OtherSexHrmnExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_OtherSexHrmn_MoreThanTwo": {
+      "title": "More than 2 episodes of other sex hormone treatment",
+      "description": "Participant's indication of multiple hormone treatments.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 555",
+          "S02:p.20 Q6:5 More than 2 episodes"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q6_5_more",
+      "x-questionID": 852,
+      "x-answerIDs": {
+        "1": 810
+      },
+      "x-pii": false
+    },
+    "R0_OtherSexHrmn_MoreSeven": {
+      "title": "More than 7 episodes of other sex hormone treatment",
+      "description": "Participant's indication of extensive hormone treatments.",
+      "$comment": "Not printed on the questionnaire pages 17 to 20; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 717"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "otherhormonesmore7",
+      "x-questionID": 1014,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_ContracepPillUse",
+    "ContracepPill",
+    "R0_ContracepPill_MoreThanThree",
+    "R0_ContracepPill_MoreThanNine",
+    "R0_OtherHormonalContracep",
+    "OtherContracep",
+    "R0_OtherContracep_MoreThanTwo",
+    "R0_OtherContracep_MoreThan5",
+    "R0_OtherContracep5_Still",
+    "R0_HRT_Use",
+    "HRT",
+    "R0_HRT_MoreThanThree",
+    "R0_HRT_MoreThanEight",
+    "R0_HRT_HrmnLevelsChecked",
+    "R0_OtherSexHrmnUse",
+    "OtherSexHrmn",
+    "R0_OtherSexHrmn_MoreThanTwo",
+    "R0_OtherSexHrmn_MoreSeven"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R026: the participant did not answer Yes to ever using the contraceptive pill (0 or 2), so the pill episodes are not asked and the 'more than 3 episodes' box is structurally not applicable -- ContracepPill is empty and R0_ContracepPill_MoreThanThree carries the missing-numeric sentinel. The dictionary's 'more than 9 episodes' box (R0_ContracepPill_MoreThanNine) is also not applicable. Questionnaire p.17 Q6:1: 'If no go to question 6:2'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.17 Q6:1 If 'no' go to question 6:2"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_ContracepPillUse"
+        ],
+        "properties": {
+          "R0_ContracepPillUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ContracepPill": {
+            "maxItems": 0
+          },
+          "R0_ContracepPill_MoreThanThree": {
+            "const": -999
+          },
+          "R0_ContracepPill_MoreThanNine": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R027: the participant did not answer Yes to ever using another type of hormonal contraception (0 or 2), so the episodes are not asked and the 'more than 2 episodes' box is structurally not applicable -- OtherContracep is empty and R0_OtherContracep_MoreThanTwo carries the missing-numeric sentinel. The dictionary's 'more than 5 episodes' box (R0_OtherContracep_MoreThan5) is also not applicable. Questionnaire p.18 Q6:2: 'If no, go to question 6:3'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.18 Q6:2 If 'no', go to question 6:3"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_OtherHormonalContracep"
+        ],
+        "properties": {
+          "R0_OtherHormonalContracep": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "OtherContracep": {
+            "maxItems": 0
+          },
+          "R0_OtherContracep_MoreThanTwo": {
+            "const": -999
+          },
+          "R0_OtherContracep_MoreThan5": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R028: the participant did not answer Yes to ever having hormone replacement therapy (0 or 2), so the episodes, the 'more than 3 episodes' box and the hormone-level question are structurally not applicable -- HRT is empty and R0_HRT_MoreThanThree and R0_HRT_HrmnLevelsChecked carry the missing-numeric sentinel. The dictionary's 'more than 8 episodes' box (R0_HRT_MoreThanEight) is also not applicable. Questionnaire p.19 Q6:3: 'If no, go to question 6:5' (question 6:4 is skipped).",
+      "x-provenance": {
+        "default": [
+          "S02:p.19 Q6:3 If 'no', go to question 6:5"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_HRT_Use"
+        ],
+        "properties": {
+          "R0_HRT_Use": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "HRT": {
+            "maxItems": 0
+          },
+          "R0_HRT_MoreThanThree": {
+            "const": -999
+          },
+          "R0_HRT_HrmnLevelsChecked": {
+            "const": -999
+          },
+          "R0_HRT_MoreThanEight": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R030: the participant did not answer Yes to having had other sex hormone treatment (0 or 2), so the episodes are not asked and both 'more than' boxes (more than 2, and the dictionary's more than 7) are structurally not applicable -- OtherSexHrmn is empty and R0_OtherSexHrmn_MoreThanTwo and R0_OtherSexHrmn_MoreSeven carry the missing-numeric sentinel. Questionnaire p.20 Q6:5: 'If yes, please give the name of the treatment or preparation'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.20 Q6:5 If yes, please give the name of the treatment or preparation"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_OtherSexHrmnUse"
+        ],
+        "properties": {
+          "R0_OtherSexHrmnUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "OtherSexHrmn": {
+            "maxItems": 0
+          },
+          "R0_OtherSexHrmn_MoreThanTwo": {
+            "const": -999
+          },
+          "R0_OtherSexHrmn_MoreSeven": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Pill name routing R032: in each pill episode where the participant ticks Cannot remember the name, no name is given, so R0_ContracepPill_Name must carry the missing-string sentinel. Questionnaire p.17 Q6:1: 'Name of pill ... Cannot remember'. It is written here, not in the episode's own allOf, to keep the contraceptive routings together.",
+      "x-provenance": {
+        "default": [
+          "S02:p.17 Q6:1 Name of pill Cannot remember"
+        ]
+      },
+      "properties": {
+        "ContracepPill": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_ContracepPill_Unknown"
+              ],
+              "properties": {
+                "R0_ContracepPill_Unknown": {
+                  "const": 1
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_ContracepPill_Name": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,411 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/mh_cancers_benign_tumors_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Medical history: cancers and benign tumours (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from mh_cancers_benign_tumors.json containing Cancers and benign tumours other than in the breasts, including leukaemia, Hodgkin's disease and other lymphoma, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "OtherCancersBenignTumors": {
+      "title": "Other cancers and benign tumours (not in the breasts)",
+      "description": "One entry per cancer or benign tumour other than in the breasts, including leukaemia, Hodgkin's disease and other lymphoma, up to 3, in the order reported. The first is printed on page 24; further ones go on page 15:1 and are flagged by R0_MoreNonBreastCancers.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 13",
+          "S02:p.24 Q8:1 Have you ever been diagnosed with any other type of cancer or a benign tumour"
+        ],
+        "minItems": "S01:ArrayDef row 13",
+        "maxItems": "S01:ArrayDef row 13"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_OtherCancerBenignTumors_Num": {
+            "x-role": "entity key",
+            "title": "Which cancer or tumour this entry refers to (1st, 2nd, 3rd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 13",
+              "maximum": "S01:ArrayDef row 13"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "x-pii": false
+          },
+          "R0_OtherCancerBenignTumor": {
+            "title": "Whether the participant has been diagnosed with another cancer or benign tumour (other than in the breasts)",
+            "description": "Whether the participant was diagnosed with this other (non-breast) cancer or benign tumour.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. The 2nd and 3rd are the same question for the later cancers (page 15:1).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 990",
+                "S02:p.24 Q8:1 Have you ever been diagnosed with any other type of cancer or a benign tumour (other than in the breasts), including leukaemia, Hodgkin's disease or other lymphoma? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q8_1_1_1",
+              "Q8_1_1_2_1",
+              "Q8_1_1_3_1"
+            ],
+            "x-questionID": 1400,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "R0_OtherCancerDiagnosisYear_Shifted": {
+            "title": "R0_OtherCancerDiagnosisYear_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_OtherCancerDiagnosisYr"
+            ],
+            "x-pii": false
+          },
+          "R0_OtherCancerDiagnosisAge": {
+            "title": "Age at the diagnosis (years)",
+            "description": "Participant's age at diagnosis of this other (non-breast) cancer or benign tumour.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 992",
+                "S02:p.24 Q8:1 ... or Age years"
+              ],
+              "minimum": "S01:Questions row 992"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has been diagnosed with another cancer or benign tumour (the entry's own yes/no is 1); 8:1 says 'If yes, when was this diagnosed?'.",
+            "x-formerName": [
+              "Q8_1_3",
+              "Q8_1_1_2_3",
+              "Q8_1_1_3_3"
+            ],
+            "x-questionID": 1402,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_OtherCancerBodyPart": {
+            "title": "Part of the body",
+            "description": "Body site affected by this other (non-breast) cancer or benign tumour, as described by the participant.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 993",
+                "S02:p.24 Q8:1 What type of cancer or benign tumour was it? Part of body"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the participant has been diagnosed with another cancer or benign tumour (the entry's own yes/no is 1); 8:1 says 'If yes, when was this diagnosed?'.",
+            "x-formerName": [
+              "Q8_1_4",
+              "Q8_1_1_2_4",
+              "Q8_1_1_3_4"
+            ],
+            "x-questionID": 1403,
+            "x-pii": false
+          },
+          "R0_OtherCancerType": {
+            "title": "Type of cancer or tumour",
+            "description": "Type of cancer or benign tumour for this other (non-breast) diagnosis, as described by the participant.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 994",
+                "S02:p.24 Q8:1 Type of cancer or tumour"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the participant has been diagnosed with another cancer or benign tumour (the entry's own yes/no is 1); 8:1 says 'If yes, when was this diagnosed?'.",
+            "x-formerName": [
+              "Q8_1_5",
+              "Q8_1_1_2_5",
+              "Q8_1_1_3_5"
+            ],
+            "x-questionID": 1404,
+            "x-pii": false
+          },
+          "OtherCancersBenignTumorsExtra": {
+            "title": "Second part of the body and type for the 2nd and 3rd cancer",
+            "description": "A second part of the body and a second type of cancer or tumour for the 2nd and 3rd entry.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 42"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ]
+            ],
+            "x-universe": "Only the 2nd and 3rd cancer have it (the dictionary block OtherCancersBenignTumorsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_OtherCancerOtherBodyPart": {
+                  "title": "Second part of the body",
+                  "description": "Additional body site description for the other (non-breast) cancer/benign tumour.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1005"
+                    ]
+                  },
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd cancer have it (the dictionary block OtherCancersBenignTumorsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "site2",
+                    "site3"
+                  ],
+                  "x-questionID": 1415,
+                  "x-pii": false
+                },
+                "R0_OtherCancerOtherType": {
+                  "title": "Second type of cancer or tumour",
+                  "description": "Additional type description for the other (non-breast) cancer/benign tumour.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1006"
+                    ]
+                  },
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd cancer have it (the dictionary block OtherCancersBenignTumorsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "type2",
+                    "type3"
+                  ],
+                  "x-questionID": 1416,
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_OtherCancerOtherBodyPart",
+                "R0_OtherCancerOtherType"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_OtherCancerBenignTumors_Num",
+          "R0_OtherCancerBenignTumor",
+          "R0_OtherCancerDiagnosisYear_Shifted",
+          "R0_OtherCancerDiagnosisAge",
+          "R0_OtherCancerBodyPart",
+          "R0_OtherCancerType",
+          "OtherCancersBenignTumorsExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_MoreNonBreastCancers": {
+      "title": "Diagnosed with a non-breast cancer more than once",
+      "description": "Flag indicating the participant has had more than one non-breast cancer/benign tumour diagnosis.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'Checked').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 997",
+          "S02:p.24 Q8:1 If you have been diagnosed with non-breast cancer more than once, please cross here and give details, as in question 8:1, on page 15:1 More than once"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when another cancer or benign tumour was reported (the first entry's yes/no is 1); the box is under 'If yes'.",
+      "x-formerName": "Q8_1_more",
+      "x-questionID": 1407,
+      "x-answerIDs": {
+        "1": 1206
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "OtherCancersBenignTumors",
+    "R0_MoreNonBreastCancers"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R109: in each entry whose own yes/no is not Yes (0 or 2), the year, the age, the part of the body, the type, the hospital, the town and the second part and type are structurally not applicable and carry the sentinels. Questionnaire p.24 Q8:1: 'If yes, when was this diagnosed?'. It is written here, not in the entry's own allOf, to keep the routings of this topic together.",
+      "x-provenance": {
+        "default": [
+          "S02:p.24 Q8:1 If 'yes', when was this diagnosed?"
+        ]
+      },
+      "properties": {
+        "OtherCancersBenignTumors": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_OtherCancerBenignTumor"
+              ],
+              "properties": {
+                "R0_OtherCancerBenignTumor": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_OtherCancerDiagnosisYr": {
+                  "const": -999
+                },
+                "R0_OtherCancerDiagnosisAge": {
+                  "const": -999
+                },
+                "R0_OtherCancerBodyPart": {
+                  "const": "MISSING"
+                },
+                "R0_OtherCancerType": {
+                  "const": "MISSING"
+                },
+                "R0_OtherCancerHospital": {
+                  "const": "MISSING"
+                },
+                "R0_OtherCancerTown": {
+                  "const": "MISSING"
+                },
+                "OtherCancersBenignTumorsExtra": {
+                  "items": {
+                    "properties": {
+                      "R0_OtherCancerOtherBodyPart": {
+                        "const": "MISSING"
+                      },
+                      "R0_OtherCancerOtherType": {
+                        "const": "MISSING"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R110: when the first entry is not Yes (0 or 2), there is no later cancer and the 'more than once' box is structurally not applicable -- OtherCancersBenignTumors holds at most one entry and R0_MoreNonBreastCancers carries the missing-numeric sentinel. Questionnaire p.24 Q8:1: 'If no, go to question 8:2'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.24 Q8:1 If 'no', go to question 8:2"
+        ]
+      },
+      "if": {
+        "properties": {
+          "OtherCancersBenignTumors": {
+            "prefixItems": [
+              {
+                "required": [
+                  "R0_OtherCancerBenignTumor"
+                ],
+                "properties": {
+                  "R0_OtherCancerBenignTumor": {
+                    "enum": [
+                      0,
+                      2
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "OtherCancersBenignTumors": {
+            "maxItems": 1
+          },
+          "R0_MoreNonBreastCancers": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

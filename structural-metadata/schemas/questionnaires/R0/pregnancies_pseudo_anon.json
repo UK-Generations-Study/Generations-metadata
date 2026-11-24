@@ -1,0 +1,1460 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/pregnancies_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Fertility and Pregnancies (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from pregnancies.json containing Fertility history and details of each pregnancy, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_InfertilityPeriod": {
+      "title": "Ever tried to get pregnant for a year or more without success",
+      "description": "Participant experienced infertility for a year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 314",
+          "S02:Source question (5:1) Was there ever a time as long as a year or more when you tried to get pregnant, but did not?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/not_applicable",
+          "$comment": "local code 3 (Not applicable) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q5_1_1_1",
+      "x-questionID": 550,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-666": 6
+      },
+      "x-pii": false
+    },
+    "R0_InfertilityAge": {
+      "title": "Age when infertility first occurred",
+      "description": "Age when participant experienced infertility.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 315",
+          "S02:Source question (5:1) If yes, how old were you when you tried to get pregnant but couldn't?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_InfertilityPeriod = 1 (Yes).",
+      "x-formerName": "Q5_1_2",
+      "x-questionID": 551,
+      "x-pii": false
+    },
+    "R0_InfertilityDiagnosis": {
+      "title": "Ever diagnosed with an infertility problem",
+      "description": "Did the doctor diagnose the participant with infertility problems.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 316",
+          "S02:Source question (5:2) Have you ever been told by a doctor that you or your partner had an infertility problem?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q5_2_1_1",
+      "x-questionID": 552,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_InfertilityReason": {
+      "title": "Reason for difficulty conceiving",
+      "description": "Reason for participant's infertility.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 317",
+          "S02:Source question (5:2) If yes, what was the reason for the difficulty in conceiving?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "I did not ovulate regularly"
+        },
+        {
+          "const": 2,
+          "title": "Endometriosis"
+        },
+        {
+          "const": 3,
+          "title": "I had a hormone imbalance"
+        },
+        {
+          "const": 4,
+          "title": "Partner had low sperm count or other problem"
+        },
+        {
+          "const": 5,
+          "title": "Blocked tubes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 6 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "const": 7,
+          "title": "Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_InfertilityDiagnosis = 1 (Yes).",
+      "x-formerName": "Q5_2_2_1",
+      "x-questionID": 553,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 701,
+        "2": 702,
+        "3": 703,
+        "4": 704,
+        "5": 705,
+        "-888": 3,
+        "7": 13
+      },
+      "x-pii": false
+    },
+    "R0_InfertilityReasonOther": {
+      "title": "Other reason for difficulty conceiving, if specified",
+      "description": "Participant's other infertility reasons (free text).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 318",
+          "S02:Source question (5:2) If other reason for difficulty conceiving, please specify."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_InfertilityReason = 7 (Other).",
+      "x-formerName": "Q5_2_3",
+      "x-questionID": 554,
+      "x-pii": false
+    },
+    "R0_FertilityDrugs": {
+      "title": "Given fertility drugs or hormones to help conceive",
+      "description": "Use of fertility drugs/hormones by the participant.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 319",
+          "S02:Source question (5:2) Were you given fertility drugs or hormones to help you conceive?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_InfertilityDiagnosis = 1 (Yes).",
+      "x-formerName": "Q5_2_4_1",
+      "x-questionID": 555,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_FertilityTreatmentAgeFirst": {
+      "title": "Age first treated with fertility drugs/hormones",
+      "description": "Age at participant's first fertility treatment.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 320",
+          "S02:Source question (5:2) At what age were you first treated?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_FertilityDrugs = 1 (Yes).",
+      "x-formerName": "Q5_2_5",
+      "x-questionID": 556,
+      "x-pii": false
+    },
+    "R0_FertilityTreatmentAgeLast": {
+      "title": "Age last treated with fertility drugs/hormones",
+      "description": "Age at participant's last fertility treatment.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 321",
+          "S02:Source question (5:2) At what age were you last treated?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_FertilityDrugs = 1 (Yes).",
+      "x-formerName": "Q5_2_6",
+      "x-questionID": 557,
+      "x-pii": false
+    },
+    "R0_EverPregnant": {
+      "title": "Has the participant ever been pregnant",
+      "description": "Whether or not the participant has ever been pregnant.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 322",
+          "S02:Source question (5:3) Have you ever been pregnant?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q5_3_1",
+      "x-questionID": 558,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TotalPregnancies": {
+      "title": "Total number of pregnancies (excluding a current one)",
+      "description": "The number of pregnancies the participant has had in total. Maximum is max number of pregnancies in cohort for baseline questionnaire.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 323",
+          "S02:Source question (5:3) If you have ever been pregnant, how many pregnancies have you had in total?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 13
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_3_2",
+      "x-questionID": 559,
+      "x-pii": false
+    },
+    "R0_CurrentPreg": {
+      "title": "Is the participant currently pregnant",
+      "description": "Participant is currently pregnant.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 324",
+          "S02:Source question (5:3) Are you currently pregnant?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/not_sure",
+          "$comment": "local code 3 (Not sure) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_3_3_1",
+      "x-questionID": 560,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-444": 8
+      },
+      "x-pii": false
+    },
+    "R0_PregnanciesMoreThan6": {
+      "title": "More than 6 pregnancies (details continue on a supplementary page)",
+      "description": "Flag for >6 pregnancies.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 325",
+          "S02:Source question (5:3) If you have had more than 6 pregnancies, cross here."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "More than 6 pregnancies"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_3_4",
+      "x-questionID": 561,
+      "x-answerIDs": {
+        "1": 712
+      },
+      "x-pii": false
+    },
+    "Pregnancies": {
+      "title": "Details of each pregnancy",
+      "description": "One entry per pregnancy, up to 13, in chronological order; excludes a current pregnancy.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 19",
+          "S02:Source question (5:4-5:21, and 15:1 for occurrences 7-13) Please fill in details on the next page(s) for each time you have been pregnant."
+        ],
+        "minItems": "S01:ArrayDef row 19",
+        "maxItems": "S01:ArrayDef row 19"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 13,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_Preg_Num": {
+            "x-role": "entity key",
+            "title": "Which pregnancy this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 19",
+              "maximum": "S01:ArrayDef row 19"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 13,
+            "x-pii": false
+          },
+          "R0_PregnancyEndDate_Shifted": {
+            "title": "R0_PregnancyEndDate_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_Preg_EndDay",
+              "R0_Preg_EndMnth",
+              "R0_Preg_EndYr"
+            ],
+            "x-pii": false
+          },
+          "R0_Preg_Outcome": {
+            "title": "Outcome of the pregnancy",
+            "description": "The outcome of the participant's pregnancy.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 329",
+                "S02:Source question (5:5/5:14) Outcome of pregnancy."
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Single live born infant"
+              },
+              {
+                "const": 2,
+                "title": "Twins, both live born"
+              },
+              {
+                "const": 3,
+                "title": "Twins, one live born"
+              },
+              {
+                "const": 4,
+                "title": "Twins, neither live born"
+              },
+              {
+                "const": 5,
+                "title": "Triplets or higher order birth"
+              },
+              {
+                "const": 6,
+                "title": "Miscarriage"
+              },
+              {
+                "const": 7,
+                "title": "Induced abortion"
+              },
+              {
+                "const": 8,
+                "title": "Stillborn child"
+              },
+              {
+                "const": 9,
+                "title": "Ectopic pregnancy"
+              },
+              {
+                "const": 10,
+                "title": "Presumed single live birth"
+              },
+              {
+                "const": 11,
+                "title": "Presumed non parous"
+              },
+              {
+                "const": 12,
+                "title": "Hydatidiform mole"
+              },
+              {
+                "const": 13,
+                "title": "Miscarried both twins"
+              },
+              {
+                "const": 14,
+                "title": "Outcome unknown",
+                "x-value-kind": "sentinel"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_5_1_1",
+              "Q5_5_2_1",
+              "Q5_5_3_1",
+              "Q5_14_4_1",
+              "Q5_14_5_1",
+              "Q5_14_6_1",
+              "Gen07_full@Q5_14_7_1",
+              "Gen07_full@Q5_14_8_1",
+              "Gen07_full@Q5_14_9_1",
+              "Gen07_full@Q5_14_10_1",
+              "Gen07_full@Q5_14_11_1",
+              "Gen07_full@Q5_14_12_1",
+              "Gen07_full@Q5_14_13_1"
+            ],
+            "x-questionID": 565,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 716,
+              "2": 717,
+              "3": 718,
+              "4": 719,
+              "5": 720,
+              "6": 721,
+              "7": 722,
+              "8": 723,
+              "9": 724,
+              "10": 725,
+              "11": 726,
+              "12": 727,
+              "13": 728,
+              "14": 729
+            },
+            "x-pii": false
+          },
+          "R0_Preg_DurationWks": {
+            "title": "Length of pregnancy (weeks)",
+            "description": "Length in weeks of the participant's pregnancy. Maximum set at 54 as longest pregnancy recorded in UK was 375 days.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 330",
+                "S02:Source question (5:6/5:15) Length of pregnancy (weeks)."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 54
+              },
+              {
+                "const": 40,
+                "title": "Full term",
+                "x-value-kind": "value"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_6_1",
+              "Q5_6_2",
+              "Q5_6_3",
+              "Q5_15_4",
+              "Q5_15_5",
+              "Q5_15_6",
+              "Gen07_full@Q5_15_7",
+              "Gen07_full@Q5_15_8",
+              "Gen07_full@Q5_15_9",
+              "Gen07_full@Q5_15_10",
+              "Gen07_full@Q5_15_11",
+              "Gen07_full@Q5_15_12",
+              "Gen07_full@Q5_15_13"
+            ],
+            "x-questionID": 566,
+            "x-pii": false
+          },
+          "R0_Preg_SevereVomiting": {
+            "title": "Severe vomiting in the first 3 months of pregnancy",
+            "description": "Whether or not the participant suffered from severe vomiting in the first three months of their pregnancy.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 331",
+                "S02:Source question (5:7/5:16) Did you have severe vomiting in the first 3 months of pregnancy?"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_know",
+                "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_7_1_1",
+              "Q5_7_2_1",
+              "Q5_7_3_1",
+              "Q5_16_4_1",
+              "Q5_16_5_1",
+              "Q5_16_6_1",
+              "Gen07_full@Q5_16_7_1",
+              "Gen07_full@Q5_16_8_1",
+              "Gen07_full@Q5_16_9_1",
+              "Gen07_full@Q5_16_10_1",
+              "Gen07_full@Q5_16_11_1",
+              "Gen07_full@Q5_16_12_1",
+              "Gen07_full@Q5_16_13_1"
+            ],
+            "x-questionID": 567,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2,
+              "-888": 3
+            },
+            "x-pii": false
+          },
+          "R0_Preg_Eclampsia": {
+            "title": "Eclampsia or pre-eclampsia during pregnancy",
+            "description": "Whether or not the participant suffered from eclampsia or pre-eclampsia during their pregnancy.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 332",
+                "S02:Source question (5:8/5:17) Did you suffer from eclampsia or pre-eclampsia during pregnancy?"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_know",
+                "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_8_1_1",
+              "Q5_8_2_1",
+              "Q5_8_3_1",
+              "Q5_17_4_1",
+              "Q5_17_5_1",
+              "Q5_17_6_1",
+              "Gen07_full@Q5_17_7_1",
+              "Gen07_full@Q5_17_8_1",
+              "Gen07_full@Q5_17_9_1",
+              "Gen07_full@Q5_17_10_1",
+              "Gen07_full@Q5_17_11_1",
+              "Gen07_full@Q5_17_12_1",
+              "Gen07_full@Q5_17_13_1"
+            ],
+            "x-questionID": 568,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2,
+              "-888": 3
+            },
+            "x-pii": false
+          },
+          "R0_Preg_ChildSex": {
+            "title": "Sex of child from this pregnancy, if known",
+            "description": "The sex of the child, or children, from the participant's pregnancy.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 333",
+                "S02:Source question (5:9/5:18) Sex of child, if known."
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Boy"
+              },
+              {
+                "const": 2,
+                "title": "Girl"
+              },
+              {
+                "const": 3,
+                "title": "Boy-boy"
+              },
+              {
+                "const": 4,
+                "title": "Boy-girl"
+              },
+              {
+                "const": 5,
+                "title": "Girl-girl"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_9_1_1",
+              "Q5_9_2_1",
+              "Q5_9_3_1",
+              "Q5_18_4_1",
+              "Q5_18_5_1",
+              "Q5_18_6_1",
+              "Gen07_full@Q5_18_7_1",
+              "Gen07_full@Q5_18_8_1",
+              "Gen07_full@Q5_18_9_1",
+              "Gen07_full@Q5_18_10_1",
+              "Gen07_full@Q5_18_11_1",
+              "Gen07_full@Q5_18_12_1",
+              "Gen07_full@Q5_18_13_1"
+            ],
+            "x-questionID": 569,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 731,
+              "2": 732,
+              "3": 733,
+              "4": 734,
+              "5": 735
+            },
+            "x-pii": false
+          },
+          "R0_Preg_BirthWghtG": {
+            "title": "Birthweight of child, if known (grams)",
+            "description": "The birthweight of the child from the participant's pregnancy in grams. Maximum set to equivalent of grams for 15 pounds, 8 ounces.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 334",
+                "S02:Source question (5:10/5:19) Birthweight of child, if known. Grams."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_10_GR_1",
+              "Q5_10_GR_2",
+              "Q5_10_GR_3",
+              "Q5_19_GR_4",
+              "Q5_19_GR_5",
+              "Q5_19_GR_6",
+              "Gen07_full@Q5_19_GR_7",
+              "Gen07_full@Q5_19_GR_8",
+              "Gen07_full@Q5_19_GR_9",
+              "Gen07_full@Q5_19_GR_10",
+              "Gen07_full@Q5_19_GR_11",
+              "Gen07_full@Q5_19_GR_12",
+              "Gen07_full@Q5_19_GR_13"
+            ],
+            "x-questionID": 570,
+            "x-pii": false
+          },
+          "R0_Preg_BirthWghtlbs": {
+            "title": "Birthweight of child, if known (pounds)",
+            "description": "The birthweight of the child from the participant's pregnancy in pounds. Maximum set at 15 pounds as heaviest recorded birth in UK was 15 pounds, 8 ounces.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 335",
+                "S02:Source question (5:10/5:19) Birthweight of child, if known. Pounds."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_10_LB_1",
+              "Q5_10_LB_2",
+              "Q5_10_LB_3",
+              "Q5_19_LB_4",
+              "Q5_19_LB_5",
+              "Q5_19_LB_6",
+              "Gen07_full@Q5_19_LB_7",
+              "Gen07_full@Q5_19_LB_8",
+              "Gen07_full@Q5_19_LB_9",
+              "Gen07_full@Q5_19_LB_10",
+              "Gen07_full@Q5_19_LB_11",
+              "Gen07_full@Q5_19_LB_12",
+              "Gen07_full@Q5_19_LB_13"
+            ],
+            "x-questionID": 571,
+            "x-pii": false
+          },
+          "R0_Preg_BirthWghtOzs": {
+            "title": "Birthweight of child, if known (ounces remainder)",
+            "description": "The birthweight of the child from the participant's pregnancy in ounces.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 336",
+                "S02:Source question (5:10/5:19) Birthweight of child, if known. Ounces."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_10_OZ_1",
+              "Q5_10_OZ_2",
+              "Q5_10_OZ_3",
+              "Q5_19_OZ_4",
+              "Q5_19_OZ_5",
+              "Q5_19_OZ_6",
+              "Gen07_full@Q5_19_OZ_7",
+              "Gen07_full@Q5_19_OZ_8",
+              "Gen07_full@Q5_19_OZ_9",
+              "Gen07_full@Q5_19_OZ_10",
+              "Gen07_full@Q5_19_OZ_11",
+              "Gen07_full@Q5_19_OZ_12",
+              "Gen07_full@Q5_19_OZ_13"
+            ],
+            "x-questionID": 572,
+            "x-pii": false
+          },
+          "R0_Preg_BreastfeedingWks": {
+            "title": "Number of weeks breastfed",
+            "description": "Number of weeks that the participant breastfed after their pregnancy.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 337",
+                "S02:Source question (5:11/5:20) Number of weeks breastfed."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_11_1",
+              "Q5_11_2",
+              "Q5_11_3",
+              "Q5_20_4",
+              "Q5_20_5",
+              "Q5_20_6",
+              "Gen07_full@Q5_20_7",
+              "Gen07_full@Q5_20_8",
+              "Gen07_full@Q5_20_9",
+              "Gen07_full@Q5_20_10",
+              "Gen07_full@Q5_20_11",
+              "Gen07_full@Q5_20_12",
+              "Gen07_full@Q5_20_13"
+            ],
+            "x-questionID": 573,
+            "x-pii": false
+          },
+          "R0_Preg_MilkSuppression": {
+            "title": "Received pills or hormone injections to dry up milk secretion",
+            "description": "Whether or not the participant received pills or hormone injections to dry up their milk secretion after their pregnancy.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 338",
+                "S02:Source question (5:12/5:21) Did you receive pills or hormone injections to dry up your milk secretion?"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q5_12_1_1",
+              "Q5_12_2_1",
+              "Q5_12_3_1",
+              "Q5_21_4_1",
+              "Q5_21_5_1",
+              "Q5_21_6_1",
+              "Gen07_full@Q5_21_7_1",
+              "Gen07_full@Q5_21_8_1",
+              "Gen07_full@Q5_21_9_1",
+              "Gen07_full@Q5_21_10_1",
+              "Gen07_full@Q5_21_11_1",
+              "Gen07_full@Q5_21_12_1",
+              "Gen07_full@Q5_21_13_1"
+            ],
+            "x-questionID": 574,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_Preg_Num",
+          "R0_PregnancyEndDate_Shifted",
+          "R0_Preg_Outcome",
+          "R0_Preg_DurationWks",
+          "R0_Preg_SevereVomiting",
+          "R0_Preg_Eclampsia",
+          "R0_Preg_ChildSex",
+          "R0_Preg_BirthWghtG",
+          "R0_Preg_BirthWghtlbs",
+          "R0_Preg_BirthWghtOzs",
+          "R0_Preg_BreastfeedingWks",
+          "R0_Preg_MilkSuppression"
+        ],
+        "additionalProperties": false
+      },
+      "x-universe": "Only populated when R0_EverPregnant = 1 (Yes).",
+      "x-pii": false
+    },
+    "R0_BreastfeedingBreast": {
+      "title": "Which breast was used for breastfeeding",
+      "description": "Which breast the participant used for breastfeeding.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 495",
+          "S02:Source question (5:22) Which breast did you use for breastfeeding?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Entirely left"
+        },
+        {
+          "const": 2,
+          "title": "Entirely right"
+        },
+        {
+          "const": 3,
+          "title": "Mainly left"
+        },
+        {
+          "const": 4,
+          "title": "Mainly right"
+        },
+        {
+          "const": 5,
+          "title": "Equally both sides"
+        },
+        {
+          "const": 6,
+          "title": "Never breastfed"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_22_1",
+      "x-questionID": 731,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 740,
+        "2": 741,
+        "3": 742,
+        "4": 743,
+        "5": 744,
+        "6": 745
+      },
+      "x-pii": false
+    },
+    "R0_FirstPregWghtStone": {
+      "title": "Weight at start of first pregnancy (stone)",
+      "description": "The participant's weight in stone at the start of their first pregnancy. Maximum set at 48 as heaviest recorded woman UK was 48 stone.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 496",
+          "S02:Source question (5:23) What was your weight at the beginning of your first pregnancy? Stone."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_23_ST",
+      "x-questionID": 732,
+      "x-pii": false
+    },
+    "R0_FirstPregWghtlbs": {
+      "title": "Weight at start of first pregnancy (pounds remainder)",
+      "description": "The participant's weight in pounds at the start of their first pregnancy. This variable works in conjunction with stone. Every increase of 14 pounds is another stone.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 497",
+          "S02:Source question (5:23) What was your weight at the beginning of your first pregnancy? Pounds."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_23_LB",
+      "x-questionID": 733,
+      "x-pii": false
+    },
+    "R0_FirstPregWghtKG": {
+      "title": "Weight at start of first pregnancy (kilograms)",
+      "description": "The participant's weight in kilograms at the start of their first pregnancy. Maximum set at 305 as heaviest recorded woman UK was 48 stone.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 498",
+          "S02:Source question (5:23) What was your weight at the beginning of your first pregnancy? Kilograms."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_23_KG",
+      "x-questionID": 734,
+      "x-pii": false
+    },
+    "R0_LastPregWghtStone": {
+      "title": "Weight at start of last pregnancy (stone)",
+      "description": "The participant's weight in stone at the start of their last pregnancy. Maximum set at 48 as heaviest recorded woman UK was 48 stone.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 499",
+          "S02:Source question (5:24) What was your weight at the beginning of your last pregnancy? Stone."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_24_ST",
+      "x-questionID": 735,
+      "x-pii": false
+    },
+    "R0_LastPregWghtlbs": {
+      "title": "Weight at start of last pregnancy (pounds remainder)",
+      "description": "The participant's weight in pounds at the start of their last pregnancy. This variable works in conjunction with stone. Every increase of 14 pounds is another stone.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 500",
+          "S02:Source question (5:24) What was your weight at the beginning of your last pregnancy? Pounds."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_24_LB",
+      "x-questionID": 736,
+      "x-pii": false
+    },
+    "R0_LastPregWghtKG": {
+      "title": "Weight at start of last pregnancy (kilograms)",
+      "description": "The participant's weight in kilograms at the start of their last pregnancy. Maximum set at 305 as heaviest recorded woman UK was 48 stone.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 501",
+          "S02:Source question (5:24) What was your weight at the beginning of your last pregnancy? Kilograms."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_24_KG",
+      "x-questionID": 737,
+      "x-pii": false
+    },
+    "R0_PregHrmns": {
+      "title": "Ever took hormones to maintain a pregnancy",
+      "description": "Whether the participant took hormones to maintain a pregnancy.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 502",
+          "S02:Source question (5:25) Have you ever taken hormones to maintain a pregnancy?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverPregnant = 1 (Yes).",
+      "x-formerName": "Q5_25_1",
+      "x-questionID": 738,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_PregHrmnsAge": {
+      "title": "Age treated with hormones during pregnancy",
+      "description": "The participant's age when treated with hormones during pregnancy.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 503",
+          "S02:Source question (5:25) If yes, at what age were you treated with hormones during pregnancy?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_PregHrmns = 1 (Yes).",
+      "x-formerName": "Q5_25age",
+      "x-questionID": 739,
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_InfertilityPeriod",
+    "R0_InfertilityAge",
+    "R0_InfertilityDiagnosis",
+    "R0_InfertilityReason",
+    "R0_InfertilityReasonOther",
+    "R0_FertilityDrugs",
+    "R0_FertilityTreatmentAgeFirst",
+    "R0_FertilityTreatmentAgeLast",
+    "R0_EverPregnant",
+    "R0_TotalPregnancies",
+    "R0_CurrentPreg",
+    "R0_PregnanciesMoreThan6",
+    "Pregnancies",
+    "R0_BreastfeedingBreast",
+    "R0_FirstPregWghtStone",
+    "R0_FirstPregWghtlbs",
+    "R0_FirstPregWghtKG",
+    "R0_LastPregWghtStone",
+    "R0_LastPregWghtlbs",
+    "R0_LastPregWghtKG",
+    "R0_PregHrmns",
+    "R0_PregHrmnsAge"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern: the participant has not confirmed a year-or-more infertility period (5:1), so an age is structurally not applicable -- R0_InfertilityAge must carry the missing-numeric sentinel. Fires on a confirmed No (2) or the source's own 'Not applicable' code (3 in the source, -666 after the recode), not on the ambiguous 'more than one option chosen' (0).",
+      "if": {
+        "required": [
+          "R0_InfertilityPeriod"
+        ],
+        "properties": {
+          "R0_InfertilityPeriod": {
+            "enum": [
+              2,
+              -666
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_InfertilityAge": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant has not confirmed an infertility diagnosis (5:2: 'If no go to question 5:3'), so the reason, fertility drugs, and treatment ages are all structurally not applicable.",
+      "if": {
+        "required": [
+          "R0_InfertilityDiagnosis"
+        ],
+        "properties": {
+          "R0_InfertilityDiagnosis": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_InfertilityReason": {
+            "const": -999
+          },
+          "R0_InfertilityReasonOther": {
+            "const": "MISSING"
+          },
+          "R0_FertilityDrugs": {
+            "const": -999
+          },
+          "R0_FertilityTreatmentAgeFirst": {
+            "const": -999
+          },
+          "R0_FertilityTreatmentAgeLast": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant's infertility reason is not 'Other' (7), so a description is structurally not applicable -- R0_InfertilityReasonOther must carry the missing-string sentinel.",
+      "if": {
+        "required": [
+          "R0_InfertilityReason"
+        ],
+        "properties": {
+          "R0_InfertilityReason": {
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              -888
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_InfertilityReasonOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant was not given fertility drugs (5:2), so treatment ages are structurally not applicable. Fires only on a confirmed No (2), not 'Don't know' (3), which is uncertainty rather than confirmed non-applicability.",
+      "if": {
+        "required": [
+          "R0_FertilityDrugs"
+        ],
+        "properties": {
+          "R0_FertilityDrugs": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FertilityTreatmentAgeFirst": {
+            "const": -999
+          },
+          "R0_FertilityTreatmentAgeLast": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant has not confirmed ever being pregnant (5:3: 'If no, go to question 6:1'), so every remaining Pregnancies-category field is structurally not applicable -- the largest single skip in this package. Fires only on a confirmed No (2), not 0 ('more than one option chosen', ambiguous) or 3 ('Don't know', uncertainty rather than confirmation) -- stricter than the equivalent alcohol_smoking_diet triggers, which included the ambiguous code; that inconsistency is noted in DECISIONS.md rather than silently repeated.",
+      "if": {
+        "required": [
+          "R0_EverPregnant"
+        ],
+        "properties": {
+          "R0_EverPregnant": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_TotalPregnancies": {
+            "const": -999
+          },
+          "R0_CurrentPreg": {
+            "const": -999
+          },
+          "R0_PregnanciesMoreThan6": {
+            "const": -999
+          },
+          "Pregnancies": {
+            "maxItems": 0
+          },
+          "R0_BreastfeedingBreast": {
+            "const": -999
+          },
+          "R0_FirstPregWghtStone": {
+            "const": -999
+          },
+          "R0_FirstPregWghtlbs": {
+            "const": -999
+          },
+          "R0_FirstPregWghtKG": {
+            "const": -999
+          },
+          "R0_LastPregWghtStone": {
+            "const": -999
+          },
+          "R0_LastPregWghtlbs": {
+            "const": -999
+          },
+          "R0_LastPregWghtKG": {
+            "const": -999
+          },
+          "R0_PregHrmns": {
+            "const": -999
+          },
+          "R0_PregHrmnsAge": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant has not taken hormones to maintain a pregnancy (5:25), so a treatment age is structurally not applicable -- R0_PregHrmnsAge must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_PregHrmns"
+        ],
+        "properties": {
+          "R0_PregHrmns": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_PregHrmnsAge": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1014 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/breast_cancer_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Breast Cancer (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from breast_cancer.json containing Breast cancer or pre-cancer (up to three), its surgery, radiotherapy and drug treatment, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "BreastCancers": {
+      "title": "Breast cancers and pre-cancers",
+      "description": "One entry per breast cancer or pre-cancer, up to 3 (the 1st, 2nd and 3rd), with the radiotherapy and whether drugs were given; the drug regimens are in DrugTreatment.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 4",
+          "S01:ArrayDef row 25",
+          "S02:Source question (7:5) Have you ever had breast cancer or pre-cancer"
+        ],
+        "minItems": "S01:ArrayDef row 4",
+        "maxItems": "S01:ArrayDef row 4"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_BreastCancer_Num": {
+            "x-role": "entity key",
+            "title": "Which breast cancer or pre-cancer this entry refers to (1st, 2nd, 3rd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 4",
+              "maximum": "S01:ArrayDef row 4"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "x-pii": false
+          },
+          "R0_BreastCancer": {
+            "title": "Ever had breast cancer or pre-cancer (1st), or a 2nd / 3rd one?",
+            "description": "Participant's history of breast cancer or pre-cancer (DCIS or in situ).",
+            "$comment": "The 1st entry asks 'Have you ever had breast cancer or pre-cancer (DCIS or in situ)?'; the 2nd and 3rd ask 'Have you had a 2nd (3rd) breast cancer or pre-cancer?'. Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 804",
+                "S02:p.21 Q7:5 Have you ever had breast cancer or pre-cancer (\"in situ\" or DCIS)? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q7_5_1",
+              "Q7_8_1_1",
+              "Gen10_full@Q7_8_1_1b"
+            ],
+            "x-questionID": 1186,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "R0_CancerType": {
+            "title": "What it was (cancer or pre-cancer)",
+            "description": "Type of cancer or pre-cancer diagnosed.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Cancer; 2 Pre-cancer; R Recurrence; M Metastasis; S Secondary (letter codes as the dictionary gives them; the questionnaire prints only Cancer and Pre-cancer).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 805",
+                "S02:p.21 Q7:5 If yes, what was it? Cancer Pre-cancer"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Cancer"
+              },
+              {
+                "const": 2,
+                "title": "Pre-cancer"
+              },
+              {
+                "const": "R",
+                "title": "Recurrence"
+              },
+              {
+                "const": "M",
+                "title": "Metastasis"
+              },
+              {
+                "const": "S",
+                "title": "Secondary"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_BreastCancer = 1 (Yes); 7:5 says 'If no, go to question 7:9'.",
+            "x-formerName": [
+              "Q7_5_2_1",
+              "Gen10_full@Q7_8_4_1",
+              "Gen10_full@Q7_8_4_1b"
+            ],
+            "x-questionID": 1187,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 971,
+              "2": 972,
+              "R": 1020,
+              "M": 1021,
+              "S": 1022
+            },
+            "x-pii": false
+          },
+          "R0_AgeAtDiagnosis": {
+            "title": "Age when diagnosed (years)",
+            "description": "Participant's age at diagnosis of cancer/pre-cancer.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 806",
+                "S02:p.21 Q7:5 How old were you when it was diagnosed? years"
+              ],
+              "minimum": "S01:Questions row 806"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_BreastCancer = 1 (Yes); 7:5 says 'If no, go to question 7:9'.",
+            "x-unit": "years",
+            "x-formerName": [
+              "Q7_5_3",
+              "Q7_8_2",
+              "Gen10_full@Q7_8_2_1b"
+            ],
+            "x-questionID": 1188,
+            "x-pii": false
+          },
+          "BreastCancersExtra": {
+            "title": "Diagnosis month and year of the 2nd and 3rd cancer",
+            "description": "Additional details about the participant's breast cancer/pre-cancer history: the month and year of diagnosis, asked for the 2nd and 3rd cancer only.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 25"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ]
+            ],
+            "x-universe": "Only the 2nd and 3rd cancer have it; the 1st cancer's diagnosis month and year are not collected.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_BreastCancerDiagnosis_Shifted": {
+                  "title": "R0_BreastCancerDiagnosis_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_CancerDiagnosisMonth",
+                    "R0_CancerDiagnosisYear"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_BreastCancerDiagnosis_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "R0_CancerBreastLocation": {
+            "title": "Which breast the cancer was in",
+            "description": "Location of cancer/pre-cancer in the participant's breast(s).",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Left; 2 Right; 3 Both.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 807",
+                "S02:p.21 Q7:5 In which breast was it? Left Right Both"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Left"
+              },
+              {
+                "const": 2,
+                "title": "Right"
+              },
+              {
+                "const": 3,
+                "title": "Both"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_BreastCancer = 1 (Yes); 7:5 says 'If no, go to question 7:9'.",
+            "x-formerName": [
+              "Q7_5_4_1",
+              "Q7_8_3_1",
+              "Gen10_full@Q7_8_3_1b"
+            ],
+            "x-questionID": 1189,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 959,
+              "2": 960,
+              "3": 961
+            },
+            "x-pii": false
+          },
+          "R0_BreastCancerSurgery": {
+            "title": "Whether surgery was had for it",
+            "description": "Surgery status for the participant's breast cancer/pre-cancer.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 808",
+                "S02:p.21 Q7:5 Did you have surgery for it? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_BreastCancer = 1 (Yes); 7:5 says 'If no, go to question 7:9'.",
+            "x-formerName": [
+              "Q7_5_5_1",
+              "Gen10_full@Q7_8_5_1",
+              "Gen10_full@Q7_8_5_1b"
+            ],
+            "x-questionID": 1190,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "R0_SurgeryType": {
+            "title": "Type of surgery",
+            "description": "Type of surgery performed for the participant's cancer/pre-cancer.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Biopsy; 2 Whole breast removal; 3 Lump removal; 4 Both breasts removed; 5 Other.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 809",
+                "S02:p.21 Q7:5 If 'yes' for surgery, did you have? A small sample removed (biopsy), A whole breast removed, Part of the breast(s) or a lump removed, Both breasts removed, Other, specify"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Biopsy"
+              },
+              {
+                "const": 2,
+                "title": "Whole breast removal"
+              },
+              {
+                "const": 3,
+                "title": "Lump removal"
+              },
+              {
+                "const": 4,
+                "title": "Both breasts removed"
+              },
+              {
+                "const": 5,
+                "title": "Other"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_BreastCancerSurgery = 1 (Yes); 7:5 says 'If yes for surgery, did you have?'.",
+            "x-formerName": [
+              "Q7_5_6_1",
+              "Gen10_full@Q7_8_5_2",
+              "Gen10_full@Q7_8_5_2b"
+            ],
+            "x-questionID": 1191,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 966,
+              "2": 965,
+              "3": 968,
+              "4": 967,
+              "5": 13
+            },
+            "x-pii": false
+          },
+          "R0_SurgeryOtherSpecify": {
+            "title": "The other surgery, in words",
+            "description": "Details of other surgeries for the participant's cancer/pre-cancer.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 810",
+                "S02:p.21 Q7:5 Other, specify"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_SurgeryType = 5 (Other); 7:5 says 'Other, specify'.",
+            "x-formerName": [
+              "Q7_5_7",
+              "Gen10_full@Q7_8_5_3",
+              "Gen10_full@Q7_8_5_3b"
+            ],
+            "x-questionID": 1192,
+            "x-pii": false
+          },
+          "R0_RadiotherapyReceived": {
+            "title": "Whether radiotherapy was received",
+            "description": "Radiotherapy status for the participant's cancer/pre-cancer.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 811",
+                "S02:p.22 Q7:6 Did you receive radiotherapy (radiation treatment) for this cancer or pre-cancer? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_BreastCancer = 1 (Yes); 7:5 says 'If no, go to question 7:9'.",
+            "x-formerName": [
+              "Q7_6_1_1",
+              "Gen10_full@Q7_8_6_1",
+              "Gen10_full@Q7_8_6_1b"
+            ],
+            "x-questionID": 1193,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "R0_Radiotherapy_Start_Shifted": {
+            "title": "R0_Radiotherapy_Start_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_RadiotherapyStartMonth",
+              "R0_RadiotherapyStartYear"
+            ],
+            "x-pii": false
+          },
+          "R0_Radiotherapy_End_Shifted": {
+            "title": "R0_Radiotherapy_End_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_RadiotherapyEndMonth",
+              "R0_RadiotherapyEndYear"
+            ],
+            "x-pii": false
+          },
+          "R0_BCDrugTreatmentReceived": {
+            "title": "Whether drug treatment was received",
+            "description": "Drug treatment status for the participant's cancer/pre-cancer.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. The dictionary names the three columns R0_BC1DrugTreatmentReceived1, R0_BC2DrugTreatmentReceived1 and R0_BC3DrugTreatmentReceived1.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 818",
+                "S02:p.22 Q7:7 Did you receive any drug treatment for this cancer or pre-cancer (e.g. Tamoxifen or chemotherapy)? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_BreastCancer = 1 (Yes); 7:5 says 'If no, go to question 7:9'.",
+            "x-formerName": [
+              "Q7_7_1_1",
+              "Gen10_full@Q7_8_7_1",
+              "Gen10_full@Q7_8_7_1b"
+            ],
+            "x-questionID": 1200,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "DrugTreatment": {
+            "title": "Drug regimens for this cancer",
+            "description": "One entry per drug or regimen of this cancer, up to 6: the 1st cancer has room for 6, the 2nd and the 3rd for 2 (a condition on the cancer number).",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 31",
+                "S02:Source question (7:7) Please give the name(s) of the drugs and when you took them"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 6,
+            "x-universe": "Only populated for a cancer with R0_BCDrugTreatmentReceived = 1 (Yes); 7:7 says 'If no, go to question 7:8'.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_DrugTreatment_Num": {
+                  "x-role": "entity key",
+                  "title": "Which regimen of this cancer this entry refers to",
+                  "x-provenance": {
+                    "default": [
+                      "S01:ArrayDef row 31"
+                    ],
+                    "maximum": "S01:ArrayDef row 31"
+                  },
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 6,
+                  "x-pii": false
+                },
+                "R0_BCDrugRegimenName": {
+                  "title": "Name of the drug or regimen",
+                  "description": "Name of the drug regimen used for the participant's treatment.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 821",
+                      "S02:p.22 Q7:7 Please give the name(s) of the drugs and when you took them. 1) Name of the drug or regimen"
+                    ]
+                  },
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_BCDrugTreatmentReceived = 1 (Yes) for that cancer; 7:7 says 'If no, go to question 7:8'.",
+                  "x-formerName": [
+                    "Q7_7_4",
+                    "Q7_7_9",
+                    "brcact3",
+                    "brcact4",
+                    "brcact5",
+                    "brcact6",
+                    "Gen10_full@Q7_8_7_6",
+                    "Gen10_full@Q7_8_8_5",
+                    "Gen10_full@Q7_8_7_6b",
+                    "Gen10_full@Q7_8_8_5b"
+                  ],
+                  "x-questionID": 1203,
+                  "x-pii": false
+                },
+                "R0_BCDrugRegimen_Start_Shifted": {
+                  "title": "R0_BCDrugRegimen_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_BCDrugRegimenStartMonth",
+                    "R0_BCDrugRegimenStartYear"
+                  ],
+                  "x-pii": false
+                },
+                "R0_BCDrugRegimen_End_Shifted": {
+                  "title": "R0_BCDrugRegimen_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_BCDrugRegimenStopMonth",
+                    "R0_BCDrugRegimenStopYear"
+                  ],
+                  "x-pii": false
+                },
+                "R0_BCDrugRegimenOngoing": {
+                  "title": "Still using the drug or regimen",
+                  "description": "Flag whether the participant is still using the drug or regimen for drug therapy of cancer or pre-cancer.",
+                  "$comment": "Dictionary AnswerCode -1 'Ticked, extra info' (AnswerID 1) and 1 'Yes, still using' (AnswerID 804). The dictionary gives no column for regimens 1 and 2 of the 1st cancer.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 839"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": -1,
+                      "title": "Ticked, extra info",
+                      "x-value-kind": "value"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes, still using",
+                      "x-value-kind": "value"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_BCDrugTreatmentReceived = 1 (Yes) for that cancer; 7:7 says 'If no, go to question 7:8'.",
+                  "x-formerName": [
+                    "brcactendstill3",
+                    "brcactendstill4",
+                    "brcactendstill5",
+                    "brcactendstill6",
+                    "brcasecct1still",
+                    "brcasecct2still",
+                    "brca3ct1still",
+                    "brca3ct2still"
+                  ],
+                  "x-questionID": 1221,
+                  "x-answerIDs": {
+                    "-1": 1,
+                    "1": 804
+                  },
+                  "x-pii": false,
+                  "x-slots": [
+                    [
+                      1,
+                      3
+                    ],
+                    [
+                      1,
+                      4
+                    ],
+                    [
+                      1,
+                      5
+                    ],
+                    [
+                      1,
+                      6
+                    ],
+                    [
+                      2,
+                      1
+                    ],
+                    [
+                      2,
+                      2
+                    ],
+                    [
+                      3,
+                      1
+                    ],
+                    [
+                      3,
+                      2
+                    ]
+                  ]
+                }
+              },
+              "required": [
+                "R0_DrugTreatment_Num",
+                "R0_BCDrugRegimenName",
+                "R0_BCDrugRegimen_Start_Shifted",
+                "R0_BCDrugRegimen_End_Shifted",
+                "R0_BCDrugRegimenOngoing"
+              ],
+              "additionalProperties": false
+            },
+            "x-pii": false,
+            "x-slots": [
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                1,
+                5
+              ],
+              [
+                1,
+                6
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          }
+        },
+        "required": [
+          "R0_BreastCancer_Num",
+          "R0_BreastCancer",
+          "R0_CancerType",
+          "R0_AgeAtDiagnosis",
+          "BreastCancersExtra",
+          "R0_CancerBreastLocation",
+          "R0_BreastCancerSurgery",
+          "R0_SurgeryType",
+          "R0_SurgeryOtherSpecify",
+          "R0_RadiotherapyReceived",
+          "R0_Radiotherapy_Start_Shifted",
+          "R0_Radiotherapy_End_Shifted",
+          "R0_BCDrugTreatmentReceived",
+          "DrugTreatment"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "$comment": "Breast cancer routing R015: the participant did not answer Yes to this breast cancer or pre-cancer (0 or 2), so its details are structurally not applicable -- each must carry its missing sentinel (-999, or MISSING for text). Questionnaire p.21 Q7:5: 'If no, go to question 7:9'; p.22 Q7:8: 'If yes, how old were you at that time?'. The diagnosis month and year of the 2nd and 3rd cancer and the drug regimens of that cancer are left out (the nested lists are empty).",
+            "x-provenance": {
+              "default": [
+                "S02:p.21 Q7:5 If 'no', go to question 7:9",
+                "S02:p.22 Q7:8 If yes, how old were you at that time?"
+              ]
+            },
+            "if": {
+              "required": [
+                "R0_BreastCancer"
+              ],
+              "properties": {
+                "R0_BreastCancer": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_CancerType": {
+                  "const": -999
+                },
+                "R0_AgeAtDiagnosis": {
+                  "const": -999
+                },
+                "R0_CancerBreastLocation": {
+                  "const": -999
+                },
+                "R0_BreastCancerSurgery": {
+                  "const": -999
+                },
+                "R0_SurgeryType": {
+                  "const": -999
+                },
+                "R0_SurgeryOtherSpecify": {
+                  "const": "MISSING"
+                },
+                "R0_RadiotherapyReceived": {
+                  "const": -999
+                },
+                "R0_RadiotherapyStartMonth": {
+                  "const": -999
+                },
+                "R0_RadiotherapyStartYear": {
+                  "const": -999
+                },
+                "R0_RadiotherapyEndMonth": {
+                  "const": -999
+                },
+                "R0_RadiotherapyEndYear": {
+                  "const": -999
+                },
+                "R0_RadiotherapyHospital": {
+                  "const": "MISSING"
+                },
+                "R0_RadiotherapyTown": {
+                  "const": "MISSING"
+                },
+                "R0_BCDrugTreatmentReceived": {
+                  "const": -999
+                },
+                "BreastCancersExtra": {
+                  "maxItems": 0
+                },
+                "DrugTreatment": {
+                  "maxItems": 0
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Skip pattern R016: the participant did not answer Yes to surgery for this cancer (0 or 2), so the type of surgery and the description are structurally not applicable. Questionnaire p.21 Q7:5: 'If yes for surgery, did you have?'.",
+            "x-provenance": {
+              "default": [
+                "S02:p.21 Q7:5 If 'yes' for surgery, did you have?"
+              ]
+            },
+            "if": {
+              "required": [
+                "R0_BreastCancerSurgery"
+              ],
+              "properties": {
+                "R0_BreastCancerSurgery": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_SurgeryType": {
+                  "const": -999
+                },
+                "R0_SurgeryOtherSpecify": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Skip pattern R017: the type of surgery is not Other (5), so the description is structurally not applicable -- it must carry the missing-string sentinel. Questionnaire p.21 Q7:5: 'Other, specify'.",
+            "x-provenance": {
+              "default": "S02:p.21 Q7:5 Other, specify"
+            },
+            "if": {
+              "required": [
+                "R0_SurgeryType"
+              ],
+              "properties": {
+                "R0_SurgeryType": {
+                  "not": {
+                    "const": 5
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_SurgeryOtherSpecify": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Skip pattern R018: the participant did not answer Yes to radiotherapy for this cancer (0 or 2), so its dates, hospital and town are structurally not applicable. Questionnaire p.22 Q7:6: 'If yes for radiotherapy ...'.",
+            "x-provenance": {
+              "default": [
+                "S02:p.22 Q7:6 If 'yes' for radiotherapy"
+              ]
+            },
+            "if": {
+              "required": [
+                "R0_RadiotherapyReceived"
+              ],
+              "properties": {
+                "R0_RadiotherapyReceived": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_RadiotherapyStartMonth": {
+                  "const": -999
+                },
+                "R0_RadiotherapyStartYear": {
+                  "const": -999
+                },
+                "R0_RadiotherapyEndMonth": {
+                  "const": -999
+                },
+                "R0_RadiotherapyEndYear": {
+                  "const": -999
+                },
+                "R0_RadiotherapyHospital": {
+                  "const": "MISSING"
+                },
+                "R0_RadiotherapyTown": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Breast cancer routing R019: the participant did not answer Yes to drug treatment for this cancer (7:7: 'If no, go to question 7:8'), so it has no drug regimens (the nested list is empty).",
+            "x-provenance": {
+              "default": [
+                "S02:p.22 Q7:7 If 'no', go to question 7:8"
+              ]
+            },
+            "if": {
+              "required": [
+                "R0_BCDrugTreatmentReceived"
+              ],
+              "properties": {
+                "R0_BCDrugTreatmentReceived": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "DrugTreatment": {
+                  "maxItems": 0
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Breast cancer routing R024: the 2nd and the 3rd cancer have room for 2 drug regimens only, the 1st for 6 (the questionnaire and the dictionary's columns).",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 31"
+              ]
+            },
+            "if": {
+              "required": [
+                "R0_BreastCancer_Num"
+              ],
+              "properties": {
+                "R0_BreastCancer_Num": {
+                  "enum": [
+                    2,
+                    3
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "DrugTreatment": {
+                  "maxItems": 2
+                }
+              }
+            }
+          }
+        ]
+      },
+      "x-pii": false
+    },
+    "R0_MoreDrugEpisodesFirstBC": {
+      "title": "More than 2 episodes of drug treatment for the 1st cancer (details on page 15:1)",
+      "description": "Flag whether the participant had more than two episodes of drug treatment for 1st cancer or pre-cancer.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 831",
+          "S02:p.22 Q7:7 If you have had more than two episodes of drug treatment, please cross here and fill in the details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes, more episodes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q7_7_14",
+      "x-questionID": 1213,
+      "x-answerIDs": {
+        "1": 810
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "BreastCancers",
+    "R0_MoreDrugEpisodesFirstBC"
+  ]
+}

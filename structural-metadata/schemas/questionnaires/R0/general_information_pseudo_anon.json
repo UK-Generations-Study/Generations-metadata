@@ -1,0 +1,1039 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/general_information_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — General Information (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from general_information.json containing Contact details, demographics, and identifying information collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_AddrChanged": {
+      "title": "Has the participant moved addresses since filling out the last questionnaire?",
+      "description": "Has the participant moved addresses since filling out the last questionnaire?",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 5",
+          "S02:Source question (1:2) Has your home address changed from the one at which we mailed you?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes, address changed"
+        },
+        {
+          "const": 2,
+          "title": "No, address not changed"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "AddrChanged_1",
+      "x-questionID": 4,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_DayEvnOne": {
+      "title": "When can the participant be contacted on telephone number 1?",
+      "description": "When can the participant be contacted on telephone number 1?",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 13",
+          "S02:Source question (1:3) when can you be contacted on telephone number 1?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Day"
+        },
+        {
+          "const": 2,
+          "title": "Evening"
+        },
+        {
+          "const": 3,
+          "title": "Either time of day"
+        },
+        {
+          "const": 4,
+          "title": "Day and either"
+        },
+        {
+          "const": 5,
+          "title": "Evening and either"
+        },
+        {
+          "const": 6,
+          "title": "Day, evening, or either"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "DayEvn1_1",
+      "x-questionID": 12,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 21,
+        "2": 22,
+        "3": 23,
+        "4": 62,
+        "5": 63,
+        "6": 64
+      },
+      "x-pii": false
+    },
+    "R0_DayEvnTwo": {
+      "title": "When can the participant be contacted on telephone number 2?",
+      "description": "When can the participant be contacted on telephone number 2?",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 16",
+          "S02:Source question (1:3) when can you be contacted on telephone number 2?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Day"
+        },
+        {
+          "const": 2,
+          "title": "Evening"
+        },
+        {
+          "const": 3,
+          "title": "Either time of day"
+        },
+        {
+          "const": 4,
+          "title": "Day and either"
+        },
+        {
+          "const": 5,
+          "title": "Evening and either"
+        },
+        {
+          "const": 6,
+          "title": "Day, evening, or either"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "DayEvn2_1",
+      "x-questionID": 12,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 21,
+        "2": 22,
+        "3": 23,
+        "4": 62,
+        "5": 63,
+        "6": 64
+      },
+      "x-pii": false
+    },
+    "R0_EmailYN": {
+      "title": "Whether the participant would be happy to be contacted by email in future",
+      "description": "If the participant be happy to be contacted by email in the future.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 18",
+          "S02:Source question (1:4) Would you be happy to be contacted by email in the future?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "const": 3,
+          "title": "No email"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "EmailYN_1",
+      "x-questionID": 17,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "3": 27
+      },
+      "x-pii": false
+    },
+    "R0_GPdk": {
+      "title": "Does not know GP's name",
+      "description": "Participant doesn't know name of their GP.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 20",
+          "S02:Source question (1:5) Don't know the GP name"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "All participants; companion flag to R0_GP, per BaselineMetadata.xlsx AnswerID=3.",
+      "x-formerName": "GPdn",
+      "x-questionID": 19,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_LeftEducAge": {
+      "title": "Age left full-time education (years)",
+      "description": "Age participant was when they left full-time education, if not currently a student.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 25",
+          "S02:Source question (1:9) How old were you when you left full-time education(if you are not currently a student)?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_9",
+      "x-questionID": 24,
+      "x-pii": false
+    },
+    "R0_MaritalStatus": {
+      "title": "Current marital status",
+      "description": "Current marital status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 26",
+          "S02:Source question (1:10) What is your current marital status?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Single, never married"
+        },
+        {
+          "const": 2,
+          "title": "Married"
+        },
+        {
+          "const": 3,
+          "title": "Separated/divorced"
+        },
+        {
+          "const": 4,
+          "title": "Cohabiting"
+        },
+        {
+          "const": 5,
+          "title": "Widowed"
+        },
+        {
+          "const": 6,
+          "title": "Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_10_1",
+      "x-questionID": 25,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 39,
+        "2": 40,
+        "3": 41,
+        "4": 42,
+        "5": 43,
+        "6": 13
+      },
+      "x-pii": false
+    },
+    "R0_MaritalStatusOther": {
+      "title": "Other marital status explanation",
+      "description": "Other marital status explanation.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 27",
+          "S02:Source question (1:10) Other Marital status"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_MaritalStatus = 6 (Other).",
+      "x-formerName": "Q1_10other",
+      "x-questionID": 26,
+      "x-pii": false
+    },
+    "R0_PartnerOccup": {
+      "title": "If married or cohabiting, the current or former usual occupation of the partner of the participant",
+      "description": "If married or cohabiting, the current or former usual occupation of the partner of the participant.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 28",
+          "S02:Source question (1:10) If married or cohabiting, what is your husband’s/partner’s current or former usual occupation?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_MaritalStatus = 2 (Married) or 4 (Cohabiting).",
+      "x-formerName": "Q1_10occu",
+      "x-questionID": 27,
+      "x-pii": false
+    },
+    "R0_EthnGroup": {
+      "title": "Single choice question about which ethnic group the participant belongs to",
+      "description": "Single choice question about which ethnic group the participant belongs to.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 29",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? (single choice)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "White"
+        },
+        {
+          "const": 2,
+          "title": "Indian"
+        },
+        {
+          "const": 3,
+          "title": "Jewish-Ashkenazi"
+        },
+        {
+          "const": 4,
+          "title": "Black-Caribbean"
+        },
+        {
+          "const": 5,
+          "title": "Pakistani"
+        },
+        {
+          "const": 6,
+          "title": "Jewish-Sephardi"
+        },
+        {
+          "const": 7,
+          "title": "Black-African"
+        },
+        {
+          "const": 8,
+          "title": "Bangladeshi"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/none_of_these",
+          "$comment": "local code 9 (None of these) recoded by the ETL sentinel step"
+        },
+        {
+          "const": 10,
+          "title": "Black-Other"
+        },
+        {
+          "const": 11,
+          "title": "Chinese"
+        },
+        {
+          "const": "A",
+          "title": "White — UK ancestry"
+        },
+        {
+          "const": "B",
+          "title": "None of these — white and non-white"
+        },
+        {
+          "const": "C",
+          "title": "None of these — non-white (other)"
+        },
+        {
+          "const": "D",
+          "title": "Jewish — other or not specified"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_1_fast",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "-333": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupWhite": {
+      "title": "Participant considers themselves White, from the UK or not",
+      "description": "Whether the participant ticked White (from the UK or not) as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 30",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - White"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "White"
+        },
+        {
+          "const": 12,
+          "title": "White — UK ancestry"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_1",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "12": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupIndian": {
+      "title": "Participant considers themselves Indian",
+      "description": "Whether the participant ticked Indian as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 31",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Indian"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 2,
+          "title": "Indian"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_2",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupJAshk": {
+      "title": "Participant considers themselves Jewish, Ashkenazi or other",
+      "description": "Whether the participant ticked Jewish-Ashkenazi, or another Jewish group not specified, as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 32",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Jewish-Ashkenazi"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 3,
+          "title": "Jewish-Ashkenazi"
+        },
+        {
+          "const": 15,
+          "title": "Jewish — other or not specified"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_3",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "15": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupBlkCarib": {
+      "title": "Participant considers themselves Black-Caribbean",
+      "description": "Whether the participant ticked Black-Caribbean as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 33",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Black-Caribbean"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 4,
+          "title": "Black-Caribbean"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_4",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupPakistani": {
+      "title": "Participant considers themselves Pakistani",
+      "description": "Whether the participant ticked Pakistani as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 34",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Pakistani"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 5,
+          "title": "Pakistani"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_5",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupJSeph": {
+      "title": "Participant considers themselves Jewish-Sephardi",
+      "description": "Whether the participant ticked Jewish-Sephardi as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 35",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Jewish-Sephardi"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 6,
+          "title": "Jewish-Sephardi"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_6",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupBlkAfr": {
+      "title": "Participant considers themselves Black-African",
+      "description": "Whether the participant ticked Black-African as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 36",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Black-African"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 7,
+          "title": "Black-African"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_7",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupBngldsh": {
+      "title": "Participant considers themselves Bangladeshi",
+      "description": "Whether the participant ticked Bangladeshi as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 37",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Bangladeshi"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 8,
+          "title": "Bangladeshi"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_8",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupNone": {
+      "title": "Participant considers themselves none of these ethnicities",
+      "description": "Whether the participant ticked none of the listed ethnic groups, including a mix of white and non-white or another non-white group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 38",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - None of these"
+        ]
+      },
+      "oneOf": [
+        {
+          "$ref": "../../../defs.json#/$defs/none_of_these",
+          "$comment": "local code 9 (None of these) recoded by the ETL sentinel step"
+        },
+        {
+          "const": 13,
+          "title": "None of these — white and non-white"
+        },
+        {
+          "const": 14,
+          "title": "None of these — non-white (other)"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_9",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "-333": 4,
+        "A": 58,
+        "13": 60,
+        "14": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupBlkOther": {
+      "title": "Participant considers themselves Black-Other",
+      "description": "Whether the participant ticked Black-Other as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 39",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Black-Other"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 10,
+          "title": "Black-Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_10",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupChinese": {
+      "title": "Participant considers themselves Chinese",
+      "description": "Whether the participant ticked Chinese as their ethnic group.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 40",
+          "S02:Source question (1:11) To which ethnic group do you consider you belong? - Chinese"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 11,
+          "title": "Chinese"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q1_11_11",
+      "x-questionID": 28,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 47,
+        "10": 65,
+        "11": 56,
+        "2": 48,
+        "3": 49,
+        "4": 50,
+        "5": 51,
+        "6": 52,
+        "7": 53,
+        "8": 54,
+        "9": 4,
+        "A": 58,
+        "B": 60,
+        "C": 61,
+        "D": 59
+      },
+      "x-pii": false
+    },
+    "R0_EthnGroupSelfDesc": {
+      "title": "Participant considers themselves another self described ethnicity",
+      "description": "Participant considers themselves another self described ethnicity.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 41",
+          "S02:Source question (1:11) If none of the ethnic group displayed, how would you describe yourself?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when the participant's ethnicity response is 'None of these' (R0_EthnGroup const 9, 'B', or 'C').",
+      "x-formerName": "Q1_11other",
+      "x-questionID": 40,
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_AddrChanged",
+    "R0_DayEvnOne",
+    "R0_DayEvnTwo",
+    "R0_EmailYN",
+    "R0_GPdk",
+    "R0_LeftEducAge",
+    "R0_MaritalStatus",
+    "R0_MaritalStatusOther",
+    "R0_PartnerOccup",
+    "R0_EthnGroup",
+    "R0_EthnGroupWhite",
+    "R0_EthnGroupIndian",
+    "R0_EthnGroupJAshk",
+    "R0_EthnGroupBlkCarib",
+    "R0_EthnGroupPakistani",
+    "R0_EthnGroupJSeph",
+    "R0_EthnGroupBlkAfr",
+    "R0_EthnGroupBngldsh",
+    "R0_EthnGroupNone",
+    "R0_EthnGroupBlkOther",
+    "R0_EthnGroupChinese",
+    "R0_EthnGroupSelfDesc"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern: the participant's marital status is not 'Other' (6), so an explanation is structurally not applicable -- R0_MaritalStatusOther must carry the missing-string sentinel.",
+      "if": {
+        "required": [
+          "R0_MaritalStatus"
+        ],
+        "properties": {
+          "R0_MaritalStatus": {
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_MaritalStatusOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant is neither married (2) nor cohabiting (4), so a partner's occupation is structurally not applicable -- R0_PartnerOccup must carry the missing-string sentinel.",
+      "if": {
+        "required": [
+          "R0_MaritalStatus"
+        ],
+        "properties": {
+          "R0_MaritalStatus": {
+            "enum": [
+              0,
+              1,
+              3,
+              5,
+              6
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_PartnerOccup": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant's ethnicity response is not 'None of these' (9, 'B', or 'C'), so a self-described ethnicity is structurally not applicable -- R0_EthnGroupSelfDesc must carry the missing-string sentinel.",
+      "if": {
+        "required": [
+          "R0_EthnGroup"
+        ],
+        "properties": {
+          "R0_EthnGroup": {
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              10,
+              11,
+              "A",
+              "D"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_EthnGroupSelfDesc": {
+            "const": "MISSING"
+          }
+        }
+      }
+    }
+  ]
+}

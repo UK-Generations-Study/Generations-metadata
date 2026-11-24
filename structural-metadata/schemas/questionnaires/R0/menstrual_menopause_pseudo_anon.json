@@ -1,0 +1,2701 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/menstrual_menopause_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Menstrual and Menopause (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from menstrual_menopause.json containing Periods, menstrual cycle, the cessation of periods and menopause, operations on the ovaries or uterus, and diagnosed ovarian and uterine disease, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_EverHadPeriods": {
+      "title": "Whether the participant has ever had any periods",
+      "description": "Participant has ever experienced menstrual periods.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No; A Assumed yes (a letter code the questionnaire does not print, kept as the dictionary gives it).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 170",
+          "S02:p.10 Q4:1 Have you ever had any periods? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "const": "A",
+          "title": "Assumed yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q4_1_1",
+      "x-questionID": 401,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "A": 9
+      },
+      "x-pii": false
+    },
+    "R0_FirstPeriodAge": {
+      "title": "Age at the first period (years)",
+      "description": "Age at participant's first menstrual period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 171",
+          "S02:p.10 Q4:1 If yes, how old were you when you had your first period? years"
+        ],
+        "minimum": "S01:Questions row 171"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "x-formerName": "Q4_1years",
+      "x-questionID": 402,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_RegularCyclesStartAge": {
+      "title": "Age when regular cycles began (years)",
+      "description": "Age when menstrual cycles became regular.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 172",
+          "S02:p.10 Q4:2 How old were you when you began having regular cycles? years"
+        ],
+        "minimum": "S01:Questions row 172"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "x-formerName": "Q4_2years",
+      "x-questionID": 403,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_NeverRegularCycles": {
+      "title": "Never had regular cycles, or does not remember when they began",
+      "description": "Participant never had regular menstrual cycles.",
+      "$comment": "Two tick boxes of the form held in one field: 1 Never had regular cycles (AnswerID 503); 2 Don't remember (AnswerID 5).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 173",
+          "S02:p.10 Q4:2 Never had regular cycles Don't remember"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Never had regular cycles"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_remember",
+          "$comment": "local code 2 (Don't remember) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "x-formerName": "Q4_2cycles_1",
+      "x-questionID": 404,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 503,
+        "-777": 5
+      },
+      "x-pii": false
+    },
+    "R0_HowPeriodsReg": {
+      "title": "How the periods became regular",
+      "description": "Method by which menstrual cycles became regular.",
+      "$comment": "Code 2 is 'Never did become regular' on the form; the dictionary's AnswerText reads 'Never did become irregular'. The form's wording is used.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 174",
+          "S02:p.10 Q4:3 How did your periods become regular? Naturally Never did become regular Birth control pills After pregnancy Other"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Naturally"
+        },
+        {
+          "const": 2,
+          "title": "Never did become regular"
+        },
+        {
+          "const": 3,
+          "title": "Birth control pills"
+        },
+        {
+          "const": 4,
+          "title": "After pregnancy"
+        },
+        {
+          "const": 5,
+          "title": "Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "x-formerName": "Q4_3_1",
+      "x-questionID": 405,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 504,
+        "2": 505,
+        "3": 506,
+        "4": 507,
+        "5": 13
+      },
+      "x-pii": false
+    },
+    "CycleDays": {
+      "title": "Usual menstrual cycle length by age band",
+      "description": "Days from the first day of one period to the first day of the next, now and around ages 20 and 40. The questionnaire asks for the participant now and for around 20 years of age and around 40 years of age (page 10). A band is always present; one the participant left out carries -999.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 30"
+        ],
+        "maxItems": "S01:ArrayDef row 30"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_CycleDays_Num": {
+            "x-role": "entity key",
+            "title": "Which time this answer refers to (now, around age 20 or around age 40)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 30",
+              "values": "S01:ArrayDef row 30"
+            },
+            "oneOf": [
+              {
+                "const": "Cur",
+                "title": "Now"
+              },
+              {
+                "const": "20",
+                "title": "Around age 20"
+              },
+              {
+                "const": "40",
+                "title": "Around age 40"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_CycleDays": {
+            "title": "Usual cycle length (days)",
+            "description": "Menstrual cycle length of time period in days.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 175",
+                "S02:p.10 Q4:4 About how many days were there usually from the first day of one menstrual period to the first day of the next? Days Don't know"
+              ],
+              "minimum": "S01:Questions row 175"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q4_4_1",
+              "Q4_4_2",
+              "Q4_4_3"
+            ],
+            "x-questionID": 406,
+            "x-pii": false,
+            "x-unit": "days"
+          },
+          "R0_CycleDays_Unkn": {
+            "title": "Does not know the cycle length (tick box)",
+            "description": "Menstrual cycle length of time period in days unknown flag.",
+            "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 176",
+                "S02:p.10 Q4:4 About how many days were there usually from the first day of one menstrual period to the first day of the next? Days Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't know"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "The 'Don't know' tick box under 4:4.",
+            "x-formerName": [
+              "Q4_4_dn1",
+              "Q4_4_dn2",
+              "Q4_4_dn3"
+            ],
+            "x-questionID": 407,
+            "x-answerIDs": {
+              "1": 3
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_CycleDays_Num",
+          "R0_CycleDays",
+          "R0_CycleDays_Unkn"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "BreastDiscomfort": {
+      "title": "Breast discomfort before periods by age band",
+      "description": "Whether the participant usually had breast discomfort before the start of a period, now and around ages 20 and 40. The questionnaire asks for the participant now and for around 20 years of age and around 40 years of age (page 10). A band is always present; one the participant left out carries -999.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 26"
+        ],
+        "maxItems": "S01:ArrayDef row 26"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_BreastDiscomfort_Num": {
+            "x-role": "entity key",
+            "title": "Which time this answer refers to (now, around age 20 or around age 40)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 26",
+              "values": "S01:ArrayDef row 26"
+            },
+            "oneOf": [
+              {
+                "const": "Cur",
+                "title": "Now"
+              },
+              {
+                "const": "20",
+                "title": "Around age 20"
+              },
+              {
+                "const": "40",
+                "title": "Around age 40"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_BreastDiscomfort": {
+            "title": "Breast discomfort before periods",
+            "description": "Breast discomfort before period.",
+            "$comment": "Source coding as the dictionary gives it: 0 More than one option chosen; 1 No; 2 Yes; 3 Not applicable; 4 Don't know. Note that 1 is No and 2 is Yes here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 181",
+                "S02:p.10 Q4:5 Did you usually have any breast discomfort before the start of your periods? No Yes Not applicable Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "No"
+              },
+              {
+                "const": 2,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/not_applicable",
+                "$comment": "local code 3 (Not applicable) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_know",
+                "$comment": "local code 4 (Don't know) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q4_5_1_1",
+              "Q4_5_2_1",
+              "Q4_5_3_1"
+            ],
+            "x-questionID": 412,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 2,
+              "2": 1,
+              "-666": 6,
+              "-888": 3
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_BreastDiscomfort_Num",
+          "R0_BreastDiscomfort"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "IrregularCycles": {
+      "title": "Irregular cycles by age band",
+      "description": "Whether the cycles were irregular (could not be predicted within 5 days either way), now and around ages 20 and 40. The questionnaire asks for the participant now and for around 20 years of age and around 40 years of age (page 10). A band is always present; one the participant left out carries -999.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 39"
+        ],
+        "maxItems": "S01:ArrayDef row 39"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_IrregularCycles_Num": {
+            "x-role": "entity key",
+            "title": "Which time this answer refers to (now, around age 20 or around age 40)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 39",
+              "values": "S01:ArrayDef row 39"
+            },
+            "oneOf": [
+              {
+                "const": "Cur",
+                "title": "Now"
+              },
+              {
+                "const": "20",
+                "title": "Around age 20"
+              },
+              {
+                "const": "40",
+                "title": "Around age 40"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_IrregularCycles": {
+            "title": "Irregular cycles",
+            "description": "Irregular menstrual cycles.",
+            "$comment": "Source coding as the dictionary gives it: 0 More than one option chosen; 1 No; 2 Yes; 3 Not applicable; 4 Don't know. Note that 1 is No and 2 is Yes here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 184",
+                "S02:p.10 Q4:6 Did you have irregular cycles around these ages? No Yes Not applicable Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "No"
+              },
+              {
+                "const": 2,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/not_applicable",
+                "$comment": "local code 3 (Not applicable) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_know",
+                "$comment": "local code 4 (Don't know) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q4_6_1_1",
+              "Q4_6_2_1",
+              "Q4_6_3_1"
+            ],
+            "x-questionID": 415,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 2,
+              "2": 1,
+              "-666": 6,
+              "-888": 3
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_IrregularCycles_Num",
+          "R0_IrregularCycles"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "FlowDays": {
+      "title": "Days of menstrual flow by age band",
+      "description": "Average number of days of flow, now and around ages 20 and 40. The questionnaire asks for the participant now and for around 20 years of age and around 40 years of age (page 10). A band is always present; one the participant left out carries -999.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 34"
+        ],
+        "maxItems": "S01:ArrayDef row 34"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_FlowDays_Num": {
+            "x-role": "entity key",
+            "title": "Which time this answer refers to (now, around age 20 or around age 40)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 34",
+              "values": "S01:ArrayDef row 34"
+            },
+            "oneOf": [
+              {
+                "const": "Cur",
+                "title": "Now"
+              },
+              {
+                "const": "20",
+                "title": "Around age 20"
+              },
+              {
+                "const": "40",
+                "title": "Around age 40"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_FlowDays": {
+            "title": "Days of flow on average",
+            "description": "Average days of menstrual flow.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 187",
+                "S02:p.10 Q4:7 What was the number of days of flow, on average? Days"
+              ],
+              "minimum": "S01:Questions row 187"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q4_7_1",
+              "Q4_7_2",
+              "Q4_7_3"
+            ],
+            "x-questionID": 418,
+            "x-pii": false,
+            "x-unit": "days"
+          }
+        },
+        "required": [
+          "R0_FlowDays_Num",
+          "R0_FlowDays"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "PeriodsStopped": {
+      "title": "Occasions when the periods stopped temporarily",
+      "description": "One entry per occasion when the periods stopped for more than three months while not pregnant, breastfeeding or on the pill, up to 4, in the order reported. The first is printed on page 11 and further occasions go on page 15:1; more than one is flagged by R0_TempStopMoreThreeMnths and more than four by R0_TempStopMoreThan.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 47",
+          "S02:p.11 Q4:8 Have your periods ever temporarily stopped ..."
+        ],
+        "minItems": "S01:ArrayDef row 47",
+        "maxItems": "S01:ArrayDef row 47"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 4,
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_PeriodsStopped_Num": {
+            "x-role": "entity key",
+            "title": "Which occasion this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 47",
+              "maximum": "S01:ArrayDef row 47"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "x-pii": false
+          },
+          "R0_TempStopped": {
+            "title": "Whether the periods stopped temporarily for more than three months",
+            "description": "Temporary cessation of menstrual periods.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 190",
+                "S02:p.11 Q4:8 Have your periods ever temporarily stopped ... for more than three months ... Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q4_8_1",
+              "tempstop2",
+              "tempstop3",
+              "tempstop4"
+            ],
+            "x-questionID": 421,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "R0_TempStoppedAge": {
+            "title": "Age when the periods stopped temporarily (years)",
+            "description": "Age when periods stopped temporarily.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 191",
+                "S02:p.11 Q4:8 If yes, how old were you when your periods stopped temporarily? years"
+              ],
+              "minimum": "S01:Questions row 191"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the periods stopped temporarily (R0_TempStopped = 1); 4:8 says 'If yes, how old were you when your periods stopped temporarily?'.",
+            "x-formerName": [
+              "Q4_8age",
+              "tempstopage2",
+              "tempstopage3",
+              "tempstopage4"
+            ],
+            "x-questionID": 422,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_TempStoppedYrs": {
+            "title": "How long the periods stopped: whole years",
+            "description": "Years periods stopped temporarily.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 192",
+                "S02:p.11 Q4:8 For how long did your periods stop? Years"
+              ],
+              "minimum": "S01:Questions row 192"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the periods stopped temporarily (R0_TempStopped = 1); 4:8 says 'If yes, how old were you when your periods stopped temporarily?'.",
+            "x-formerName": [
+              "Q4_8years",
+              "tempstopyrs2",
+              "tempstopyrs3",
+              "tempstopyrs4"
+            ],
+            "x-questionID": 423,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_TempStoppedMths": {
+            "title": "How long the periods stopped: months",
+            "description": "Months periods stopped temporarily.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 193",
+                "S02:p.11 Q4:8 For how long did your periods stop? Months"
+              ],
+              "minimum": "S01:Questions row 193"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the periods stopped temporarily (R0_TempStopped = 1); 4:8 says 'If yes, how old were you when your periods stopped temporarily?'.",
+            "x-formerName": [
+              "Q4_8months",
+              "tempstopmths2",
+              "tempstopmths3",
+              "tempstopmths4"
+            ],
+            "x-questionID": 424,
+            "x-pii": false,
+            "x-unit": "months"
+          },
+          "R0_TempStoppedReason": {
+            "title": "Reason the periods stopped temporarily",
+            "description": "Reason for temporary cessation of periods.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 194",
+                "S02:p.11 Q4:8 What was the reason for your periods stopping temporarily?"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the periods stopped temporarily (R0_TempStopped = 1); 4:8 says 'If yes, how old were you when your periods stopped temporarily?'.",
+            "x-formerName": [
+              "Q4_8reason",
+              "tempstopreason2",
+              "tempstopreason3",
+              "tempstopreason4"
+            ],
+            "x-questionID": 425,
+            "x-pii": false
+          },
+          "PeriodsStoppedExtra": {
+            "title": "Further timing details of the 2nd to 4th occasion",
+            "description": "When the periods stopped and started again: the month and year of each, and the age at which they started again.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 48"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "x-universe": "Only the 2nd to 4th occasion have it (the dictionary block PeriodsStoppedExtra).",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_TempStopToAge": {
+                  "title": "Age when the periods started again (years)",
+                  "description": "Age at which periods returned after previous stopping instance.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 243"
+                    ],
+                    "minimum": "S01:Questions row 243"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd to 4th occasion have it (the dictionary block PeriodsStoppedExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "tempstoptoage2",
+                    "tempstoptoage3",
+                    "tempstoptoage4"
+                  ],
+                  "x-questionID": 474,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_TemporaryPeriodStop_Start_Shifted": {
+                  "title": "R0_TemporaryPeriodStop_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_TempStopFromMth",
+                    "R0_TempStopFromYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_TemporaryPeriodStop_End_Shifted": {
+                  "title": "R0_TemporaryPeriodStop_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_TempStopToMth",
+                    "R0_TempStopToYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_TempStopToAge",
+                "R0_TemporaryPeriodStop_Start_Shifted",
+                "R0_TemporaryPeriodStop_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_PeriodsStopped_Num",
+          "R0_TempStopped",
+          "R0_TempStoppedAge",
+          "R0_TempStoppedYrs",
+          "R0_TempStoppedMths",
+          "R0_TempStoppedReason",
+          "PeriodsStoppedExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_TempStopMoreThreeMnths": {
+      "title": "Another occasion when the periods stopped for more than 3 months",
+      "description": "Additional instances of menstrual stoppage.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 195",
+          "S02:p.11 Q4:8 If there was another occasion when your periods stopped temporarily for more than 3 months, please cross this box and give details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "x-formerName": "Q4_8more",
+      "x-questionID": 426,
+      "x-answerIDs": {
+        "1": 519
+      },
+      "x-pii": false
+    },
+    "R0_TempStopMoreThan": {
+      "title": "More than 4 occasions when the periods stopped for more than 3 months",
+      "description": "Flag field indicating more than 4 occasions when the participant's period stopped for more than 3 months.",
+      "$comment": "Not printed on the questionnaire pages 10 to 13; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 268"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "tempstopmorethan",
+      "x-questionID": 499,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_PeriodsStoppedPerm": {
+      "title": "Whether the periods have now stopped completely",
+      "description": "Permanent cessation of menstrual periods.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No; 3 Don't know; 4 Not applicable.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 196",
+          "S02:p.11 Q4:9 Have your periods now stopped completely? Yes No Not applicable Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/not_applicable",
+          "$comment": "local code 4 (Not applicable) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EverHadPeriods = 1 (Yes) or A (assumed yes); 4:1 says 'If no, go to question 4.10'.",
+      "x-formerName": "Q4_9_1_1",
+      "x-questionID": 427,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3,
+        "-666": 6
+      },
+      "x-pii": false
+    },
+    "R0_HRTPeriodsUnclear": {
+      "title": "HRT caused periods, so the age at natural menopause is not known",
+      "description": "HRT use obscuring natural menopause timing.",
+      "$comment": "Tick box. Source coding: 1 Yes (AnswerID 520).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 197",
+          "S02:p.11 Q4:9 If shortly before the age at which you expected your periods to cease, you started to take hormone replacement therapy ... please cross this box and go to question 4:10."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_PeriodsStoppedPerm = 1 (Yes); 4:9 says 'If no go to question 4:10'.",
+      "x-formerName": "Q4_9_2",
+      "x-questionID": 428,
+      "x-answerIDs": {
+        "1": 520
+      },
+      "x-pii": false
+    },
+    "R0_MenopauseAge": {
+      "title": "Age when the periods stopped completely (years)",
+      "description": "Age at menopause.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 198",
+          "S02:p.11 Q4:9 If your periods have stopped, how old were you when your periods stopped completely? years"
+        ],
+        "minimum": "S01:Questions row 198"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_PeriodsStoppedPerm = 1 (Yes); 4:9 says 'If no go to question 4:10'.",
+      "x-formerName": "Q4_9_3",
+      "x-questionID": 429,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_PeriodsStoppedReason": {
+      "title": "Reason the periods stopped completely",
+      "description": "Reason for permanent cessation of periods.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 to 5 as printed; A to H are letter answers the questionnaire does not print, kept as answers (as the cancer type).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 199",
+          "S02:p.11 Q4:9 What was the reason for your periods stopping? Natural menopause Surgery Chemotherapy, radiation, or other treatment Don't know Other"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Natural menopause"
+        },
+        {
+          "const": 2,
+          "title": "Surgery"
+        },
+        {
+          "const": 3,
+          "title": "Chemotherapy/radiation"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 4 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "const": 5,
+          "title": "Other"
+        },
+        {
+          "const": "A",
+          "title": "Currently using hormonal contraceptives"
+        },
+        {
+          "const": "B",
+          "title": "HRT use (N.B. should have ticked HRT box)"
+        },
+        {
+          "const": "C",
+          "title": "Stress"
+        },
+        {
+          "const": "D",
+          "title": "Breastfeeding/pregnancy"
+        },
+        {
+          "const": "E",
+          "title": "Perimenopause"
+        },
+        {
+          "const": "F",
+          "title": "Using hormonal contraceptives/treatment when natural menopause occurred"
+        },
+        {
+          "const": "G",
+          "title": "Eating disorder/low weight"
+        },
+        {
+          "const": "H",
+          "title": "Specified illness"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_PeriodsStoppedPerm = 1 (Yes); 4:9 says 'If no go to question 4:10'.",
+      "x-formerName": "Q4_9_4_1",
+      "x-questionID": 430,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 522,
+        "2": 523,
+        "3": 524,
+        "-888": 3,
+        "5": 13,
+        "A": 544,
+        "B": 545,
+        "C": 546,
+        "D": 547,
+        "E": 548,
+        "F": 549,
+        "G": 550,
+        "H": 551
+      },
+      "x-pii": false
+    },
+    "R0_PeriodsStoppedReasonOther": {
+      "title": "Other reason the periods stopped completely",
+      "description": "Other specified reason for menstrual cessation.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 200",
+          "S02:p.11 Q4:9 If other, please specify"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only when the reason is Other (5); 4:9 says 'If other, please specify'.",
+      "x-formerName": "Q4_9_5",
+      "x-questionID": 431,
+      "x-pii": false
+    },
+    "R0_PreMenopauseCycle": {
+      "title": "How the cycle was before the last period",
+      "description": "Cycle regularity before menopause.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Regular until last period; 2 Irregular for certain time; 3 Always irregular.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 201",
+          "S02:p.11 Q4:9 Before your last period how would you describe your cycle? Regular until my last period Irregular for years before my last period Always irregular"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Regular until last period"
+        },
+        {
+          "const": 2,
+          "title": "Irregular for certain time"
+        },
+        {
+          "const": 3,
+          "title": "Always irregular"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_PeriodsStoppedPerm = 1 (Yes); 4:9 says 'If no go to question 4:10'.",
+      "x-formerName": "Q4_9_6_1",
+      "x-questionID": 432,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 527,
+        "2": 528,
+        "3": 529
+      },
+      "x-pii": false
+    },
+    "R0_PreMenopauseYrs": {
+      "title": "Years the cycles were irregular before the last period",
+      "description": "Years of irregular cycles before menopause.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 202",
+          "S02:p.11 Q4:9 Irregular for years before my last period"
+        ],
+        "minimum": "S01:Questions row 202"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only when the cycle was irregular for a certain time (R0_PreMenopauseCycle = 2).",
+      "x-formerName": "Q4_9_7",
+      "x-questionID": 433,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_HotFlashes": {
+      "title": "Whether the participant had hot flushes during the menopause",
+      "description": "Experience of menopausal hot flashes.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 203",
+          "S02:p.11 Q4:9 Did you ever have hot flushes during your menopause? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_PeriodsStoppedPerm = 1 (Yes); 4:9 says 'If no go to question 4:10'.",
+      "x-formerName": "Q4_9_8_1",
+      "x-questionID": 434,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "OvaryUterusOperations": {
+      "title": "Operations on the ovaries or uterus",
+      "description": "One entry per operation on the ovaries or uterus (womb), up to 4, in the order reported. The first two are printed on pages 12 and 13 and further operations go on page 15:1; more than two are flagged by R0_MoreOvaryUterusOp and more than four by R0_MoreThanFour_OUOp.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 18",
+          "S02:p.12 Q4:10 Have you ever had an operation on your ovaries or uterus (womb)?"
+        ],
+        "minItems": "S01:ArrayDef row 18",
+        "maxItems": "S01:ArrayDef row 18"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_OvaryUterusOp_Num": {
+            "x-role": "entity key",
+            "title": "Which operation this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 18",
+              "maximum": "S01:ArrayDef row 18"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "x-pii": false
+          },
+          "R0_OvaryUterusOp": {
+            "title": "Whether the participant had this operation on the ovaries or uterus",
+            "description": "Flag field whether or not the participant has ever had an operation on their ovaries or uterus.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. Slot 1 is 4:10, slot 2 is 4:11, slots 3 and 4 are on page 15:1.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 204",
+                "S02:p.12 Q4:10 Have you ever had an operation on your ovaries or uterus (womb)? Yes No (4:10 first, 4:11 further surgery)"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q4_10_1_1",
+              "Q4_11_1_1",
+              "op3",
+              "op4"
+            ],
+            "x-questionID": 435,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_BothOvaries": {
+            "title": "Operation: both ovaries removed",
+            "description": "Both ovaries removed during operation.",
+            "$comment": "Tick box. Source coding: 0 No; 1 Yes. The dictionary gives slots 3 and 4 the QuestionID 501 with 0 No and 1 Yes, and slots 1 and 2 the QuestionID 436 with a different code for each box; 0 and 1 are used for all four.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 205",
+                "S02:p.12 Q4:10 (cross as many as apply) Both ovaries removed"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_2_1",
+              "Q4_11_2_1",
+              "both_o3",
+              "both_o4"
+            ],
+            "x-questionID": 436,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 1
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_OneOvary": {
+            "title": "Operation: only one ovary removed",
+            "description": "Only one ovary removed during operation.",
+            "$comment": "Tick box. Source coding: 0 No; 1 Yes. The dictionary gives slots 3 and 4 the QuestionID 501 with 0 No and 1 Yes, and slots 1 and 2 the QuestionID 436 with a different code for each box; 0 and 1 are used for all four.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 206",
+                "S02:p.12 Q4:10 (cross as many as apply) Only one ovary removed, on the Left Right Don't know side"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_2_2",
+              "Q4_11_2_2",
+              "one_o3",
+              "one_o4"
+            ],
+            "x-questionID": 436,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 1
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_OneOvarySide": {
+            "title": "Side of the ovary removed (only one ovary removed)",
+            "description": "Side of unilateral ovary removal.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Left; 2 Right; 3 Don't know. The dictionary gives the three side fields the same property name R0_OvaryOp_OneOvarySide; each has its own name here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 207",
+                "S02:p.12 Q4:10 Only one ovary removed, on the Left Right Don't know side"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Left"
+              },
+              {
+                "const": 2,
+                "title": "Right"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_know",
+                "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_3_1",
+              "Q4_11_3_1",
+              "one_ovary3side",
+              "one_ovary4side"
+            ],
+            "x-questionID": 438,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 533,
+              "2": 534,
+              "-888": 3
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_PartialOvary": {
+            "title": "Operation: only part of an ovary removed",
+            "description": "Only part of an ovary removed during operation.",
+            "$comment": "Tick box. Source coding: 0 No; 1 Yes. The dictionary gives slots 3 and 4 the QuestionID 501 with 0 No and 1 Yes, and slots 1 and 2 the QuestionID 436 with a different code for each box; 0 and 1 are used for all four.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 208",
+                "S02:p.12 Q4:10 (cross as many as apply) Only part of an ovary removed, on the Left Right Don't know side"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_2_3",
+              "Q4_11_2_3",
+              "part_o3",
+              "part_o4"
+            ],
+            "x-questionID": 436,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 1
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_PartialOvarySide": {
+            "title": "Side of the ovary partly removed (only part of an ovary removed)",
+            "description": "Side of the ovary that was partly removed.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Left; 2 Right; 3 Don't know. The dictionary gives the three side fields the same property name R0_OvaryOp_OneOvarySide; each has its own name here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 209",
+                "S02:p.12 Q4:10 Only part of an ovary removed, on the Left Right Don't know side"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Left"
+              },
+              {
+                "const": 2,
+                "title": "Right"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_know",
+                "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_4_1",
+              "Q4_11_4_1",
+              "part_ovary3side",
+              "part_ovary4side"
+            ],
+            "x-questionID": 438,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 533,
+              "2": 534,
+              "-888": 3
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_Uterus": {
+            "title": "Operation: total or partial removal of the uterus (hysterectomy)",
+            "description": "Total or partial removal of the uterus (hysterectomy) during operation.",
+            "$comment": "Tick box. Source coding: 0 No; 1 Yes. The dictionary gives slots 3 and 4 the QuestionID 501 with 0 No and 1 Yes, and slots 1 and 2 the QuestionID 436 with a different code for each box; 0 and 1 are used for all four.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 210",
+                "S02:p.12 Q4:10 (cross as many as apply) Total removal of your uterus (hysterectomy) or part of your uterus"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_2_4",
+              "Q4_11_2_4",
+              "hys_3",
+              "hys_4"
+            ],
+            "x-questionID": 436,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 1
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_Other": {
+            "title": "Operation: other",
+            "description": "Another type of operation on the ovaries or uterus.",
+            "$comment": "Tick box. Source coding: 0 No; 1 Yes. The dictionary gives slots 3 and 4 the QuestionID 501 with 0 No and 1 Yes, and slots 1 and 2 the QuestionID 436 with a different code for each box; 0 and 1 are used for all four.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 211",
+                "S02:p.12 Q4:10 (cross as many as apply) Other"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_2_5",
+              "Q4_11_2_5",
+              "other3",
+              "other4"
+            ],
+            "x-questionID": 436,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 1
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_OtherOvaryDesc": {
+            "title": "Other operation: what it was",
+            "description": "Description of other ovarian operation.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 212",
+                "S02:p.12 Q4:10 If other, please specify type of operation and side"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only when the Other box is ticked; 4:10 says 'If other, please specify type of operation and side'.",
+            "x-formerName": [
+              "Q4_10_5",
+              "Q4_11_5",
+              "op_other3what",
+              "op_other4what"
+            ],
+            "x-questionID": 443,
+            "x-pii": false
+          },
+          "R0_OvaryOp_SideForOther": {
+            "title": "Side of the other operation",
+            "description": "Side on which the other operation on the ovaries or uterus was done.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Left; 2 Right; 3 Don't know. The dictionary gives the three side fields the same property name R0_OvaryOp_OneOvarySide; each has its own name here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 213",
+                "S02:p.12 Q4:10 If other, please specify type of operation and side Left Right Don't know side"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Left"
+              },
+              {
+                "const": 2,
+                "title": "Right"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_know",
+                "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only when the Other box is ticked; 4:10 says 'If other, please specify type of operation and side'.",
+            "x-formerName": [
+              "Q4_10_6_1",
+              "Q4_11_6_1",
+              "op_other3side",
+              "op_other4side"
+            ],
+            "x-questionID": 438,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 533,
+              "2": 534,
+              "-888": 3
+            },
+            "x-pii": false
+          },
+          "R0_OvaryOp_Reason": {
+            "title": "What the operation was for",
+            "description": "Reason for ovarian surgery.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 214",
+                "S02:p.12 Q4:10 What was the operation for?"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_7",
+              "Q4_11_7",
+              "op3reason",
+              "op4reason"
+            ],
+            "x-questionID": 445,
+            "x-pii": false
+          },
+          "R0_OvaryOp_Age": {
+            "title": "Age at the operation (years)",
+            "description": "Age during ovarian surgery.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 215",
+                "S02:p.12 Q4:10 How old were you at the time? years"
+              ],
+              "minimum": "S01:Questions row 215"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant had this operation (R0_OvaryUterusOp = 1); 4:10 says 'If no, go to question 4:13'.",
+            "x-formerName": [
+              "Q4_10_8",
+              "Q4_11_8",
+              "opage3",
+              "opage4"
+            ],
+            "x-questionID": 446,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "OvaryUterusOperationsExtra": {
+            "title": "Further timing details of the 3rd and 4th operation",
+            "description": "When the operation took place: an age or age range, a month and year, or a range of months and years.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 46"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "x-universe": "Only the 3rd and 4th operation have it (the dictionary block OvaryUterusOperationsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_OvaryOp_FromAge": {
+                  "title": "Age when the operation started (years)",
+                  "description": "Age at which the ovary operation started.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 281"
+                    ],
+                    "minimum": "S01:Questions row 281"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 3rd and 4th operation have it (the dictionary block OvaryUterusOperationsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "opfromage3",
+                    "opfromage4"
+                  ],
+                  "x-questionID": 512,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_OvaryOp_ToAge": {
+                  "title": "Age when the operation ended (years)",
+                  "description": "Age at which the ovary operation ended.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 282"
+                    ],
+                    "minimum": "S01:Questions row 282"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 3rd and 4th operation have it (the dictionary block OvaryUterusOperationsExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "optoage3",
+                    "optoage4"
+                  ],
+                  "x-questionID": 513,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_OvaryOperation_Date_Shifted": {
+                  "title": "R0_OvaryOperation_Date_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OvaryOp_Mnth",
+                    "R0_OvaryOp_Yr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_OvaryOperation_RangeStart_Shifted": {
+                  "title": "R0_OvaryOperation_RangeStart_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OvaryOp_StartMnth",
+                    "R0_OvaryOp_StartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_OvaryOperation_RangeEnd_Shifted": {
+                  "title": "R0_OvaryOperation_RangeEnd_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OvaryOp_EndMnth",
+                    "R0_OvaryOp_EndYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_OvaryOp_FromAge",
+                "R0_OvaryOp_ToAge",
+                "R0_OvaryOperation_Date_Shifted",
+                "R0_OvaryOperation_RangeStart_Shifted",
+                "R0_OvaryOperation_RangeEnd_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_OvaryUterusOp_Num",
+          "R0_OvaryUterusOp",
+          "R0_OvaryOp_BothOvaries",
+          "R0_OvaryOp_OneOvary",
+          "R0_OvaryOp_OneOvarySide",
+          "R0_OvaryOp_PartialOvary",
+          "R0_OvaryOp_PartialOvarySide",
+          "R0_OvaryOp_Uterus",
+          "R0_OvaryOp_Other",
+          "R0_OvaryOp_OtherOvaryDesc",
+          "R0_OvaryOp_SideForOther",
+          "R0_OvaryOp_Reason",
+          "R0_OvaryOp_Age",
+          "OvaryUterusOperationsExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_MoreOvaryUterusOp": {
+      "title": "Whether there was any further surgery to the ovaries or uterus",
+      "description": "Flag field indicating the participant had more than two operations on their ovaries or uterus.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 232",
+          "S02:p.13 Q4.12 Did you have any further surgery to your ovaries or uterus (womb)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only asked after a second operation (4:11 Yes); 4:10 and 4:11 say 'If no, go to question 4:13'.",
+      "x-formerName": "Q4_12_1",
+      "x-questionID": 463,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_MoreThanFour_OUOp": {
+      "title": "More than 4 operations on the ovaries or uterus",
+      "description": "Flag field indicating the participant had more than four operations on their ovaries or uterus.",
+      "$comment": "Not printed on the questionnaire pages 12 and 13; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 313"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "morethan",
+      "x-questionID": 544,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_Endometriosis": {
+      "title": "Doctor-diagnosed endometriosis",
+      "description": "Doctor-diagnosed endometriosis.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 233",
+          "S02:p.13 Q4.13 Have you been diagnosed by a doctor with: Endometriosis? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q4_13_1_1",
+      "x-questionID": 464,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_UterineFibroids": {
+      "title": "Doctor-diagnosed fibroids of the uterus",
+      "description": "Doctor-diagnosed uterine fibroids.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 234",
+          "S02:p.13 Q4.13 Have you been diagnosed by a doctor with: Fibroids of the uterus? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q4_13_2_1",
+      "x-questionID": 465,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_PolycysticOvaries": {
+      "title": "Doctor-diagnosed polycystic ovaries",
+      "description": "Doctor-diagnosed polycystic ovaries.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 235",
+          "S02:p.13 Q4.13 Have you been diagnosed by a doctor with: Polycystic ovaries? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q4_13_3_1",
+      "x-questionID": 466,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_OtherOvarianUterineDisease": {
+      "title": "Doctor-diagnosed other ovarian or uterine disease not requiring surgery",
+      "description": "Other non-surgical ovarian/uterine conditions.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 236",
+          "S02:p.13 Q4.13 Have you been diagnosed by a doctor with: Any other ovarian or uterine disease not requiring surgery? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q4_13_4_1",
+      "x-questionID": 467,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_OtherOvarianUterineDesc": {
+      "title": "What the other ovarian or uterine disease was",
+      "description": "Description of other ovarian/uterine conditions.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 237",
+          "S02:p.13 Q4.13 If other disease, please describe what it was"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-formerName": "Q4_13_5",
+      "x-questionID": 468,
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_EverHadPeriods",
+    "R0_FirstPeriodAge",
+    "R0_RegularCyclesStartAge",
+    "R0_NeverRegularCycles",
+    "R0_HowPeriodsReg",
+    "CycleDays",
+    "BreastDiscomfort",
+    "IrregularCycles",
+    "FlowDays",
+    "PeriodsStopped",
+    "R0_TempStopMoreThreeMnths",
+    "R0_TempStopMoreThan",
+    "R0_PeriodsStoppedPerm",
+    "R0_HRTPeriodsUnclear",
+    "R0_MenopauseAge",
+    "R0_PeriodsStoppedReason",
+    "R0_PeriodsStoppedReasonOther",
+    "R0_PreMenopauseCycle",
+    "R0_PreMenopauseYrs",
+    "R0_HotFlashes",
+    "OvaryUterusOperations",
+    "R0_MoreOvaryUterusOp",
+    "R0_MoreThanFour_OUOp",
+    "R0_Endometriosis",
+    "R0_UterineFibroids",
+    "R0_PolycysticOvaries",
+    "R0_OtherOvarianUterineDisease",
+    "R0_OtherOvarianUterineDesc"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R033: the participant did not answer Yes to ever having had periods (0 or 2), so questions 4:2 to 4:9 are not asked -- the ages, the way the periods became regular, the four age-band lists, the temporary stops and the menopause questions are structurally not applicable: single numeric fields carry the missing-numeric sentinel, the text field carries the missing-string sentinel, the band lists keep their three bands with -999, and PeriodsStopped is empty. The dictionary's 'more than 4 occasions' box R0_TempStopMoreThan is also not applicable (R043). Questionnaire p.10 Q4:1: 'If no, go to question 4.10'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.10 Q4:1 If 'no', go to question 4.10"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_EverHadPeriods"
+        ],
+        "properties": {
+          "R0_EverHadPeriods": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FirstPeriodAge": {
+            "const": -999
+          },
+          "R0_RegularCyclesStartAge": {
+            "const": -999
+          },
+          "R0_NeverRegularCycles": {
+            "const": -999
+          },
+          "R0_HowPeriodsReg": {
+            "const": -999
+          },
+          "R0_TempStopMoreThreeMnths": {
+            "const": -999
+          },
+          "R0_PeriodsStoppedPerm": {
+            "const": -999
+          },
+          "R0_HRTPeriodsUnclear": {
+            "const": -999
+          },
+          "R0_MenopauseAge": {
+            "const": -999
+          },
+          "R0_PeriodsStoppedReason": {
+            "const": -999
+          },
+          "R0_PreMenopauseCycle": {
+            "const": -999
+          },
+          "R0_PreMenopauseYrs": {
+            "const": -999
+          },
+          "R0_HotFlashes": {
+            "const": -999
+          },
+          "R0_PeriodsStoppedReasonOther": {
+            "const": "MISSING"
+          },
+          "PeriodsStopped": {
+            "maxItems": 0
+          },
+          "CycleDays": {
+            "items": {
+              "properties": {
+                "R0_CycleDays": {
+                  "const": -999
+                },
+                "R0_CycleDays_Unkn": {
+                  "const": -999
+                }
+              }
+            }
+          },
+          "BreastDiscomfort": {
+            "items": {
+              "properties": {
+                "R0_BreastDiscomfort": {
+                  "const": -999
+                }
+              }
+            }
+          },
+          "IrregularCycles": {
+            "items": {
+              "properties": {
+                "R0_IrregularCycles": {
+                  "const": -999
+                }
+              }
+            }
+          },
+          "FlowDays": {
+            "items": {
+              "properties": {
+                "R0_FlowDays": {
+                  "const": -999
+                }
+              }
+            }
+          },
+          "R0_TempStopMoreThan": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R034: in each temporary-stop entry where the participant did not answer Yes (0 or 2) the age, the length, the reason and the further timing details are structurally not applicable and carry the sentinels. Questionnaire p.11 Q4:8: 'If yes, how old were you when your periods stopped temporarily?'. It is written here, not in the entry's own allOf, to keep the menstrual routings together.",
+      "x-provenance": {
+        "default": [
+          "S02:p.11 Q4:8 If yes, how old were you when your periods stopped temporarily?"
+        ]
+      },
+      "properties": {
+        "PeriodsStopped": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_TempStopped"
+              ],
+              "properties": {
+                "R0_TempStopped": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_TempStoppedAge": {
+                  "const": -999
+                },
+                "R0_TempStoppedYrs": {
+                  "const": -999
+                },
+                "R0_TempStoppedMths": {
+                  "const": -999
+                },
+                "R0_TempStoppedReason": {
+                  "const": "MISSING"
+                },
+                "PeriodsStoppedExtra": {
+                  "items": {
+                    "properties": {
+                      "R0_TempStopToAge": {
+                        "const": -999
+                      },
+                      "R0_TempStopFromMth": {
+                        "const": -999
+                      },
+                      "R0_TempStopFromYr": {
+                        "const": -999
+                      },
+                      "R0_TempStopToMth": {
+                        "const": -999
+                      },
+                      "R0_TempStopToYr": {
+                        "const": -999
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R035: when the first temporary-stop entry is not Yes (0 or 2), no later occasion exists and the 'another occasion' box is structurally not applicable -- PeriodsStopped holds at most one entry and R0_TempStopMoreThreeMnths carries the missing-numeric sentinel. Questionnaire p.11 Q4:8: the 'another occasion' box is under 'If yes'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.11 Q4:8 If there was another occasion when your periods stopped temporarily"
+        ]
+      },
+      "if": {
+        "properties": {
+          "PeriodsStopped": {
+            "prefixItems": [
+              {
+                "required": [
+                  "R0_TempStopped"
+                ],
+                "properties": {
+                  "R0_TempStopped": {
+                    "enum": [
+                      0,
+                      2
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "PeriodsStopped": {
+            "maxItems": 1
+          },
+          "R0_TempStopMoreThreeMnths": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R036: the periods have not now stopped completely (0 or 2), so the rest of the menopause questions are not asked -- the HRT box, the age, the reason, the cycle before the last period and the hot flushes are structurally not applicable. Questionnaire p.11 Q4:9: 'If no go to question 4:10'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.11 Q4:9 If 'no' go to question 4:10"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_PeriodsStoppedPerm"
+        ],
+        "properties": {
+          "R0_PeriodsStoppedPerm": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_HRTPeriodsUnclear": {
+            "const": -999
+          },
+          "R0_MenopauseAge": {
+            "const": -999
+          },
+          "R0_PeriodsStoppedReason": {
+            "const": -999
+          },
+          "R0_PreMenopauseCycle": {
+            "const": -999
+          },
+          "R0_PreMenopauseYrs": {
+            "const": -999
+          },
+          "R0_HotFlashes": {
+            "const": -999
+          },
+          "R0_PeriodsStoppedReasonOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R037: the participant crossed the box saying hormone replacement therapy caused periods and the age at natural menopause is not known, so the age, the reason, the cycle before the last period and the hot flushes are structurally not applicable. Questionnaire p.11 Q4:9: 'please cross this box and go to question 4:10'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.11 Q4:9 please cross this box and go to question 4:10"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_HRTPeriodsUnclear"
+        ],
+        "properties": {
+          "R0_HRTPeriodsUnclear": {
+            "const": 1
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_MenopauseAge": {
+            "const": -999
+          },
+          "R0_PeriodsStoppedReason": {
+            "const": -999
+          },
+          "R0_PreMenopauseCycle": {
+            "const": -999
+          },
+          "R0_PreMenopauseYrs": {
+            "const": -999
+          },
+          "R0_HotFlashes": {
+            "const": -999
+          },
+          "R0_PeriodsStoppedReasonOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R038: the reason the periods stopped is not Other (5), so the text for another reason is structurally not applicable -- R0_PeriodsStoppedReasonOther carries the missing-string sentinel. Questionnaire p.11 Q4:9: 'If other, please specify'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.11 Q4:9 If other, please specify"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_PeriodsStoppedReason"
+        ],
+        "properties": {
+          "R0_PeriodsStoppedReason": {
+            "not": {
+              "const": 5
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_PeriodsStoppedReasonOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R039: in each operation entry where the participant did not answer Yes (0 or 2) the boxes, the sides, the descriptions, the reason, the age, the place and the further timing details are structurally not applicable and carry the sentinels. Questionnaire p.12 Q4:10: 'If no, go to question 4:13'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.12 Q4:10 If 'no', go to question 4:13"
+        ]
+      },
+      "properties": {
+        "OvaryUterusOperations": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_OvaryUterusOp"
+              ],
+              "properties": {
+                "R0_OvaryUterusOp": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_OvaryOp_BothOvaries": {
+                  "const": -999
+                },
+                "R0_OvaryOp_OneOvary": {
+                  "const": -999
+                },
+                "R0_OvaryOp_OneOvarySide": {
+                  "const": -999
+                },
+                "R0_OvaryOp_PartialOvary": {
+                  "const": -999
+                },
+                "R0_OvaryOp_PartialOvarySide": {
+                  "const": -999
+                },
+                "R0_OvaryOp_Uterus": {
+                  "const": -999
+                },
+                "R0_OvaryOp_Other": {
+                  "const": -999
+                },
+                "R0_OvaryOp_OtherOvaryDesc": {
+                  "const": "MISSING"
+                },
+                "R0_OvaryOp_SideForOther": {
+                  "const": -999
+                },
+                "R0_OvaryOp_Reason": {
+                  "const": "MISSING"
+                },
+                "R0_OvaryOp_Age": {
+                  "const": -999
+                },
+                "R0_OvaryOp_Hospital": {
+                  "const": "MISSING"
+                },
+                "R0_OvaryOp_Town": {
+                  "const": "MISSING"
+                },
+                "OvaryUterusOperationsExtra": {
+                  "items": {
+                    "properties": {
+                      "R0_OvaryOp_FromAge": {
+                        "const": -999
+                      },
+                      "R0_OvaryOp_ToAge": {
+                        "const": -999
+                      },
+                      "R0_OvaryOp_Mnth": {
+                        "const": -999
+                      },
+                      "R0_OvaryOp_Yr": {
+                        "const": -999
+                      },
+                      "R0_OvaryOp_StartMnth": {
+                        "const": -999
+                      },
+                      "R0_OvaryOp_StartYr": {
+                        "const": -999
+                      },
+                      "R0_OvaryOp_EndMnth": {
+                        "const": -999
+                      },
+                      "R0_OvaryOp_EndYr": {
+                        "const": -999
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R040: when the first operation entry is not Yes (0 or 2) the later operations are not asked -- OvaryUterusOperations holds at most one entry and R0_MoreOvaryUterusOp carries the missing-numeric sentinel. Questionnaire p.12 Q4:10: 'If no, go to question 4:13'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.12 Q4:10 If 'no', go to question 4:13"
+        ]
+      },
+      "if": {
+        "properties": {
+          "OvaryUterusOperations": {
+            "prefixItems": [
+              {
+                "required": [
+                  "R0_OvaryUterusOp"
+                ],
+                "properties": {
+                  "R0_OvaryUterusOp": {
+                    "enum": [
+                      0,
+                      2
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "OvaryUterusOperations": {
+            "maxItems": 1
+          },
+          "R0_MoreOvaryUterusOp": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R041: when the second operation entry is not Yes (0 or 2) the further-surgery question is not asked -- OvaryUterusOperations holds at most two entries and R0_MoreOvaryUterusOp carries the missing-numeric sentinel. Questionnaire p.12 Q4:11: 'If no, go to question 4:13'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.12 Q4:11 If 'no', go to question 4:13"
+        ]
+      },
+      "if": {
+        "properties": {
+          "OvaryUterusOperations": {
+            "minItems": 2,
+            "prefixItems": [
+              true,
+              {
+                "required": [
+                  "R0_OvaryUterusOp"
+                ],
+                "properties": {
+                  "R0_OvaryUterusOp": {
+                    "enum": [
+                      0,
+                      2
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "OvaryUterusOperations": {
+            "maxItems": 2
+          },
+          "R0_MoreOvaryUterusOp": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R042: in each operation entry where the Other box is not ticked (anything but 1) the description and the side of the other operation are structurally not applicable -- R0_OvaryOp_OtherOvaryDesc carries the missing-string sentinel and R0_OvaryOp_SideForOther the missing-numeric sentinel. Questionnaire p.12 Q4:10: 'If other, please specify type of operation and side'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.12 Q4:10 If other, please specify type of operation and side"
+        ]
+      },
+      "properties": {
+        "OvaryUterusOperations": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_OvaryOp_Other"
+              ],
+              "properties": {
+                "R0_OvaryOp_Other": {
+                  "not": {
+                    "const": 1
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_OvaryOp_OtherOvaryDesc": {
+                  "const": "MISSING"
+                },
+                "R0_OvaryOp_SideForOther": {
+                  "const": -999
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/mammograms_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Mammograms (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from mammograms.json containing Whether the participant has had a mammogram, how many and when, details of the most recent one, and any abnormal result, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_Mammogram": {
+      "title": "Whether the participant has ever had a mammogram",
+      "description": "Participant's history of mammogram screening.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 719",
+          "S02:p.20 Q7:1 Have you ever had an X-ray of your breast (mammogram)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q7_1_1_1",
+      "x-questionID": 1101,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_Mammogram_Number": {
+      "title": "Number of mammograms",
+      "description": "Number of mammograms attended.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 720",
+          "S02:p.20 Q7:1 If yes, how many times have you been for a mammogram?"
+        ],
+        "minimum": "S01:Questions row 720"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_Mammogram = 1 (Yes); 7:1 says 'If no, go to question 7:4'.",
+      "x-formerName": "Q7_1_2",
+      "x-questionID": 1102,
+      "x-pii": false
+    },
+    "R0_Mammogram_Age1": {
+      "title": "Age at the first mammogram (years)",
+      "description": "Age at first mammogram.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 721",
+          "S02:p.20 Q7:1 At what age was the first mammogram? years"
+        ],
+        "minimum": "S01:Questions row 721"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_Mammogram = 1 (Yes); 7:1 says 'If no, go to question 7:4'.",
+      "x-formerName": "Q7_1_3",
+      "x-questionID": 1103,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_Mammogram_Details": {
+      "title": "Whether the most recent mammogram was for screening",
+      "description": "Purpose of most recent mammogram.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 722",
+          "S02:p.20 Q7:2 Please give details of the mammogram you had most recently: Was this for screening? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_Mammogram = 1 (Yes); 7:1 says 'If no, go to question 7:4'.",
+      "x-formerName": "Q7_2_1_1",
+      "x-questionID": 1104,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_Mammogram_Year_Shifted": {
+      "title": "R0_Mammogram_Year_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_Mammogram_Yr"
+      ],
+      "x-pii": false
+    },
+    "R0_Mammogram_Abnormal": {
+      "title": "Whether a mammogram result was abnormal",
+      "description": "Abnormal mammogram result status.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 726",
+          "S02:p.20 Q7:3 Have you had a mammogram where the result was abnormal? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_Mammogram = 1 (Yes); 7:1 says 'If no, go to question 7:4'.",
+      "x-formerName": "Q7_3_1_1",
+      "x-questionID": 1108,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_Mammogram_AbnormalAge": {
+      "title": "Age at the abnormal mammogram (years)",
+      "description": "Age at abnormal mammogram.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 727",
+          "S02:p.20 Q7:3 If yes, at what age? years"
+        ],
+        "minimum": "S01:Questions row 727"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_Mammogram_Abnormal = 1 (Yes); 7:3 says 'If yes, at what age?'.",
+      "x-formerName": "Q7_3_2",
+      "x-questionID": 1109,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_Mammogram_AbnormalDesc": {
+      "title": "Description of the abnormality",
+      "description": "Description of mammogram abnormality.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 728",
+          "S02:p.20 Q7:3 Please describe the abnormality"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when a mammogram result was abnormal (R0_Mammogram_Abnormal = 1).",
+      "x-formerName": "Q7_3_3",
+      "x-questionID": 1110,
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_Mammogram",
+    "R0_Mammogram_Number",
+    "R0_Mammogram_Age1",
+    "R0_Mammogram_Details",
+    "R0_Mammogram_Year_Shifted",
+    "R0_Mammogram_Abnormal",
+    "R0_Mammogram_AbnormalAge",
+    "R0_Mammogram_AbnormalDesc"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R050: the participant did not answer Yes to ever having had a mammogram (0 or 2), so questions 7:1 (number and age), 7:2 and 7:3 are not asked -- the counts, ages, year and answers carry the missing-numeric sentinel and the places and description carry the missing-string sentinel. Questionnaire p.20 Q7:1: 'If no, go to question 7:4'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.20 Q7:1 If 'no', go to question 7:4"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_Mammogram"
+        ],
+        "properties": {
+          "R0_Mammogram": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_Mammogram_Number": {
+            "const": -999
+          },
+          "R0_Mammogram_Age1": {
+            "const": -999
+          },
+          "R0_Mammogram_Details": {
+            "const": -999
+          },
+          "R0_Mammogram_Abnormal": {
+            "const": -999
+          },
+          "R0_Mammogram_AbnormalAge": {
+            "const": -999
+          },
+          "R0_Mammogram_AbnormalDesc": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R051: the participant did not answer Yes to having had an abnormal mammogram (0 or 2), so the age and the description are structurally not applicable -- R0_Mammogram_AbnormalAge carries the missing-numeric sentinel and R0_Mammogram_AbnormalDesc the missing-string sentinel (R052). Questionnaire p.20 Q7:3: 'If yes, at what age?' and 'Please describe the abnormality'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.20 Q7:3 If yes, at what age?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_Mammogram_Abnormal"
+        ],
+        "properties": {
+          "R0_Mammogram_Abnormal": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_Mammogram_AbnormalAge": {
+            "const": -999
+          },
+          "R0_Mammogram_AbnormalDesc": {
+            "const": "MISSING"
+          }
+        }
+      }
+    }
+  ]
+}

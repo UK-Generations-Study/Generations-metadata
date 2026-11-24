@@ -1,0 +1,2936 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/cancer_relatives_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Cancer in the family (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from cancer_relatives.json containing The participant's biological parents, grandparents, brothers and sisters and children, with their cancers, and breast cancer in other blood relatives, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_BiologicalParentsUnknown": {
+      "title": "Does not know the biological parents",
+      "description": "Indicates whether the participant does not know who their biological parents are.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1635",
+          "S02:p.40 Q14:1 If you do not know about your biological parents, please cross the box and go to question 14:6. Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_1",
+      "x-questionID": 2500,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_FatherDOB_Unknown": {
+      "title": "Does not know the father's date of birth",
+      "description": "Flag indicating the participant does not know their father's date of birth.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1641",
+          "S02:p.41 Q14:2 Your father date of birth or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_2DOBdn",
+      "x-questionID": 2506,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_FatherHeightFeet": {
+      "title": "Father's height: feet",
+      "description": "Father's height as reported in feet component.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1642",
+          "S02:p.41 Q14:2 Your father How tall is/was your father? Feet"
+        ],
+        "minimum": "S01:Questions row 1642"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_2feet",
+      "x-questionID": 2507,
+      "x-pii": false,
+      "x-unit": "feet"
+    },
+    "R0_FatherHeightInches": {
+      "title": "Father's height: inches",
+      "description": "Father's height inches component (0-11).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1643",
+          "S02:p.41 Q14:2 Your father How tall is/was your father? Inches"
+        ],
+        "minimum": "S01:Questions row 1643"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_2inches",
+      "x-questionID": 2508,
+      "x-pii": false,
+      "x-unit": "inches"
+    },
+    "R0_FatherBirthCountry": {
+      "title": "Country where the father was born",
+      "description": "Father's country of birth.",
+      "$comment": "Source coding: 1 UK; 2 Other; 3 Don't know.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1644",
+          "S02:p.41 Q14:2 Your father In what country was your father born? UK Other Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "UK"
+        },
+        {
+          "const": 2,
+          "title": "Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_2_1_1",
+      "x-questionID": 2509,
+      "x-answerIDs": {
+        "1": 104,
+        "2": 13,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_FatherBirthCountryOther": {
+      "title": "Other country where the father was born",
+      "description": "Free-text country name if father's country of birth is not the UK.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1645",
+          "S02:p.41 Q14:2 Your father If other, please specify"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only when the country is Other (2); the form says 'If other, please specify'.",
+      "x-formerName": "Q14_2_2",
+      "x-questionID": 2510,
+      "x-pii": false
+    },
+    "R0_FatherCancerHistory": {
+      "title": "Whether the father has ever had cancer, leukaemia or lymphoma (and how many)",
+      "description": "Summary flag of any reported cancer for the father (any site).",
+      "$comment": "Source coding: 0 More than one option chosen; 1 No; 2 Yes, one cancer; 3 Yes, more than one cancer.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1646",
+          "S02:p.41 Q14:2 As far as you know, has your father ever had any type of cancer, leukaemia or lymphoma? No Yes, one cancer Yes, more than one cancer"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "No"
+        },
+        {
+          "const": 2,
+          "title": "Yes, one cancer"
+        },
+        {
+          "const": 3,
+          "title": "Yes, more than one cancer"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_2_3_1",
+      "x-questionID": 2511,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2,
+        "2": 2510,
+        "3": 2511
+      },
+      "x-pii": false
+    },
+    "FatherCancers": {
+      "title": "Cancers of the father",
+      "description": "One entry per cancer of the father (first, second), up to 2: the type and the year of diagnosis or that the year is not known.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 7",
+          "S02:p.41 Q14:2 has your father ever had any type of cancer"
+        ],
+        "minItems": "S01:ArrayDef row 7",
+        "maxItems": "S01:ArrayDef row 7"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "x-universe": "Only completed when the father has had cancer (R0_FatherCancerHistory = 2 or 3); the form says 'If yes, what type was it?'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_FatherCancer_Num": {
+            "x-role": "entity key",
+            "title": "Which cancer this entry refers to (first, second)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 7",
+              "maximum": "S01:ArrayDef row 7"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2,
+            "x-pii": false
+          },
+          "R0_FatherCancerType": {
+            "title": "Type of cancer",
+            "description": "Reported cancer site/type for the father (free text or coded downstream).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1647",
+                "S02:p.41 Q14:2 If yes, what type was it? First cancer / Second cancer"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the father has had cancer (R0_FatherCancerHistory = 2 or 3); the form says 'If yes, what type was it?'.",
+            "x-formerName": [
+              "Q14_2_4",
+              "Q14_2_5"
+            ],
+            "x-questionID": 2512,
+            "x-pii": false
+          },
+          "R0_FatherCancerDate_Shifted": {
+            "title": "R0_FatherCancerDate_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_FatherCancerYear"
+            ],
+            "x-pii": false
+          },
+          "R0_FatherCancerYearUnknown": {
+            "title": "Does not know the year of diagnosis",
+            "description": "Flag indicating the diagnosis year for this cancer is unknown.",
+            "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1650",
+                "S02:p.41 Q14:2 In what year was it diagnosed? Year or Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't know"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the father has had cancer (R0_FatherCancerHistory = 2 or 3); the form says 'If yes, what type was it?'.",
+            "x-formerName": [
+              "Q14_2_dn1",
+              "Q14_2_dn2"
+            ],
+            "x-questionID": 2515,
+            "x-answerIDs": {
+              "1": 3
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_FatherCancer_Num",
+          "R0_FatherCancerType",
+          "R0_FatherCancerDate_Shifted",
+          "R0_FatherCancerYearUnknown"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_FatherVitalStatus": {
+      "title": "Whether the father is still alive",
+      "description": "Father's vital status at the time of questionnaire.",
+      "$comment": "Source coding: 1 Alive; 2 Dead; 3 Don't know.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1653",
+          "S02:p.41 Q14:2 Is your father still alive? Alive Dead Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Alive"
+        },
+        {
+          "const": 2,
+          "title": "Dead"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_2alive_1",
+      "x-questionID": 2518,
+      "x-answerIDs": {
+        "1": 2516,
+        "2": 2517,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_FatherDOD_Unknown": {
+      "title": "Does not know the father's date of death",
+      "description": "Flag indicating the participant does not know the date of father's death.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1657",
+          "S02:p.41 Q14:2 Your father date of death or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the father is dead (R0_FatherVitalStatus = 2); Q14:2 says 'If he/she is dead'.",
+      "x-formerName": "Q14_2_dn3",
+      "x-questionID": 2522,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_FatherCauseOfDeath": {
+      "title": "Cause of the father's death",
+      "description": "Free-text cause of death for the father, if deceased and reported.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1658",
+          "S02:p.41 Q14:2 Your father What was his/her cause of death?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when the father is dead (R0_FatherVitalStatus = 2); Q14:2 says 'If he/she is dead'.",
+      "x-formerName": "Q14_2_cause",
+      "x-questionID": 2523,
+      "x-pii": false
+    },
+    "R0_MotherDOB_Unknown": {
+      "title": "Does not know the mother's date of birth",
+      "description": "Flag indicating the participant does not know their mother's date of birth.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1665",
+          "S02:p.41 Q14:3 Your mother date of birth or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_3DOBdn",
+      "x-questionID": 2530,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_MotherBirthCountry": {
+      "title": "Country where the mother was born",
+      "description": "Mother's country of birth.",
+      "$comment": "Source coding: 1 UK; 2 Other; 3 Don't know.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1666",
+          "S02:p.41 Q14:3 Your mother In what country was your mother born? UK Other Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "UK"
+        },
+        {
+          "const": 2,
+          "title": "Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_3_1_1",
+      "x-questionID": 2531,
+      "x-answerIDs": {
+        "1": 104,
+        "2": 13,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_MotherBirthCountryOther": {
+      "title": "Other country where the mother was born",
+      "description": "Free-text country name if mother's country of birth is not the UK.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1667",
+          "S02:p.41 Q14:3 Your mother If other, please specify"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only when the country is Other (2); the form says 'If other, please specify'.",
+      "x-formerName": "Q14_3_2",
+      "x-questionID": 2532,
+      "x-pii": false
+    },
+    "R0_MotherHeightFeet": {
+      "title": "Mother's height: feet",
+      "description": "Mother's height as reported in feet component (0+). Use with inches to derive total height.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1668",
+          "S02:p.41 Q14:3 Your mother How tall is/was your mother? Feet"
+        ],
+        "minimum": "S01:Questions row 1668"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_3feet",
+      "x-questionID": 2533,
+      "x-pii": false,
+      "x-unit": "feet"
+    },
+    "R0_MotherHeightInches": {
+      "title": "Mother's height: inches",
+      "description": "Mother's height inches component (0-11).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1669",
+          "S02:p.41 Q14:3 Your mother How tall is/was your mother? Inches"
+        ],
+        "minimum": "S01:Questions row 1669"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_3inches",
+      "x-questionID": 2534,
+      "x-pii": false,
+      "x-unit": "inches"
+    },
+    "R0_MotherCancerHistory": {
+      "title": "Whether the mother has ever had cancer, leukaemia or lymphoma (and how many)",
+      "description": "Summary flag of any reported cancer for the mother (any site).",
+      "$comment": "Source coding: 0 More than one option chosen; 1 No; 2 Yes, one cancer; 3 Yes, more than one cancer.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1670",
+          "S02:p.42 Q14:3 As far as you know, has your mother ever had any type of cancer, leukaemia or lymphoma? No Yes, one cancer Yes, more than one cancer"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "No"
+        },
+        {
+          "const": 2,
+          "title": "Yes, one cancer"
+        },
+        {
+          "const": 3,
+          "title": "Yes, more than one cancer"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_3_3_1",
+      "x-questionID": 2535,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2,
+        "2": 2510,
+        "3": 2511
+      },
+      "x-pii": false
+    },
+    "MotherCancers": {
+      "title": "Cancers of the mother",
+      "description": "One entry per cancer of the mother (first, second), up to 2: the type and the year of diagnosis or that the year is not known.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 10",
+          "S02:p.42 Q14:3 has your mother ever had any type of cancer"
+        ],
+        "minItems": "S01:ArrayDef row 10",
+        "maxItems": "S01:ArrayDef row 10"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "x-universe": "Only completed when the mother has had cancer (R0_MotherCancerHistory = 2 or 3); the form says 'If yes, what type was it?'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_MotherCancer_Num": {
+            "x-role": "entity key",
+            "title": "Which cancer this entry refers to (first, second)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 10",
+              "maximum": "S01:ArrayDef row 10"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2,
+            "x-pii": false
+          },
+          "R0_MotherCancerType": {
+            "title": "Type of cancer",
+            "description": "Reported cancer site/type for the mother.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1671",
+                "S02:p.42 Q14:3 If yes, what type was it? First cancer / Second cancer"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the mother has had cancer (R0_MotherCancerHistory = 2 or 3); the form says 'If yes, what type was it?'.",
+            "x-formerName": [
+              "Q14_3_4",
+              "Q14_3_5"
+            ],
+            "x-questionID": 2536,
+            "x-pii": false
+          },
+          "R0_MotherCancerDate_Shifted": {
+            "title": "R0_MotherCancerDate_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_MotherCancerYear"
+            ],
+            "x-pii": false
+          },
+          "R0_MotherCancerYearUnknown": {
+            "title": "Does not know the year of diagnosis",
+            "description": "Flag indicating the diagnosis year for this cancer is unknown.",
+            "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1674",
+                "S02:p.42 Q14:3 In what year was it diagnosed? Year or Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't know"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the mother has had cancer (R0_MotherCancerHistory = 2 or 3); the form says 'If yes, what type was it?'.",
+            "x-formerName": [
+              "Q14_3_dn1",
+              "Q14_3_dn2"
+            ],
+            "x-questionID": 2539,
+            "x-answerIDs": {
+              "1": 3
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_MotherCancer_Num",
+          "R0_MotherCancerType",
+          "R0_MotherCancerDate_Shifted",
+          "R0_MotherCancerYearUnknown"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_MotherVitalStatus": {
+      "title": "Whether the mother is still alive",
+      "description": "Mother's vital status at the time of questionnaire completion.",
+      "$comment": "Source coding: 1 Alive; 2 Dead; 3 Don't know.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1677",
+          "S02:p.42 Q14:3 Is your mother still alive? Alive Dead Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Alive"
+        },
+        {
+          "const": 2,
+          "title": "Dead"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_3alive_1",
+      "x-questionID": 2542,
+      "x-answerIDs": {
+        "1": 2516,
+        "2": 2517,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_MotherDOD_Unknown": {
+      "title": "Does not know the mother's date of death",
+      "description": "Flag indicating the participant does not know the date of mother's death.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1681",
+          "S02:p.41 Q14:3 Your mother date of death or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the mother is dead (R0_MotherVitalStatus = 2); Q14:3 says 'If he/she is dead'.",
+      "x-formerName": "Q14_3_dn3",
+      "x-questionID": 2546,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_MotherCauseOfDeath": {
+      "title": "Cause of the mother's death",
+      "description": "Cause of death for the mother, if deceased and reported.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1682",
+          "S02:p.41 Q14:3 Your mother What was his/her cause of death?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when the mother is dead (R0_MotherVitalStatus = 2); Q14:3 says 'If he/she is dead'.",
+      "x-formerName": "Q14_3_cause",
+      "x-questionID": 2547,
+      "x-pii": false
+    },
+    "R0_GrandparentUK_MM": {
+      "title": "Mother's mother: born in the UK",
+      "description": "For the maternal grandmother (mother's mother): indicator whether her country of birth was the UK.",
+      "$comment": "Tick box. Source coding: 1 UK (AnswerID 104).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1683",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Mother's mother UK"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "UK"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_UK_MM",
+      "x-questionID": 2548,
+      "x-answerIDs": {
+        "1": 104
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentCountry_MM": {
+      "title": "Mother's mother: other country of birth",
+      "description": "For the maternal grandmother: country of birth when not the UK.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1684",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Mother's mother Other country (specify)"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-formerName": "Q14_4_OC_MM",
+      "x-questionID": 2549,
+      "x-pii": false
+    },
+    "R0_GrandparentCountryDN_MM": {
+      "title": "Does not know the country where the mother's mother was born",
+      "description": "For the maternal grandmother: flag indicating the country of birth is not known.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1685",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Mother's mother or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_DN_MM",
+      "x-questionID": 2550,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentUK_MF": {
+      "title": "Mother's father: born in the UK",
+      "description": "For the maternal grandfather (mother's father): indicator that his country of birth was the UK.",
+      "$comment": "Tick box. Source coding: 1 UK (AnswerID 104).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1686",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Mother's father UK"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "UK"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_UK_MF",
+      "x-questionID": 2551,
+      "x-answerIDs": {
+        "1": 104
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentCountry_MF": {
+      "title": "Mother's father: other country of birth",
+      "description": "For the maternal grandfather: country of birth when not the UK.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1687",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Mother's father Other country (specify)"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-formerName": "Q14_4_OC_MF",
+      "x-questionID": 2552,
+      "x-pii": false
+    },
+    "R0_GrandparentCountryDN_MF": {
+      "title": "Does not know the country where the mother's father was born",
+      "description": "For the maternal grandfather: flag indicating the country of birth is not known.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1688",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Mother's father or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_DN_MF",
+      "x-questionID": 2553,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentUK_FM": {
+      "title": "Father's mother: born in the UK",
+      "description": "For the paternal grandmother (father's mother): indicator that her country of birth was the UK.",
+      "$comment": "Tick box. Source coding: 1 UK (AnswerID 104).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1689",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Father's mother UK"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "UK"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_UK_FM",
+      "x-questionID": 2554,
+      "x-answerIDs": {
+        "1": 104
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentCountry_FM": {
+      "title": "Father's mother: other country of birth",
+      "description": "For the paternal grandmother: free-text country of birth when not the UK.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1690",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Father's mother Other country (specify)"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-formerName": "Q14_4_OC_FM",
+      "x-questionID": 2555,
+      "x-pii": false
+    },
+    "R0_GrandparentCountryDN_FM": {
+      "title": "Does not know the country where the father's mother was born",
+      "description": "For the paternal grandmother: flag indicating the country of birth is not known.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1691",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Father's mother or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_DN_FM",
+      "x-questionID": 2556,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentUK_FF": {
+      "title": "Father's father: born in the UK",
+      "description": "For the paternal grandfather (father's father): indicator that his country of birth was the UK.",
+      "$comment": "Tick box. Source coding: 1 UK (AnswerID 104).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1692",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Father's father UK"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "UK"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_UK_FF",
+      "x-questionID": 2557,
+      "x-answerIDs": {
+        "1": 104
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentCountry_FF": {
+      "title": "Father's father: other country of birth",
+      "description": "For the paternal grandfather: free-text country of birth when not the UK.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1693",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Father's father Other country (specify)"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-formerName": "Q14_4_OC_FF",
+      "x-questionID": 2558,
+      "x-pii": false
+    },
+    "R0_GrandparentCountryDN_FF": {
+      "title": "Does not know the country where the father's father was born",
+      "description": "For the paternal grandfather: flag indicating the country of birth is not known.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1694",
+          "S02:p.42 Q14:4 In what country were your grandparents born? Father's father or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_4_DN_FF",
+      "x-questionID": 2559,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentBreastCancer": {
+      "title": "Whether any grandparent had breast cancer",
+      "description": "Summary indicator of whether any of the participant's four grandparents (maternal grandmother, maternal grandfather, paternal grandmother, paternal grandfather) are reported to have had breast cancer.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1695",
+          "S02:p.42 Q14:5 Have any of your grandparents had breast cancer? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_5_1_1",
+      "x-questionID": 2560,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_GrandparentBreastCancerWho": {
+      "title": "Which grandparent had breast cancer",
+      "description": "Specifies which grandparent(s) had breast cancer. Code 0 indicates that more than one grandparent applied.",
+      "$comment": "Source coding: 0 More than one option chosen (the form lets several be crossed); 1 Mother's mother; 2 Father's mother; 3 Mother's father; 4 Father's father.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1696",
+          "S02:p.42 Q14:5 If yes, who was it? Mother's mother Father's mother Mother's father Father's father"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Mother's mother"
+        },
+        {
+          "const": 2,
+          "title": "Father's mother"
+        },
+        {
+          "const": 3,
+          "title": "Mother's father"
+        },
+        {
+          "const": 4,
+          "title": "Father's father"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only when a grandparent had breast cancer (R0_GrandparentBreastCancer = 1); the form says 'If yes, who was it?'.",
+      "x-formerName": "Q14_5_2_1",
+      "x-questionID": 2561,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2547,
+        "2": 2548,
+        "3": 2549,
+        "4": 2550
+      },
+      "x-pii": false
+    },
+    "R0_SiblingsUnknown": {
+      "title": "Does not know the biological siblings",
+      "description": "Flag identifying if the participant doesn't know about their biological siblings.",
+      "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1697",
+          "S02:p.43 Q14:6 If you do not know about your biological siblings please cross this box and go to question 14:14 Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_6",
+      "x-questionID": 2562,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_SiblingsTotal": {
+      "title": "Number of brothers and sisters (including half-siblings)",
+      "description": "Count of living and deceased siblings.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1698",
+          "S02:p.43 Q14:7 How many brothers, sisters, half brothers and half sisters do you have in total?"
+        ],
+        "minimum": "S01:Questions row 1698"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Not asked when the siblings are not known (R0_SiblingsUnknown = 1); 14:6 says 'go to question 14:14'.",
+      "x-formerName": "Q14_7",
+      "x-questionID": 2563,
+      "x-pii": false
+    },
+    "Siblings": {
+      "title": "Brothers and sisters",
+      "description": "One entry per biological brother, sister, half-brother or half-sister, up to 13, starting with the oldest. The first five are printed on pages 43 and 44; further ones go on page 15:1 and are flagged by R0_MoreThanFiveSiblings.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 20",
+          "S02:p.43 Q14:8 1st brother or sister"
+        ],
+        "minItems": "S01:ArrayDef row 20",
+        "maxItems": "S01:ArrayDef row 20"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 13,
+      "x-universe": "Only completed for a brother or sister the participant has; 14:7 says 'Please now fill in a section below for each brother or sister you have'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_Sibling_Num": {
+            "x-role": "entity key",
+            "title": "Which brother or sister this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 20",
+              "maximum": "S01:ArrayDef row 20"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 13,
+            "x-pii": false
+          },
+          "R0_SiblingRelation": {
+            "title": "Relationship to the participant",
+            "description": "Sibling's relationship (e.g., brother, sister, half-brother, half-sister). Use in combination with SiblingParentShared for half-siblings.",
+            "$comment": "Source coding: 1 Brother; 2 Half-brother; 3 Sister; 4 Half-sister; A Sex unknown (a letter answer the questionnaire does not print, kept as the dictionary gives it).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1699",
+                "S02:p.43 Q14:8 Relationship to you: Brother Half-brother Sister Half-sister"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Brother"
+              },
+              {
+                "const": 2,
+                "title": "Half-brother"
+              },
+              {
+                "const": 3,
+                "title": "Sister"
+              },
+              {
+                "const": 4,
+                "title": "Half-sister"
+              },
+              {
+                "const": "A",
+                "title": "Sex unknown"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed for a brother or sister the participant has; 14:7 says 'Please now fill in a section below for each brother or sister you have'.",
+            "x-formerName": [
+              "Q14_8_1_1",
+              "Q14_9_1_1",
+              "Q14_10_1_1",
+              "Q14_11_1_1",
+              "Q14_12_1_1",
+              "gen02_full@Q14_13_1_1",
+              "gen02_full@Q14_14_1_1",
+              "gen02_full@Q14_15_1_1",
+              "gen02_full@Q14_16_1_1",
+              "gen02_full@Q14_17_1_1",
+              "gen02_full@Q14_18_1_1",
+              "gen02_full@Q14_19_1_1",
+              "gen02_full@Q14_20_1_1"
+            ],
+            "x-questionID": 2564,
+            "x-answerIDs": {
+              "1": 2552,
+              "2": 2553,
+              "3": 2554,
+              "4": 2555,
+              "A": 2585
+            },
+            "x-pii": false
+          },
+          "R0_SiblingParentShared": {
+            "title": "Which parent is shared (half-siblings)",
+            "description": "For half-siblings, indicates whether the shared parent is the mother or the father.",
+            "$comment": "Source coding: 1 Mother; 2 Father.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1700",
+                "S02:p.43 Q14:8 If half brother or half sister, which parent do you share? Mother Father"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Mother"
+              },
+              {
+                "const": 2,
+                "title": "Father"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only for a half-brother or half-sister; the form says 'If half brother or half sister, which parent do you share?'.",
+            "x-formerName": [
+              "Q14_8_2_1",
+              "Q14_9_2_1",
+              "Q14_10_2_1",
+              "Q14_11_2_1",
+              "Q14_12_2_1",
+              "gen02_full@Q14_13_2_1",
+              "gen02_full@Q14_14_2_1",
+              "gen02_full@Q14_15_2_1",
+              "gen02_full@Q14_16_2_1",
+              "gen02_full@Q14_17_2_1",
+              "gen02_full@Q14_18_2_1",
+              "gen02_full@Q14_19_2_1",
+              "gen02_full@Q14_20_2_1"
+            ],
+            "x-questionID": 2565,
+            "x-answerIDs": {
+              "1": 2556,
+              "2": 2557
+            },
+            "x-pii": false
+          },
+          "R0_SiblingDOB_Unknown": {
+            "title": "Does not know the sibling's date of birth",
+            "description": "Flag indicating the sibling's date of birth is unknown.",
+            "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1704",
+                "S02:p.43 Q14:8 date of birth or Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't know"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed for a brother or sister the participant has; 14:7 says 'Please now fill in a section below for each brother or sister you have'.",
+            "x-formerName": [
+              "Q14_8_6",
+              "Q14_9_6",
+              "Q14_10_6",
+              "Q14_11_6",
+              "Q14_12_6",
+              "gen02_full@Q14_13_6",
+              "gen02_full@Q14_14_6",
+              "gen02_full@Q14_15_6",
+              "gen02_full@Q14_16_6",
+              "gen02_full@Q14_17_6",
+              "gen02_full@Q14_18_6",
+              "gen02_full@Q14_19_6",
+              "gen02_full@Q14_20_6"
+            ],
+            "x-questionID": 2569,
+            "x-answerIDs": {
+              "1": 3
+            },
+            "x-pii": false
+          },
+          "R0_SiblingCancerHistory": {
+            "title": "Whether the sibling has ever had cancer, leukaemia or lymphoma (and how many)",
+            "description": "Summary flag for any malignant disease reported for this sibling. Use the per-sibling fields below for details when applicable.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 No; 2 Yes, one cancer; 3 Yes, more than one cancer.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1705",
+                "S02:p.43 Q14:8 has your sibling ever had any type of cancer, leukaemia or lymphoma? No Yes, one cancer Yes, more than one cancer"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "No"
+              },
+              {
+                "const": 2,
+                "title": "Yes, one cancer"
+              },
+              {
+                "const": 3,
+                "title": "Yes, more than one cancer"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed for a brother or sister the participant has; 14:7 says 'Please now fill in a section below for each brother or sister you have'.",
+            "x-formerName": [
+              "Q14_8_7_1",
+              "Q14_9_7_1",
+              "Q14_10_7_1",
+              "Q14_11_7_1",
+              "Q14_12_7_1",
+              "gen02_full@Q14_13_7_1",
+              "gen02_full@Q14_14_7_1",
+              "gen02_full@Q14_15_7_1",
+              "gen02_full@Q14_16_7_1",
+              "gen02_full@Q14_17_7_1",
+              "gen02_full@Q14_18_7_1",
+              "gen02_full@Q14_19_7_1",
+              "gen02_full@Q14_20_7_1"
+            ],
+            "x-questionID": 2570,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 2,
+              "2": 2510,
+              "3": 2511
+            },
+            "x-pii": false
+          },
+          "R0_SiblingCancerType": {
+            "title": "Type of the sibling's cancer",
+            "description": "Reported cancer site/type for this sibling.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1706",
+                "S02:p.43 Q14:8 If yes, what type was it:"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the sibling has had cancer (R0_SiblingCancerHistory = 2 or 3); the form says 'If yes, what type was it'.",
+            "x-formerName": [
+              "Q14_8_8",
+              "Q14_9_8",
+              "Q14_10_8",
+              "Q14_11_8",
+              "Q14_12_8",
+              "gen02_full@Q14_13_8",
+              "gen02_full@Q14_14_8",
+              "gen02_full@Q14_15_8",
+              "gen02_full@Q14_16_8",
+              "gen02_full@Q14_17_8",
+              "gen02_full@Q14_18_8",
+              "gen02_full@Q14_19_8",
+              "gen02_full@Q14_20_8"
+            ],
+            "x-questionID": 2571,
+            "x-pii": false
+          },
+          "R0_SiblingCancerYear_Shifted": {
+            "title": "R0_SiblingCancerYear_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_SiblingCancerYear"
+            ],
+            "x-pii": false
+          },
+          "R0_SiblingCancerYearUnknown": {
+            "title": "Does not know the year of the sibling's cancer diagnosis",
+            "description": "Flag indicating the diagnosis year for this sibling's cancer is unknown.",
+            "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1708",
+                "S02:p.43 Q14:8 Year or Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't know"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the sibling has had cancer (R0_SiblingCancerHistory = 2 or 3); the form says 'If yes, what type was it'.",
+            "x-formerName": [
+              "Q14_8_10",
+              "Q14_9_10",
+              "Q14_10_10",
+              "Q14_11_10",
+              "Q14_12_10",
+              "gen02_full@Q14_13_10",
+              "gen02_full@Q14_14_10",
+              "gen02_full@Q14_15_10",
+              "gen02_full@Q14_16_10",
+              "gen02_full@Q14_17_10",
+              "gen02_full@Q14_18_10",
+              "gen02_full@Q14_19_10",
+              "gen02_full@Q14_20_10"
+            ],
+            "x-questionID": 2573,
+            "x-answerIDs": {
+              "1": 3
+            },
+            "x-pii": false
+          },
+          "R0_SiblingDOB_Shifted": {
+            "title": "R0_SiblingDOB_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_SiblingDOB_Day",
+              "R0_SiblingDOB_Month",
+              "R0_SiblingDOB_Year"
+            ],
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_Sibling_Num",
+          "R0_SiblingRelation",
+          "R0_SiblingParentShared",
+          "R0_SiblingDOB_Unknown",
+          "R0_SiblingCancerHistory",
+          "R0_SiblingCancerType",
+          "R0_SiblingCancerYear_Shifted",
+          "R0_SiblingCancerYearUnknown"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_MoreThanFiveSiblings": {
+      "title": "More than 5 brothers and sisters",
+      "description": "Flag indicating whether the participant has more than 5 siblings.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'More than 5 siblings').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1749",
+          "S02:p.44 Q14:13 If you have more than 5 siblings, please cross the box and fill in the details of other siblings on page 15:1 More than 5"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_13",
+      "x-questionID": 2614,
+      "x-answerIDs": {
+        "1": 2565
+      },
+      "x-pii": false
+    },
+    "R0_ChildCancerHistory": {
+      "title": "Whether any of the participant's children ever had cancer",
+      "description": "Flag indicating whether any of the participant's children have ever had cancer.",
+      "$comment": "Source coding as the dictionary gives it: 0 More than one option chosen; 1 No; 2 Yes; 3 Not applicable. Note that 1 is No and 2 is Yes here.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1830",
+          "S02:p.45 Q14:14 Have any of your children ever had any type of cancer, including Hodgkin's disease, leukaemia or lymphoma? No Yes Not applicable"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "No"
+        },
+        {
+          "const": 2,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/not_applicable",
+          "$comment": "local code 3 (Not applicable) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_14_1",
+      "x-questionID": 2695,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2,
+        "2": 1,
+        "-666": 6
+      },
+      "x-pii": false
+    },
+    "ChildrenCancer": {
+      "title": "Children who had cancer",
+      "description": "One entry per child of the participant who had cancer, up to 3: who, date of birth, type of cancer and year of diagnosis. Further children go on page 15:1 and are flagged by R0_MoreChildrenCancer.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 5",
+          "S02:p.45 Q14:14 If yes, who was it?"
+        ],
+        "minItems": "S01:ArrayDef row 5",
+        "maxItems": "S01:ArrayDef row 5"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 3,
+      "x-universe": "Only completed when a child had cancer (R0_ChildCancerHistory = 2); the form says 'If yes, who was it?'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_ChildCancer_Num": {
+            "x-role": "entity key",
+            "title": "Which child this entry refers to (1st, 2nd, 3rd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 5",
+              "maximum": "S01:ArrayDef row 5"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "x-pii": false
+          },
+          "R0_Child_CancerWho": {
+            "title": "Which child had cancer",
+            "description": "Description of child by participant who had cancer.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1831",
+                "S02:p.45 Q14:14 If yes, who was it? who was it?"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when a child had cancer (R0_ChildCancerHistory = 2); the form says 'If yes, who was it?'.",
+            "x-formerName": [
+              "Q14_14who",
+              "gen01@fast_Q14_14who2",
+              "gen01@fast_Q14_14who3"
+            ],
+            "x-questionID": 2696,
+            "x-pii": false
+          },
+          "R0_ChildDOB_Unknown": {
+            "title": "Does not know the child's date of birth",
+            "description": "Flag indicating the participant does not know this child's date of birth.",
+            "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1835",
+                "S02:p.45 Q14:14 If yes, who was it? date of birth or Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't know"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when a child had cancer (R0_ChildCancerHistory = 2); the form says 'If yes, who was it?'.",
+            "x-formerName": [
+              "Q14_14DOBdn",
+              "gen01@fast_Q14_14Dobdn2",
+              "gen01@fast_Q14_14Dobdn3"
+            ],
+            "x-questionID": 2700,
+            "x-answerIDs": {
+              "1": 3
+            },
+            "x-pii": false
+          },
+          "R0_ChildCancerType": {
+            "title": "Type of the child's cancer",
+            "description": "Reported cancer site/type for this child.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1836",
+                "S02:p.45 Q14:14 What type of cancer was it?"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when a child had cancer (R0_ChildCancerHistory = 2); the form says 'If yes, who was it?'.",
+            "x-formerName": [
+              "Q14_14type",
+              "gen01@fast_Q14_14type2",
+              "gen01@fast_Q14_14type3"
+            ],
+            "x-questionID": 2701,
+            "x-pii": false
+          },
+          "R0_ChildCancerDate_Shifted": {
+            "title": "R0_ChildCancerDate_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_ChildCancerYear"
+            ],
+            "x-pii": false
+          },
+          "R0_ChildCancerYearUnknown": {
+            "title": "Does not know the year of the child's cancer diagnosis",
+            "description": "Flag indicating the diagnosis year for this child's cancer is unknown.",
+            "$comment": "Tick box. Source coding: 1 Don't know (AnswerID 3). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1838",
+                "S02:p.45 Q14:14 In what year was it diagnosed? Year or Don't know"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Doesn't know"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when a child had cancer (R0_ChildCancerHistory = 2); the form says 'If yes, who was it?'.",
+            "x-formerName": [
+              "Q14_14TYPdn",
+              "Gen01@full_Q14_14TYPdn2",
+              "Gen01@full_Q14_14TYPdn3"
+            ],
+            "x-questionID": 2703,
+            "x-answerIDs": {
+              "1": 3
+            },
+            "x-pii": false
+          },
+          "R0_ChildCancerDOB_Shifted": {
+            "title": "R0_ChildCancerDOB_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_Child_DOB_Day",
+              "R0_Child_DOB_Month",
+              "R0_Child_DOB_Year"
+            ],
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_ChildCancer_Num",
+          "R0_Child_CancerWho",
+          "R0_ChildDOB_Unknown",
+          "R0_ChildCancerType",
+          "R0_ChildCancerDate_Shifted",
+          "R0_ChildCancerYearUnknown"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_MoreChildrenCancer": {
+      "title": "More children who had cancer",
+      "description": "Flag indicating whether the participant has more children that have had cancer.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'More children with cancer').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1839",
+          "S02:p.45 Q14:15 If any more of your children have had cancer, please cross the box and fill in the details of other children on page 15:1 More children"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when a child had cancer (R0_ChildCancerHistory = 2).",
+      "x-formerName": "Q14_15",
+      "x-questionID": 2704,
+      "x-answerIDs": {
+        "1": 2582
+      },
+      "x-pii": false
+    },
+    "R0_DistantRelativesBreastCancer": {
+      "title": "Whether other, more distant blood relatives had breast cancer",
+      "description": "Summary question indicating whether any distant (non-parent, non-sibling, non-child) blood relatives are reported to have had breast cancer.",
+      "$comment": "Source coding as the dictionary gives it: 0 More than one option chosen; 1 No; 2 Yes; 3 Don't know. Note that 1 is No and 2 is Yes here.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1856",
+          "S02:p.45 Q14:16 As far as you know, have any of your other, more distant, relatives had breast cancer? No Yes Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "No"
+        },
+        {
+          "const": 2,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q14_16_1",
+      "x-questionID": 2721,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2,
+        "2": 1,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerMotherSister": {
+      "title": "Breast cancer in: Mother's sister(s)",
+      "description": "Indicates whether the participant reports that their mother's sister had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (1) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1857",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Mother's sister(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_1",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2572
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerFatherSister": {
+      "title": "Breast cancer in: Father's sister(s)",
+      "description": "Indicates whether the participant reports that their father's sister had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (2) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1858",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Father's sister(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_2",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2573
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerMotherCousin": {
+      "title": "Breast cancer in: Mother's side: 1st cousin(s)",
+      "description": "Indicates whether the participant reports that a 1st cousin on their mother's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (3) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1859",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Mother's side: 1st cousin(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_3",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2574
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerFatherCousin": {
+      "title": "Breast cancer in: Father's side: 1st cousin(s)",
+      "description": "Indicates whether the participant reports that a 1st cousin on their father's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (4) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1860",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Father's side: 1st cousin(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_4",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2575
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerMotherNiece": {
+      "title": "Breast cancer in: Mother's side: niece(s)",
+      "description": "Indicates whether the participant reports that a niece on their mother's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (5) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1861",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Mother's side: niece(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_5",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2576
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerFatherNiece": {
+      "title": "Breast cancer in: Father's side: niece(s)",
+      "description": "Indicates whether the participant reports that a niece on their father's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (6) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1862",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Father's side: niece(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_6",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2577
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerMotherGreatGrandmother": {
+      "title": "Breast cancer in: Mother's side: great grandmother(s)",
+      "description": "Indicates whether the participant reports that a great grandmother on their mother's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (7) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1863",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Mother's side: great grandmother(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_7",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2578
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerFatherGreatGrandmother": {
+      "title": "Breast cancer in: Father's side: great grandmother(s)",
+      "description": "Indicates whether the participant reports that a great grandmother on their father's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (8) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1864",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Father's side: great grandmother(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_8",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2579
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerMotherOther": {
+      "title": "Breast cancer in: Mother's side: other blood relative(s)",
+      "description": "Indicates whether the participant reports that another blood relative on their mother's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (9) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1865",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Mother's side: other blood relative(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_9",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2580
+      },
+      "x-pii": false
+    },
+    "R0_BreastCancerFatherOther": {
+      "title": "Breast cancer in: Father's side: other blood relative(s)",
+      "description": "Indicates whether the participant reports that another blood relative on their father's side had breast cancer.",
+      "$comment": "Tick box, one of ten sharing QuestionID 2722; the dictionary gives each box its own AnswerCode (10) and the property name R0_BreastCancerMotherSister for all ten. Source coding: 1 Yes. Name drafted from the box's wording.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1866",
+          "S02:p.45 Q14:16 If yes, which relative(s)? Father's side: other blood relative(s)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when more distant relatives had breast cancer (R0_DistantRelativesBreastCancer = 2); the form says 'If yes, which relative(s)?'.",
+      "x-formerName": "Q14_16which_10",
+      "x-questionID": 2722,
+      "x-answerIDs": {
+        "1": 2581
+      },
+      "x-pii": false
+    },
+    "OtherRelatives": {
+      "title": "Other blood relatives with breast cancer",
+      "description": "The other blood relatives who had breast cancer, specified in words, up to 3 lines.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 16",
+          "S02:p.45 Q14:16 Please specify:"
+        ],
+        "minItems": "S01:ArrayDef row 16",
+        "maxItems": "S01:ArrayDef row 16"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_OtherRelative_Num": {
+            "x-role": "entity key",
+            "title": "Which line this entry refers to (1st, 2nd, 3rd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 16",
+              "maximum": "S01:ArrayDef row 16"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "x-pii": false
+          },
+          "R0_BreastCancerRelative": {
+            "title": "Other blood relative with breast cancer",
+            "description": "Free-text relationship label for an 'other' distant blood relative with breast cancer.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1867",
+                "S02:p.45 Q14:16 Please specify:"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only when an 'Other blood relative(s)' box is crossed; the form says 'Other blood relative(s) (please specify below)'.",
+            "x-formerName": [
+              "Q14_16_who_1",
+              "Q14_16_who_2",
+              "Q14_16_who_3"
+            ],
+            "x-questionID": 2732,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_OtherRelative_Num",
+          "R0_BreastCancerRelative"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_FatherDOB_Shifted": {
+      "title": "R0_FatherDOB_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_FatherDOB_Day",
+        "R0_FatherDOB_Month",
+        "R0_FatherDOB_Year"
+      ],
+      "x-pii": false
+    },
+    "R0_FatherDeathDate_Shifted": {
+      "title": "R0_FatherDeathDate_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_FatherDOD_Day",
+        "R0_FatherDOD_Month",
+        "R0_FatherDOD_Year"
+      ],
+      "x-pii": false
+    },
+    "R0_MotherDOB_Shifted": {
+      "title": "R0_MotherDOB_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_MotherDOB_Day",
+        "R0_MotherDOB_Month",
+        "R0_MotherDOB_Year"
+      ],
+      "x-pii": false
+    },
+    "R0_MotherDeathDate_Shifted": {
+      "title": "R0_MotherDeathDate_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_MotherDOD_Day",
+        "R0_MotherDOD_Month",
+        "R0_MotherDOD_Year"
+      ],
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_BiologicalParentsUnknown",
+    "R0_FatherDOB_Unknown",
+    "R0_FatherHeightFeet",
+    "R0_FatherHeightInches",
+    "R0_FatherBirthCountry",
+    "R0_FatherBirthCountryOther",
+    "R0_FatherCancerHistory",
+    "FatherCancers",
+    "R0_FatherVitalStatus",
+    "R0_FatherDOD_Unknown",
+    "R0_FatherCauseOfDeath",
+    "R0_MotherDOB_Unknown",
+    "R0_MotherBirthCountry",
+    "R0_MotherBirthCountryOther",
+    "R0_MotherHeightFeet",
+    "R0_MotherHeightInches",
+    "R0_MotherCancerHistory",
+    "MotherCancers",
+    "R0_MotherVitalStatus",
+    "R0_MotherDOD_Unknown",
+    "R0_MotherCauseOfDeath",
+    "R0_GrandparentUK_MM",
+    "R0_GrandparentCountry_MM",
+    "R0_GrandparentCountryDN_MM",
+    "R0_GrandparentUK_MF",
+    "R0_GrandparentCountry_MF",
+    "R0_GrandparentCountryDN_MF",
+    "R0_GrandparentUK_FM",
+    "R0_GrandparentCountry_FM",
+    "R0_GrandparentCountryDN_FM",
+    "R0_GrandparentUK_FF",
+    "R0_GrandparentCountry_FF",
+    "R0_GrandparentCountryDN_FF",
+    "R0_GrandparentBreastCancer",
+    "R0_GrandparentBreastCancerWho",
+    "R0_SiblingsUnknown",
+    "R0_SiblingsTotal",
+    "Siblings",
+    "R0_MoreThanFiveSiblings",
+    "R0_ChildCancerHistory",
+    "ChildrenCancer",
+    "R0_MoreChildrenCancer",
+    "R0_DistantRelativesBreastCancer",
+    "R0_BreastCancerMotherSister",
+    "R0_BreastCancerFatherSister",
+    "R0_BreastCancerMotherCousin",
+    "R0_BreastCancerFatherCousin",
+    "R0_BreastCancerMotherNiece",
+    "R0_BreastCancerFatherNiece",
+    "R0_BreastCancerMotherGreatGrandmother",
+    "R0_BreastCancerFatherGreatGrandmother",
+    "R0_BreastCancerMotherOther",
+    "R0_BreastCancerFatherOther",
+    "OtherRelatives"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R056: the participant does not know the biological parents (the box is crossed, 1), so questions 14:2 to 14:5 (father, mother, grandparents) are not asked -- every field about them is structurally not applicable: numbers, codes and boxes carry the missing-numeric sentinel, texts the missing-string sentinel, and the lists of cancers are empty. Questionnaire p.40 Q14:1: 'please cross the box and go to question 14:6'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.40 Q14:1 If you do not know about your biological parents, please cross the box and go to question 14:6"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_BiologicalParentsUnknown"
+        ],
+        "properties": {
+          "R0_BiologicalParentsUnknown": {
+            "enum": [
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FatherDOB_Unknown": {
+            "const": -999
+          },
+          "R0_FatherBirthCountry": {
+            "const": -999
+          },
+          "R0_FatherBirthCountryOther": {
+            "const": "MISSING"
+          },
+          "R0_FatherCancerHistory": {
+            "const": -999
+          },
+          "FatherCancers": {
+            "maxItems": 0
+          },
+          "R0_FatherVitalStatus": {
+            "const": -999
+          },
+          "R0_FatherDOD_Unknown": {
+            "const": -999
+          },
+          "R0_FatherCauseOfDeath": {
+            "const": "MISSING"
+          },
+          "R0_FatherHeightFeet": {
+            "const": -999
+          },
+          "R0_FatherHeightInches": {
+            "const": -999
+          },
+          "R0_MotherDOB_Unknown": {
+            "const": -999
+          },
+          "R0_MotherBirthCountry": {
+            "const": -999
+          },
+          "R0_MotherBirthCountryOther": {
+            "const": "MISSING"
+          },
+          "R0_MotherCancerHistory": {
+            "const": -999
+          },
+          "MotherCancers": {
+            "maxItems": 0
+          },
+          "R0_MotherVitalStatus": {
+            "const": -999
+          },
+          "R0_MotherDOD_Unknown": {
+            "const": -999
+          },
+          "R0_MotherCauseOfDeath": {
+            "const": "MISSING"
+          },
+          "R0_MotherHeightFeet": {
+            "const": -999
+          },
+          "R0_MotherHeightInches": {
+            "const": -999
+          },
+          "R0_GrandparentUK_MM": {
+            "const": -999
+          },
+          "R0_GrandparentCountry_MM": {
+            "const": "MISSING"
+          },
+          "R0_GrandparentCountryDN_MM": {
+            "const": -999
+          },
+          "R0_GrandparentUK_MF": {
+            "const": -999
+          },
+          "R0_GrandparentCountry_MF": {
+            "const": "MISSING"
+          },
+          "R0_GrandparentCountryDN_MF": {
+            "const": -999
+          },
+          "R0_GrandparentUK_FM": {
+            "const": -999
+          },
+          "R0_GrandparentCountry_FM": {
+            "const": "MISSING"
+          },
+          "R0_GrandparentCountryDN_FM": {
+            "const": -999
+          },
+          "R0_GrandparentUK_FF": {
+            "const": -999
+          },
+          "R0_GrandparentCountry_FF": {
+            "const": "MISSING"
+          },
+          "R0_GrandparentCountryDN_FF": {
+            "const": -999
+          },
+          "R0_GrandparentBreastCancer": {
+            "const": -999
+          },
+          "R0_GrandparentBreastCancerWho": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R057: the participant does not know the biological siblings (the box is crossed, 1), so questions 14:7 to 14:13 are not asked -- the total and the 'more than 5' box carry the missing-numeric sentinel and Siblings is empty. Questionnaire p.43 Q14:6: 'please cross this box and go to question 14:14'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.43 Q14:6 If you do not know about your biological siblings please cross this box and go to question 14:14"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_SiblingsUnknown"
+        ],
+        "properties": {
+          "R0_SiblingsUnknown": {
+            "enum": [
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_SiblingsTotal": {
+            "const": -999
+          },
+          "Siblings": {
+            "maxItems": 0
+          },
+          "R0_MoreThanFiveSiblings": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R058: the participant has no brothers or sisters (the total is 0), so the sibling sections are not filled in -- Siblings is empty and the 'more than 5' box carries the missing-numeric sentinel. Questionnaire p.43 Q14:7: 'If none go to question 14:14'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.43 Q14:7 If 'none' go to question 14:14"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_SiblingsTotal"
+        ],
+        "properties": {
+          "R0_SiblingsTotal": {
+            "const": 0
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "Siblings": {
+            "maxItems": 0
+          },
+          "R0_MoreThanFiveSiblings": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R059: the answer to whether any child had cancer is not Yes (0 more than one option, 1 No or 3 Not applicable), so the details are not asked -- ChildrenCancer is empty and the 'more children' box carries the missing-numeric sentinel. Questionnaire p.45 Q14:14: 'If yes, who was it?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.45 Q14:14 If yes, who was it?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_ChildCancerHistory"
+        ],
+        "properties": {
+          "R0_ChildCancerHistory": {
+            "enum": [
+              0,
+              1,
+              -666
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ChildrenCancer": {
+            "maxItems": 0
+          },
+          "R0_MoreChildrenCancer": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R060: the answer to whether more distant relatives had breast cancer is not Yes (0 more than one option, 1 No or 3 Don't know), so the relatives are not asked -- the ten boxes carry the missing-numeric sentinel and OtherRelatives is empty. Questionnaire p.45 Q14:16: 'If yes, which relative(s)?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.45 Q14:16 If yes, which relative(s)?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_DistantRelativesBreastCancer"
+        ],
+        "properties": {
+          "R0_DistantRelativesBreastCancer": {
+            "enum": [
+              0,
+              1,
+              -888
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_BreastCancerMotherSister": {
+            "const": -999
+          },
+          "R0_BreastCancerFatherSister": {
+            "const": -999
+          },
+          "R0_BreastCancerMotherCousin": {
+            "const": -999
+          },
+          "R0_BreastCancerFatherCousin": {
+            "const": -999
+          },
+          "R0_BreastCancerMotherNiece": {
+            "const": -999
+          },
+          "R0_BreastCancerFatherNiece": {
+            "const": -999
+          },
+          "R0_BreastCancerMotherGreatGrandmother": {
+            "const": -999
+          },
+          "R0_BreastCancerFatherGreatGrandmother": {
+            "const": -999
+          },
+          "R0_BreastCancerMotherOther": {
+            "const": -999
+          },
+          "R0_BreastCancerFatherOther": {
+            "const": -999
+          },
+          "OtherRelatives": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R061: neither 'Other blood relative(s)' box (mother's side, father's side) is crossed, so there is nothing to specify -- OtherRelatives is empty. Questionnaire p.45 Q14:16: 'Other blood relative(s) (please specify below)'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.45 Q14:16 Other blood relative(s) (please specify below)"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_BreastCancerMotherOther",
+          "R0_BreastCancerFatherOther"
+        ],
+        "properties": {
+          "R0_BreastCancerMotherOther": {
+            "not": {
+              "const": 1
+            }
+          },
+          "R0_BreastCancerFatherOther": {
+            "not": {
+              "const": 1
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "OtherRelatives": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R062: the father has not had cancer (0 more than one option or 1 No), so the type and year are not asked -- FatherCancers is empty. Questionnaire p.41 Q14:2: 'If yes, what type was it?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.41 Q14:2 If yes, what type was it?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_FatherCancerHistory"
+        ],
+        "properties": {
+          "R0_FatherCancerHistory": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "FatherCancers": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R063: the mother has not had cancer (0 more than one option or 1 No), so the type and year are not asked -- MotherCancers is empty. Questionnaire p.42 Q14:3: 'If yes, what type was it?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.42 Q14:3 If yes, what type was it?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_MotherCancerHistory"
+        ],
+        "properties": {
+          "R0_MotherCancerHistory": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "MotherCancers": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R064: the father is not recorded as dead (anything but 2), so the date and cause of death are structurally not applicable. Questionnaire p.41 Q14:2: 'If he is dead, what was his date of death?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.41 Q14:2 If he is dead, what was his date of death?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_FatherVitalStatus"
+        ],
+        "properties": {
+          "R0_FatherVitalStatus": {
+            "not": {
+              "const": 2
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FatherDOD_Unknown": {
+            "const": -999
+          },
+          "R0_FatherCauseOfDeath": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R065: the mother is not recorded as dead (anything but 2), so the date and cause of death are structurally not applicable. Questionnaire p.42 Q14:3: 'If she is dead, what was her date of death?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.42 Q14:3 If she is dead, what was her date of death?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_MotherVitalStatus"
+        ],
+        "properties": {
+          "R0_MotherVitalStatus": {
+            "not": {
+              "const": 2
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_MotherDOD_Unknown": {
+            "const": -999
+          },
+          "R0_MotherCauseOfDeath": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R066: the father's country of birth is not Other (anything but 2), so the country in words is structurally not applicable. Questionnaire p.41 Q14:2: 'If other, please specify'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.41 Q14:2 If other, please specify"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_FatherBirthCountry"
+        ],
+        "properties": {
+          "R0_FatherBirthCountry": {
+            "not": {
+              "const": 2
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FatherBirthCountryOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R067: the mother's country of birth is not Other (anything but 2), so the country in words is structurally not applicable. Questionnaire p.41 Q14:3: 'If other, please specify'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.41 Q14:3 If other, please specify"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_MotherBirthCountry"
+        ],
+        "properties": {
+          "R0_MotherBirthCountry": {
+            "not": {
+              "const": 2
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_MotherBirthCountryOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R068: in each sibling entry that is not a half-brother (2) or half-sister (4), the shared parent is structurally not applicable -- R0_SiblingParentShared carries the missing-numeric sentinel. Questionnaire p.43 Q14:8: 'If half brother or half sister, which parent do you share?'. It is written here, not in the entry's own allOf, to keep the relatives' routings together.",
+      "x-provenance": {
+        "default": [
+          "S02:p.43 Q14:8 If half brother or half sister, which parent do you share?"
+        ]
+      },
+      "properties": {
+        "Siblings": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_SiblingRelation"
+              ],
+              "properties": {
+                "R0_SiblingRelation": {
+                  "not": {
+                    "enum": [
+                      2,
+                      4
+                    ]
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_SiblingParentShared": {
+                  "const": -999
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R069: in each sibling entry whose cancer answer is not Yes (0 more than one option or 1 No), the type and the year are structurally not applicable -- R0_SiblingCancerType carries the missing-string sentinel and the year and its Don't know box the missing-numeric sentinel. Questionnaire p.43 Q14:8: 'If yes, what type was it'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.43 Q14:8 If yes, what type was it:"
+        ]
+      },
+      "properties": {
+        "Siblings": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_SiblingCancerHistory"
+              ],
+              "properties": {
+                "R0_SiblingCancerHistory": {
+                  "enum": [
+                    0,
+                    1
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_SiblingCancerType": {
+                  "const": "MISSING"
+                },
+                "R0_SiblingCancerYear": {
+                  "const": -999
+                },
+                "R0_SiblingCancerYearUnknown": {
+                  "const": -999
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R070: the answer to whether any grandparent had breast cancer is No (2), so which one is structurally not applicable -- R0_GrandparentBreastCancerWho carries the missing-numeric sentinel. Questionnaire p.42 Q14:5: 'If yes, who was it?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.42 Q14:5 If yes, who was it?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_GrandparentBreastCancer"
+        ],
+        "properties": {
+          "R0_GrandparentBreastCancer": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_GrandparentBreastCancerWho": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

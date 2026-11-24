@@ -1,0 +1,1520 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/birth_details_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Birth Details (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from birth_details.json containing Date and place of birth, twin status, and the mother's pregnancy and the participant's birth, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_CountryBorn": {
+      "title": "Country of birth: United Kingdom or other",
+      "description": "Participant's country of birth.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 45",
+          "S02:Source question (2:2) In which country were you born? United Kingdom Other"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "UK"
+        },
+        {
+          "const": 2,
+          "title": "Other country"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Country_1",
+      "x-questionID": 54,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 104,
+        "2": 13
+      },
+      "x-pii": false
+    },
+    "R0_CountryBornNonUK": {
+      "title": "Country of birth, if not the UK",
+      "description": "Participant's country of birth if not the UK.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 46",
+          "S02:Source question (2:2) If not UK, please specify:"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_CountryBorn = 2 (Other country); 2:2 says 'If not UK, please specify'.",
+      "x-formerName": "CountryOthe",
+      "x-questionID": 55,
+      "x-pii": false
+    },
+    "R0_BornHosp_Other": {
+      "title": "Place of birth: hospital, nursing home, home or other",
+      "description": "Participant's place of birth (e.g., hospital, home).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 48",
+          "S02:Source question (2:4) Were you born in a hospital or at some other place? (Cross one box)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Hospital"
+        },
+        {
+          "const": 2,
+          "title": "Nursing home"
+        },
+        {
+          "const": 3,
+          "title": "Home"
+        },
+        {
+          "const": 4,
+          "title": "Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 5 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_4_1_1",
+      "x-questionID": 57,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 108,
+        "2": 109,
+        "3": 110,
+        "4": 13,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_BirthPlace_Other": {
+      "title": "Other place of birth",
+      "description": "Participant's other specified birth place details.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 50",
+          "S02:Source question (2:4) Other. If other, please specify"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_BornHosp_Other = 4 (Other); 2:4 says 'If other, please specify'.",
+      "x-formerName": "Q2_4_3",
+      "x-questionID": 59,
+      "x-pii": false
+    },
+    "R0_Single_Twin": {
+      "title": "Single-born, twin or triplet or higher",
+      "description": "Whether the participant was born as a single, twin, or triplet/higher.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 51",
+          "S02:Source question (2:5) Are you a twin or single born? Single born Twin Triplet or higher Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Single-born"
+        },
+        {
+          "const": 2,
+          "title": "Twin"
+        },
+        {
+          "const": 3,
+          "title": "Triplet/higher"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 4 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_5_1",
+      "x-questionID": 60,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 114,
+        "2": 115,
+        "3": 116,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TwinFemale": {
+      "title": "Co-twin is also female",
+      "description": "Whether the participant's co-twin is female.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 52",
+          "S02:Source question (2:6) Is your co-twin also female? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed by twins (R0_Single_Twin = 2); 2:6 to 2:8 are headed 'Twins only'.",
+      "x-formerName": "Q2_6_1_1",
+      "x-questionID": 61,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_TwinType": {
+      "title": "Identical or non-identical twins",
+      "description": "Whether the participant and their twin are identical or non-identical.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 53",
+          "S02:Source question (2:6) If yes, are you identical or non-identical twins? Identical Non-identical Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Identical"
+        },
+        {
+          "const": 2,
+          "title": "Non-identical"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_6_2_1",
+      "x-questionID": 62,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 117,
+        "2": 118,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TwinType_Parents": {
+      "title": "How the twin type is known: parents told us",
+      "description": "Whether the participant's twin type was confirmed by parents.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 54",
+          "S02:Source question (2:6) How do you know? (Please answer for each category) Parents told us Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_6_3_1",
+      "x-questionID": 63,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_TwinType_Doctor": {
+      "title": "How the twin type is known: doctor said so",
+      "description": "Whether the participant's twin type was confirmed by a doctor.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 55",
+          "S02:Source question (2:6) How do you know? (Please answer for each category) Doctor said so Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_6_4_1",
+      "x-questionID": 63,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_TwinType_Blood": {
+      "title": "How the twin type is known: blood test",
+      "description": "Whether the participant's twin type was confirmed by a blood test.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 56",
+          "S02:Source question (2:6) How do you know? (Please answer for each category) Blood test Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_6_5_1",
+      "x-questionID": 63,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_TwinType_AppSim": {
+      "title": "How the twin type is known: we look similar",
+      "description": "Whether the participant knows their twin type because the twins look similar.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 57",
+          "S02:Source question (2:6) How do you know? (Please answer for each category) We look similar Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_6_6_1",
+      "x-questionID": 63,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_TwinType_AppDif": {
+      "title": "How the twin type is known: we look different",
+      "description": "Whether the participant knows their twin type because the twins look different.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 58",
+          "S02:Source question (2:6) How do you know? (Please answer for each category) We look different Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_6_7_1",
+      "x-questionID": 63,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_TwinType_Other": {
+      "title": "How the twin type is known: other reasons",
+      "description": "Whether the participant knows their twin type for other reasons.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 59",
+          "S02:Source question (2:6) How do you know? (Please answer for each category) Other reasons Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_6_8_1",
+      "x-questionID": 63,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_TwinMist_Parents": {
+      "title": "Mistaken for your twin as children by: parents",
+      "description": "Whether the participant and their twin were mistaken for each other as children by their parents.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 60",
+          "S02:Source question (2:7) As children, were you and your twin mistaken for each other by: Parents Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_7_1_1",
+      "x-questionID": 69,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TwinMist_Siblings": {
+      "title": "Mistaken for your twin as children by: brothers and sisters",
+      "description": "Whether the participant and their twin were mistaken for each other as children by their brothers and sisters.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 61",
+          "S02:Source question (2:7) As children, were you and your twin mistaken for each other by: Brothers and sisters Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_7_2_1",
+      "x-questionID": 69,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TwinMist_ClseFrnds": {
+      "title": "Mistaken for your twin as children by: close friends",
+      "description": "Whether the participant and their twin were mistaken for each other as children by close friends.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 62",
+          "S02:Source question (2:7) As children, were you and your twin mistaken for each other by: Close friends Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_7_3_1",
+      "x-questionID": 69,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TwinMist_CasFrnds": {
+      "title": "Mistaken for your twin as children by: casual friends",
+      "description": "Whether the participant and their twin were mistaken for each other as children by casual friends.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 63",
+          "S02:Source question (2:7) As children, were you and your twin mistaken for each other by: Casual friends Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_7_4_1",
+      "x-questionID": 69,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TwinMist_Clssmts": {
+      "title": "Mistaken for your twin as children by: class-mates",
+      "description": "Whether the participant and their twin were mistaken for each other as children by class-mates.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 64",
+          "S02:Source question (2:7) As children, were you and your twin mistaken for each other by: Class-mates Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_7_5_1",
+      "x-questionID": 69,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_TwinSimilarity": {
+      "title": "How alike the twins were described as when growing up",
+      "description": "How the participant and their twin were described during childhood.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 65",
+          "S02:Source question (2:8) When growing up, were you described as being: ..."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Alike as two peas"
+        },
+        {
+          "const": 2,
+          "title": "Very alike"
+        },
+        {
+          "const": 3,
+          "title": "Ordinary family likeness"
+        },
+        {
+          "const": 4,
+          "title": "Not alike"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 5 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_TwinFemale = 1 (Yes); 2:6 says 'If no, go to question 2:9'.",
+      "x-formerName": "Q2_8_1",
+      "x-questionID": 74,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 119,
+        "2": 120,
+        "3": 121,
+        "4": 122,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_MatPregWks": {
+      "title": "Weeks the mother was pregnant with the participant",
+      "description": "Number of weeks the participant's mother was pregnant with them.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 66",
+          "S02:Source question (2:9) How many weeks was your mother pregnant with you when you were born? Weeks"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 54
+        },
+        {
+          "const": 40,
+          "title": "Full term",
+          "x-value-kind": "value"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_9_1",
+      "x-questionID": 75,
+      "x-pii": false
+    },
+    "R0_MatPregWks_Unkn": {
+      "title": "Does not know how many weeks the mother was pregnant",
+      "description": "Participant does not know the weeks of maternal pregnancy.",
+      "$comment": "Source coding: 1 = Don't know (a tick box). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 67",
+          "S02:Source question (2:9) or Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_9_2",
+      "x-questionID": 76,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_BirthExpEarlyLate": {
+      "title": "Born early, on time or late",
+      "description": "Whether the participant was born early, on time, or late.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 68",
+          "S02:Source question (2:9) If don't know, do you know roughly whether you were born about the time expected or earlier or later?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Early"
+        },
+        {
+          "const": 2,
+          "title": "On time"
+        },
+        {
+          "const": 3,
+          "title": "Late"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 4 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_9_3_1",
+      "x-questionID": 77,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 124,
+        "2": 125,
+        "3": 126,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_Lbs_BirthWght": {
+      "title": "Birth weight: pounds",
+      "description": "Participant's birth weight in pounds.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 69",
+          "S02:Source question (2:10) What was your birth weight? Lbs"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_10_lbs",
+      "x-questionID": 78,
+      "x-pii": false
+    },
+    "R0_Oz_BirthWght": {
+      "title": "Birth weight: ounces (part of the pounds and ounces weight)",
+      "description": "Participant's birth weight in ounces. This variable works in conjunction with pounds. Every increase of 16 ounces is another pound.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 70",
+          "S02:Source question (2:10) What was your birth weight? Oz"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_10_oz",
+      "x-questionID": 79,
+      "x-pii": false
+    },
+    "R0_G_BirthWght": {
+      "title": "Birth weight: grams",
+      "description": "Participant's birth weight in grams.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 71",
+          "S02:Source question (2:10) What was your birth weight? or Grams"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_10_grams",
+      "x-questionID": 80,
+      "x-pii": false
+    },
+    "R0_BirthWght_Cat": {
+      "title": "Birth weight category, if the weight is not known",
+      "description": "Participant's categorical birth weight description.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 72",
+          "S02:Source question (2:10) If you do not know your birth weight, have you been told that you were: Average Unusually light/small Unusually heavy/large Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Average"
+        },
+        {
+          "const": 2,
+          "title": "Unusually light/small"
+        },
+        {
+          "const": 3,
+          "title": "Unusually heavy/large"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 4 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_10_told_1",
+      "x-questionID": 81,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 130,
+        "2": 131,
+        "3": 132,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_MatPrevPreg": {
+      "title": "Number of the mother's pregnancies before the participant",
+      "description": "Number of pregnancies the participant's mother had before them.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 73",
+          "S02:Source question (2:11) How many pregnancies did your mother have before you were born? (If none enter '00') Pregnancies"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_11_preg",
+      "x-questionID": 82,
+      "x-pii": false
+    },
+    "R0_MatPrevPreg_Unkn": {
+      "title": "Does not know how many pregnancies the mother had before",
+      "description": "Participant does not know the number of maternal pregnancies.",
+      "$comment": "Source coding: 1 = Don't know (a tick box). Titled \"Doesn't know\" so the sentinel step's title match leaves it a flag, as for R0_GPdk.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 74",
+          "S02:Source question (2:11) Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't know"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_11_dn",
+      "x-questionID": 83,
+      "x-answerIDs": {
+        "1": 3
+      },
+      "x-pii": false
+    },
+    "R0_Delivery_Caesarean": {
+      "title": "Delivered by caesarean section",
+      "description": "Whether the participant was delivered by caesarean section.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 75",
+          "S02:Source question (2:12) Were you delivered by caesarean section? Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_12_1_1",
+      "x-questionID": 84,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_Caesarean_Reason": {
+      "title": "Reason for the caesarean section",
+      "description": "Reason for the participant's caesarean delivery.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 76",
+          "S02:Source question (2:12) If yes, please specify the reason"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_Delivery_Caesarean = 1 (Yes); 2:12 says 'If yes, please specify the reason'.",
+      "x-formerName": "Q2_12_2",
+      "x-questionID": 85,
+      "x-pii": false
+    },
+    "R0_Mother_PreEclampsia": {
+      "title": "Mother had pre-eclampsia or eclampsia",
+      "description": "Whether the participant's mother had pre-eclampsia/eclampsia.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 77",
+          "S02:Source question (2:13) Did your mother have pre-eclampsia or eclampsia while she was pregnant with you? Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_13_1",
+      "x-questionID": 86,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_Mother_PregComp": {
+      "title": "Mother had other complications in the pregnancy",
+      "description": "Whether the participant's mother had other pregnancy complications.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 78",
+          "S02:Source question (2:14) Did your mother have any other complications while she was pregnant with you? Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_14_1_1",
+      "x-questionID": 87,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_PregComp_Details": {
+      "title": "Details of the mother's complications",
+      "description": "Details of the participant's mother's pregnancy complications.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 79",
+          "S02:Source question (2:14) If yes, please specify"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_Mother_PregComp = 1 (Yes); 2:14 says 'If yes, please specify'.",
+      "x-formerName": "Q2_14_2",
+      "x-questionID": 88,
+      "x-pii": false
+    },
+    "R0_Postnatal_Incubator": {
+      "title": "Nursed in an incubator or special care baby unit",
+      "description": "Whether the participant was nursed in an incubator/special care after birth.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 80",
+          "S02:Source question (2:15) Were you nursed in an incubator or in a special care baby unit after you were born? Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_15_1",
+      "x-questionID": 89,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    },
+    "R0_Birth_MedAbnorm": {
+      "title": "Medical or physical abnormalities at birth",
+      "description": "Whether the participant had medical/physical abnormalities at birth.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 81",
+          "S02:Source question (2:16) Did you have any medical or physical abnormalities present when you were born? Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q2_16_1_1",
+      "x-questionID": 90,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_CountryBorn",
+    "R0_CountryBornNonUK",
+    "R0_BornHosp_Other",
+    "R0_BirthPlace_Other",
+    "R0_Single_Twin",
+    "R0_TwinFemale",
+    "R0_TwinType",
+    "R0_TwinType_Parents",
+    "R0_TwinType_Doctor",
+    "R0_TwinType_Blood",
+    "R0_TwinType_AppSim",
+    "R0_TwinType_AppDif",
+    "R0_TwinType_Other",
+    "R0_TwinMist_Parents",
+    "R0_TwinMist_Siblings",
+    "R0_TwinMist_ClseFrnds",
+    "R0_TwinMist_CasFrnds",
+    "R0_TwinMist_Clssmts",
+    "R0_TwinSimilarity",
+    "R0_MatPregWks",
+    "R0_MatPregWks_Unkn",
+    "R0_BirthExpEarlyLate",
+    "R0_Lbs_BirthWght",
+    "R0_Oz_BirthWght",
+    "R0_G_BirthWght",
+    "R0_BirthWght_Cat",
+    "R0_MatPrevPreg",
+    "R0_MatPrevPreg_Unkn",
+    "R0_Delivery_Caesarean",
+    "R0_Caesarean_Reason",
+    "R0_Mother_PreEclampsia",
+    "R0_Mother_PregComp",
+    "R0_PregComp_Details",
+    "R0_Postnatal_Incubator",
+    "R0_Birth_MedAbnorm"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern: the participant was not born in another country (2:2: 'If not UK, please specify'), so the country is structurally not applicable -- R0_CountryBornNonUK must carry the missing-string sentinel.",
+      "x-provenance": {
+        "default": "S02:p.4 Q2:2 If not UK, please specify"
+      },
+      "if": {
+        "required": [
+          "R0_CountryBorn"
+        ],
+        "properties": {
+          "R0_CountryBorn": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_CountryBornNonUK": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant was not born at some other place (2:4: 'If other, please specify'), so the description is structurally not applicable -- R0_BirthPlace_Other must carry the missing-string sentinel.",
+      "x-provenance": {
+        "default": "S02:p.5 Q2:4 Other. If other, please specify"
+      },
+      "if": {
+        "required": [
+          "R0_BornHosp_Other"
+        ],
+        "properties": {
+          "R0_BornHosp_Other": {
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              -888
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_BirthPlace_Other": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant is not known to be a twin (2:6 to 2:8 are headed 'Twins only'), so the co-twin questions are structurally not applicable -- each must carry the missing-numeric sentinel.",
+      "x-provenance": {
+        "default": [
+          "S02:p.5 Q2:6 Twins only"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_Single_Twin"
+        ],
+        "properties": {
+          "R0_Single_Twin": {
+            "enum": [
+              0,
+              1,
+              3,
+              -888
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_TwinFemale": {
+            "const": -999
+          },
+          "R0_TwinType": {
+            "const": -999
+          },
+          "R0_TwinType_Parents": {
+            "const": -999
+          },
+          "R0_TwinType_Doctor": {
+            "const": -999
+          },
+          "R0_TwinType_Blood": {
+            "const": -999
+          },
+          "R0_TwinType_AppSim": {
+            "const": -999
+          },
+          "R0_TwinType_AppDif": {
+            "const": -999
+          },
+          "R0_TwinType_Other": {
+            "const": -999
+          },
+          "R0_TwinMist_Parents": {
+            "const": -999
+          },
+          "R0_TwinMist_Siblings": {
+            "const": -999
+          },
+          "R0_TwinMist_ClseFrnds": {
+            "const": -999
+          },
+          "R0_TwinMist_CasFrnds": {
+            "const": -999
+          },
+          "R0_TwinMist_Clssmts": {
+            "const": -999
+          },
+          "R0_TwinSimilarity": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant's co-twin is not female (2:6: 'If no, go to question 2:9'), so the twin type, how it is known, being mistaken for each other and the likeness questions are structurally not applicable -- each must carry the missing-numeric sentinel.",
+      "x-provenance": {
+        "default": "S02:p.5 Q2:6 If 'no', go to question 2:9"
+      },
+      "if": {
+        "required": [
+          "R0_TwinFemale"
+        ],
+        "properties": {
+          "R0_TwinFemale": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_TwinType": {
+            "const": -999
+          },
+          "R0_TwinType_Parents": {
+            "const": -999
+          },
+          "R0_TwinType_Doctor": {
+            "const": -999
+          },
+          "R0_TwinType_Blood": {
+            "const": -999
+          },
+          "R0_TwinType_AppSim": {
+            "const": -999
+          },
+          "R0_TwinType_AppDif": {
+            "const": -999
+          },
+          "R0_TwinType_Other": {
+            "const": -999
+          },
+          "R0_TwinMist_Parents": {
+            "const": -999
+          },
+          "R0_TwinMist_Siblings": {
+            "const": -999
+          },
+          "R0_TwinMist_ClseFrnds": {
+            "const": -999
+          },
+          "R0_TwinMist_CasFrnds": {
+            "const": -999
+          },
+          "R0_TwinMist_Clssmts": {
+            "const": -999
+          },
+          "R0_TwinSimilarity": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant was not delivered by caesarean section (2:12: 'If yes, please specify the reason'), so the reason is structurally not applicable -- R0_Caesarean_Reason must carry the missing-string sentinel.",
+      "x-provenance": {
+        "default": "S02:p.6 Q2:12 If yes, please specify the reason"
+      },
+      "if": {
+        "required": [
+          "R0_Delivery_Caesarean"
+        ],
+        "properties": {
+          "R0_Delivery_Caesarean": {
+            "enum": [
+              0,
+              2,
+              -888
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_Caesarean_Reason": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the mother is not reported to have had other complications (2:14: 'If yes, please specify'), so the details are structurally not applicable -- R0_PregComp_Details must carry the missing-string sentinel.",
+      "x-provenance": {
+        "default": "S02:p.6 Q2:14 If yes, please specify"
+      },
+      "if": {
+        "required": [
+          "R0_Mother_PregComp"
+        ],
+        "properties": {
+          "R0_Mother_PregComp": {
+            "enum": [
+              0,
+              2,
+              -888
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_PregComp_Details": {
+            "const": "MISSING"
+          }
+        }
+      }
+    }
+  ]
+}

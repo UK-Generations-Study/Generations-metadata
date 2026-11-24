@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Administration/schemas/pseudo_anon/admin_events_pseudo_anon.json",
+  "title": "Administrative event years (pseudonymised)",
+  "description": "Participant-level administrative events/years with pseudo-anonymised identifier, shifted entry date and date of birth.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymized 8-character study identifier.",
+      "description": "Pseudo-anonymized 8-character study identifier for all research datasets in RDS.",
+      "x-role": "primary key",
+      "type": "string",
+      "pattern": "^T.{7}$"
+    },
+    "AgeEntry": {
+      "title": "Age at entry (years)",
+      "description": "Up to date fields from People table and questionnaire received date to create Age at Entry. This variable is derived directly from raw data and the references to variables it is derived from is not another schema, they are references to the SQL database->table->column.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-provenance": {
+        "default": [
+        "Mailing.People.DOBYear",
+        "Mailing.People.DOBMonth",
+        "Mailing.People.DOBDay",
+        "Mailing.Events.EventDate"
+        ]
+      },
+      "x-formerName": "age_entry",
+      "x-pii": false
+    },
+    "DateOfBirth_Shifted": {
+      "title": "Shifted Date of birth",
+      "description": "Using up to date fields from People table in the Mailing database. This variable is derived directly from raw data and the references to variables it is derived from is not another schema, they are references to the SQL database->table->column.",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_datetime"
+        }
+      ],
+      "x-provenance": {
+      "default":[
+        "Mailing.People.DOBYear",
+        "Mailing.People.DOBMonth",
+        "Mailing.People.DOBDay",
+        "Mailing.SIDCodes.Random"
+        ]
+      },
+      "x-formerName": "dob_shifted",
+      "x-pii": false
+    },
+    "YearOfBirth": {
+      "title": "Year of birth",
+      "description": "The birth year before it is shifted for pseudo-anonymization. This variable is derived directly from raw data and the references to variables it is derived from is not another schema, they are references to the SQL database->table->column.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1900
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-provenance": {
+      "default": "Mailing.People.DOBYear"
+      },
+      "x-formerName": "yrdob",
+      "x-pii": false
+    },
+    "EntryDate_Shifted": {
+      "title": "Shifted Entry date",
+      "description": "Shifted date of study entry derived from EventDate where Event = 6 (date questionnaire received), pseudo-anymised by adding Random.",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_datetime"
+        }
+      ],
+      "x-provenance": {
+        "default": [
+        "Mailing.Events.EventDate",
+        "Mailing.SIDCodes.Random"
+        ]
+      },
+      "x-formerName": "date_entry_shifted",
+      "x-pii": false
+    },
+    "EntryYear": {
+      "title": "Year of entry",
+      "description": "Actual year of questionnaire completion, or if no date of completion, the date the questionnaire was received.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 2003
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-provenance": {
+        "default": "Mailing.Events.EventDate"
+      },
+      "x-formerName": "date_year",
+      "x-pii": false
+    },
+    "R1Completion": {
+      "title": "Baseline completion (year)",
+      "description": "Year of baseline questionnaire completion. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R1Completion"
+      },
+      "x-pii": false
+    },
+    "R1Received": {
+      "title": "Baseline questionnaire received (year)",
+      "description": "Year baseline questionnaire received. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R1Received"
+      },
+      "x-pii": false
+    },
+    "R1BloodReceived": {
+      "title": "Baseline blood pack received (year)",
+      "description": "Year baseline blood pack received. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R1BloodReceived"
+      },
+      "x-pii": false
+    },
+    "R2Completion": {
+      "title": "Second follow up completion (year)",
+      "description": "Year of second follow-up questionnaire completion. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R2Completion"
+      },
+      "x-pii": false
+    },
+    "R2Received": {
+      "title": "Second follow up received (year)",
+      "description": "Year of second follow-up questionnaire received. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R2Received"
+      },
+      "x-pii": false
+    },
+    "R3Completion": {
+      "title": "Third follow up completion (year)",
+      "description": "Year of thrird follow-up questionnaire completion. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R3Completion"
+      },
+      "x-pii": false
+    },
+    "R3Received": {
+      "title": "Third follow up received (year)",
+      "description": "Year of third follow-up questionnaire received. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R3Received"
+      },
+      "x-pii": false
+    },
+    "R4Completion": {
+      "title": "Fourth follow-up completion (year)",
+      "description": "Year of fourth follow-up questionnaire completion. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R4Completion"
+      },
+      "x-pii": false
+    },
+    "R4Received": {
+      "title": "Fourth follow-up received (year)",
+      "description": "Year of fourth follow-up questionnaire received. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R4Received"
+      },
+      "x-pii": false
+    },
+    "R5Completion": {
+      "title": "Fifth follow up completion (year)",
+      "description": "Year of fifth follow-up questionnaire completion. Loaded directly from the TrueYear table",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-unit": "year",
+      "x-provenance": {
+        "default": "Mailing.TrueYear.R5Completion"
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "AgeEntry",
+    "DateOfBirth_Shifted",
+    "YearOfBirth",
+    "EntryDate_Shifted",
+    "EntryYear",
+    "R1Completion",
+    "R1Received",
+    "R1BloodReceived",
+    "R2Completion",
+    "R2Received",
+    "R3Completion",
+    "R3Received",
+    "R4Completion",
+    "R4Received",
+    "R5Completion"
+  ]
+}
