@@ -1,0 +1,2161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/mh_illnesses_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Medical history: illnesses (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from mh_illnesses.json containing Diabetes, thyroid disease and its drug treatments, visual impairment, gallstones and gallbladder removal, broken hips and eating disorders, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_Diabetes": {
+      "title": "Whether the participant has ever been diagnosed with diabetes",
+      "description": "Indicates whether the participant reports a medical diagnosis of diabetes at any time prior to questionnaire completion.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1016",
+          "S02:p.24 Q8:2 Have you ever been diagnosed with diabetes? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_2_1_1",
+      "x-questionID": 1426,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_DiabetesAge": {
+      "title": "Age when diabetes was diagnosed (years)",
+      "description": "Participant's age (in completed years) when diabetes was first diagnosed (if applicable).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1017",
+          "S02:p.24 Q8:2 If 'yes', at what age was this diagnosed? years"
+        ],
+        "minimum": "S01:Questions row 1017"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant has diabetes (R0_Diabetes = 1); the form says 'If yes, at what age was this diagnosed?'.",
+      "x-formerName": "Q8_2_2",
+      "x-questionID": 1427,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_TreatedWithInsulin": {
+      "title": "Whether the participant is treated with insulin",
+      "description": "Whether the participant is currently receiving insulin treatment.",
+      "$comment": "Source coding: 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1018",
+          "S02:p.24 Q8:2 Are you treated with insulin? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant has diabetes (R0_Diabetes = 1); the form says 'If yes, at what age was this diagnosed?'.",
+      "x-formerName": "Q8_2_3_1",
+      "x-questionID": 1428,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_ThyroidDisease": {
+      "title": "Whether the participant has ever been diagnosed with a thyroid disease or problem",
+      "description": "Indicates whether the participant reports any thyroid condition diagnosed by a clinician.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1019",
+          "S02:p.24 Q8:3 Have you ever been diagnosed with any thyroid disease or thyroid problems? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_3_1",
+      "x-questionID": 1429,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_ThyroidDiseaseType": {
+      "title": "The thyroid disease or problem",
+      "description": "Coded type of thyroid disease reported by the participant, when thyroid disease is present.",
+      "$comment": "Source coding: 1 Hyperthyroidism; 2 Hypothyroidism; 3 Thyroid cyst(s); 4 Other; A Both hyperthyroidism and hypothyroidism (a letter answer the questionnaire does not print, kept as the dictionary gives it).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1020",
+          "S02:p.24 Q8:3 If 'yes', what was the disease or problem? Hyperthyroidism (overactive thyroid) Hypothyroidism (underactive thyroid) Thyroid cyst(s) Other"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Hyperthyroidism"
+        },
+        {
+          "const": 2,
+          "title": "Hypothyroidism"
+        },
+        {
+          "const": 3,
+          "title": "Thyroid cyst(s)"
+        },
+        {
+          "const": 4,
+          "title": "Other"
+        },
+        {
+          "const": 5,
+          "title": "Both hyperthyroidism and hypothyroidism"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1); 8:3 says 'If no, go to question 8:4'.",
+      "x-formerName": "Q8_3_Yes_1",
+      "x-questionID": 1430,
+      "x-answerIDs": {
+        "1": 1209,
+        "2": 1210,
+        "3": 1211,
+        "4": 13,
+        "5": 1253
+      },
+      "x-pii": false
+    },
+    "R0_ThyroidDiseaseOther": {
+      "title": "The other thyroid disease, in words",
+      "description": "Free-text specification when the thyroid disease type is ‘Other'.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1021",
+          "S02:p.24 Q8:3 If other, please specify"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only when the disease is Other (4); the form says 'If other, please specify'.",
+      "x-formerName": "Q8_3_other",
+      "x-questionID": 1431,
+      "x-pii": false
+    },
+    "ThyroidTreatment": {
+      "title": "Drug treatments for thyroid disease",
+      "description": "One entry per drug treatment for thyroid disease (first, second), up to 2: the name, age at first treatment, duration or that it is still used. More are flagged by R0_ThyroidTreatment_MoreTwo.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 52",
+          "S02:p.25 Q8:3 1) Name of drug treatment"
+        ],
+        "minItems": "S01:ArrayDef row 52",
+        "maxItems": "S01:ArrayDef row 52"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_ThyroidTreatment_Num": {
+            "x-role": "entity key",
+            "title": "Which drug treatment this entry refers to (1st, 2nd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 52",
+              "maximum": "S01:ArrayDef row 52"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2,
+            "x-pii": false
+          },
+          "R0_ThyroidDisease_Med": {
+            "title": "Name of the drug treatment",
+            "description": "Name of the medication used during this thyroid treatment episode (brand or generic).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1022",
+                "S02:p.25 Q8:3 1) Name of drug treatment"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1).",
+            "x-formerName": [
+              "Q8_3_1_1",
+              "Q8_3_2_1"
+            ],
+            "x-questionID": 1432,
+            "x-pii": false
+          },
+          "R0_ThyroidTreatment_Age": {
+            "title": "Age at the first treatment (years)",
+            "description": "Age (in years) when this thyroid treatment episode began.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1023",
+                "S02:p.25 Q8:3 Age at first treatment years"
+              ],
+              "minimum": "S01:Questions row 1023"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1).",
+            "x-formerName": [
+              "Q8_3_1_2",
+              "Q8_3_2_2"
+            ],
+            "x-questionID": 1433,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_ThyroidTreatment_Yrs": {
+            "title": "Duration of the treatment: years",
+            "description": "Duration of this thyroid treatment episode in whole years.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1024",
+                "S02:p.25 Q8:3 Duration of treatment Years"
+              ],
+              "minimum": "S01:Questions row 1024"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1).",
+            "x-formerName": [
+              "Q8_3_1_3",
+              "Q8_3_2_3"
+            ],
+            "x-questionID": 1434,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_ThyroidTreatment_Mnths": {
+            "title": "Duration of the treatment: months",
+            "description": "Additional duration of this thyroid treatment episode in whole months.",
+            "$comment": "Dictionary maximum 12 removed: a part-unit duration has no upper limit here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1025",
+                "S02:p.25 Q8:3 Duration of treatment Months"
+              ],
+              "minimum": "S01:Questions row 1025"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1).",
+            "x-formerName": [
+              "Q8_3_1_4",
+              "Q8_3_2_4"
+            ],
+            "x-questionID": 1435,
+            "x-pii": false,
+            "x-unit": "months"
+          },
+          "R0_ThyroidTreatment_Still": {
+            "title": "Still using the treatment",
+            "description": "Whether this thyroid treatment episode is ongoing at the time of questionnaire completion.",
+            "$comment": "Tick box. Source coding: 1 Still using treatment for thyroid (AnswerID 804).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1026",
+                "S02:p.25 Q8:3 Duration of treatment ... or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Still using"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1).",
+            "x-formerName": [
+              "Q8_3_1_5",
+              "Q8_3_2_5"
+            ],
+            "x-questionID": 1436,
+            "x-answerIDs": {
+              "1": 804
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_ThyroidTreatment_Num",
+          "R0_ThyroidDisease_Med",
+          "R0_ThyroidTreatment_Age",
+          "R0_ThyroidTreatment_Yrs",
+          "R0_ThyroidTreatment_Mnths",
+          "R0_ThyroidTreatment_Still"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_ThyroidTreatment_MoreTwo": {
+      "title": "More than two thyroid drug treatments or episodes",
+      "description": "Indicator that the participant's thyroid treatment history exceeds two distinct treatment episodes.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1032",
+          "S02:p.25 Q8:3 If you have used more than two thyroid drugs, or used them in more than two episodes, please cross the box ... More than 2"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant has had a thyroid disease or problem (R0_ThyroidDisease = 1); 8:3 says 'If no, go to question 8:4'.",
+      "x-formerName": "Q8_3_more",
+      "x-questionID": 1442,
+      "x-answerIDs": {
+        "1": 810
+      },
+      "x-pii": false
+    },
+    "R0_Blind": {
+      "title": "Whether the participant is registered as blind or partially sighted",
+      "description": "Self-report of registration status for blindness or partial sight.",
+      "$comment": "Source coding: 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1033",
+          "S02:p.25 Q8:4 Are you registered as blind or as partially sighted? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_4_1",
+      "x-questionID": 1443,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_Gallstones": {
+      "title": "Whether the participant has ever been diagnosed with gallstones",
+      "description": "Self-reported history of medically diagnosed gallstones.",
+      "$comment": "Source coding: 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1034",
+          "S02:p.25 Q8:5 Have you ever been diagnosed with gallstones? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_5_1_1",
+      "x-questionID": 1444,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_Gallstones_Age": {
+      "title": "Age when gallstones were diagnosed (years)",
+      "description": "Age (in completed years) when gallstones were first diagnosed.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1035",
+          "S02:p.25 Q8:5 If yes, at what age? years"
+        ],
+        "minimum": "S01:Questions row 1035"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant has had gallstones (R0_Gallstones = 1); the form says 'If yes, at what age?'.",
+      "x-formerName": "Q8_5_2",
+      "x-questionID": 1445,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_Cholecystectomy": {
+      "title": "Whether the participant has ever had the gallbladder removed",
+      "description": "Self-reported history of cholecystectomy.",
+      "$comment": "Source coding: 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1036",
+          "S02:p.25 Q8:6 Have you ever had your gallbladder removed (cholestectomy)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_6_1_1",
+      "x-questionID": 1446,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_Cholecystectomy_Age": {
+      "title": "Age when the gallbladder was removed (years)",
+      "description": "Age (in completed years) at the time of cholecystectomy.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1037",
+          "S02:p.25 Q8:6 If yes, at what age? years"
+        ],
+        "minimum": "S01:Questions row 1037"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the gallbladder was removed (R0_Cholecystectomy = 1); the form says 'If yes, at what age?'.",
+      "x-formerName": "Q8_6_2",
+      "x-questionID": 1447,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_BrokenHip": {
+      "title": "Whether a doctor has ever said the participant broke a hip",
+      "description": "Self-reported history of a doctor-diagnosed hip fracture.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1038",
+          "S02:p.26 Q8:7 Have you ever been told by a doctor that you had broken your hip? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_7_1_1",
+      "x-questionID": 1448,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_HipFractureYear_Shifted": {
+      "title": "R0_HipFractureYear_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_BrokenHip_Yr"
+      ],
+      "x-pii": false
+    },
+    "R0_BrokenHip_Age": {
+      "title": "Age when the hip was first broken (years)",
+      "description": "Age (in completed years) at the first hip fracture.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1040",
+          "S02:p.26 Q8:7 ... or Age years"
+        ],
+        "minimum": "S01:Questions row 1040"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant has broken a hip (R0_BrokenHip = 1); the form says 'If yes, when did you break your hip for the first time?'.",
+      "x-formerName": "Q8_7_3",
+      "x-questionID": 1450,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_EatingDisorder": {
+      "title": "Whether the participant has ever had an eating disorder (first episode)",
+      "description": "Categorical indicator of eating disorder history, including whether it involved medical consultation and/or temporary amenorrhea.",
+      "$comment": "Source coding as the dictionary gives it: 0 More than one option chosen; 1 No; 2 Yes, consulted a doctor; 3 Yes, periods temporarily stopped; 4 Consulted a doctor and periods temporarily stopped; A Yes, but did not consult Dr or lose periods (a letter answer the questionnaire does not print, kept as given). Note that 1 is No here.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1041",
+          "S02:p.26 Q8:8 Have you ever had an eating disorder for which you saw a doctor or because of which you temporarily lost your periods? No (go to question 8:11) Yes, consulted a doctor Yes, temporarily lost my periods Yes, both"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "No"
+        },
+        {
+          "const": 2,
+          "title": "Yes, consulted a doctor"
+        },
+        {
+          "const": 3,
+          "title": "Yes, periods temporarily stopped"
+        },
+        {
+          "const": 4,
+          "title": "Consulted a doctor and periods temporarily stopped"
+        },
+        {
+          "const": 5,
+          "title": "Yes, but did not consult Dr or lose periods (or does not say)"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_8_1_1",
+      "x-questionID": 1451,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2,
+        "2": 1224,
+        "3": 1225,
+        "4": 1226,
+        "5": 1254
+      },
+      "x-pii": false
+    },
+    "EatingDisorderEpisodes": {
+      "title": "Episodes of eating disorder",
+      "description": "One entry per episode of eating disorder for which the participant saw a doctor or lost the periods, up to 3, in the order reported. The first is printed on page 26 and further episodes go on page 15:1; they are flagged by R0_ED_MoreEpisodes and more than three by R0_ED_MoreThanThree.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 32",
+          "S02:p.26 Q8:8 Have you ever had an eating disorder"
+        ],
+        "minItems": "S01:ArrayDef row 32",
+        "maxItems": "S01:ArrayDef row 32"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 3,
+      "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_EatingDisorder_Num": {
+            "x-role": "entity key",
+            "title": "Which episode this entry refers to (1st, 2nd, 3rd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 32",
+              "maximum": "S01:ArrayDef row 32"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "x-pii": false
+          },
+          "R0_ED_Type": {
+            "title": "What the eating disorder was",
+            "description": "Free-text eating disorder type for this episode.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1042",
+                "S02:p.26 Q8:8 If yes, what was the disorder?"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_8_2",
+              "eatingdis_type2",
+              "eatingdis_type3"
+            ],
+            "x-questionID": 1452,
+            "x-pii": false
+          },
+          "R0_ED_DrAge": {
+            "title": "Age when a doctor was first seen for it (years)",
+            "description": "Age (in years) at first medical consultation for this eating disorder episode (if applicable).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1043",
+                "S02:p.26 Q8:8 If you saw a doctor, at what age did this first happen? years"
+              ],
+              "minimum": "S01:Questions row 1043"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_8_3",
+              "eatingdis_drage2",
+              "eatingdis_drage3"
+            ],
+            "x-questionID": 1453,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_ED_DrAgeNA": {
+            "title": "Did not see a doctor (not applicable box)",
+            "description": "Flag that doctor consultation is not applicable for this episode.",
+            "$comment": "Tick box. Source coding: 1 Not applicable (AnswerID 6), titled \"Does not apply\" so the sentinel step's title match leaves it a flag.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1044",
+                "S02:p.26 Q8:8 If you saw a doctor ... Not applicable"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Does not apply"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_8_4",
+              "eatingdis_drageNA2",
+              "eatingdis_drageNA3"
+            ],
+            "x-questionID": 1454,
+            "x-answerIDs": {
+              "1": 6
+            },
+            "x-pii": false
+          },
+          "R0_ED_LostPeriods_Age": {
+            "title": "Age when the periods were first lost (years)",
+            "description": "Age (in years) at onset of temporary absence of periods for this episode (if applicable).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1045",
+                "S02:p.26 Q8:8 If you lost your periods because of your eating disorder, at what age did you first lose your periods? years"
+              ],
+              "minimum": "S01:Questions row 1045"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_8_5",
+              "eatingdis_periodsage2",
+              "eatingdis_periodsage3"
+            ],
+            "x-questionID": 1455,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_ED_LostPeriods_AgeNA": {
+            "title": "Did not lose the periods (not applicable box)",
+            "description": "Flag that loss of periods is not applicable for this episode.",
+            "$comment": "Tick box. Source coding: 1 Not applicable (AnswerID 6), titled \"Does not apply\" so the sentinel step's title match leaves it a flag.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1046",
+                "S02:p.26 Q8:8 If you lost your periods ... Not applicable"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Does not apply"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_8_6",
+              "eatingdis_periodsageNA2",
+              "eatingdis_periodsageNA3"
+            ],
+            "x-questionID": 1456,
+            "x-answerIDs": {
+              "1": 6
+            },
+            "x-pii": false
+          },
+          "R0_ED_LostPeriods_Yrs": {
+            "title": "How long the periods were lost: years",
+            "description": "Duration of lost periods during this episode, in years.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1047",
+                "S02:p.26 Q8:8 For how long did you lose your periods? Years"
+              ],
+              "minimum": "S01:Questions row 1047"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_8_7",
+              "eatingdis_periodsyrs2",
+              "eatingdis_periodsyrs3"
+            ],
+            "x-questionID": 1457,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_ED_LengthLostPeriod_Mnths": {
+            "title": "How long the periods were lost: months",
+            "description": "Additional duration of lost periods during this episode, in months.",
+            "$comment": "Dictionary maximum 11 removed: a part-unit duration has no upper limit here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1048",
+                "S02:p.26 Q8:8 For how long did you lose your periods? Months"
+              ],
+              "minimum": "S01:Questions row 1048"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_8_8",
+              "eatingdis_periodsmths2",
+              "eatingdis_periodsmths3"
+            ],
+            "x-questionID": 1458,
+            "x-pii": false,
+            "x-unit": "months"
+          },
+          "R0_ED_PreWeight_st": {
+            "title": "Weight before the onset: stones",
+            "description": "Weight in stone immediately prior to the onset of this episode.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1049",
+                "S02:p.26 Q8:8 8:9 What was your weight before the onset of this eating disorder? Stones"
+              ],
+              "minimum": "S01:Questions row 1049"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_9_1",
+              "eatingdis_beforest2",
+              "eatingdis_beforest3"
+            ],
+            "x-questionID": 1459,
+            "x-pii": false,
+            "x-unit": "stones"
+          },
+          "R0_ED_PreWeight_lb": {
+            "title": "Weight before the onset: pounds (part of the stones and pounds weight)",
+            "description": "Pounds component of pre-onset weight (0-15).",
+            "$comment": "Dictionary maximum 15 removed: pounds have no upper limit here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1050",
+                "S02:p.26 Q8:8 8:9 ... Lbs"
+              ],
+              "minimum": "S01:Questions row 1050"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_9_2",
+              "eatingdis_beforelb2",
+              "eatingdis_beforelb3"
+            ],
+            "x-questionID": 1460,
+            "x-pii": false,
+            "x-unit": "pounds"
+          },
+          "R0_ED_PreWeight_kg": {
+            "title": "Weight before the onset: kilograms",
+            "description": "Weight in kilograms immediately prior to the onset of this episode.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1051",
+                "S02:p.26 Q8:8 8:9 ... or Kilograms"
+              ],
+              "minimum": "S01:Questions row 1051"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_9_3",
+              "eatingdis_beforekg2",
+              "eatingdis_beforekg3"
+            ],
+            "x-questionID": 1461,
+            "x-pii": false,
+            "x-unit": "kg"
+          },
+          "R0_ED_GainLoss": {
+            "title": "Whether the weight went up, down or stayed the same during the first episode",
+            "description": "Self-reported weight change pattern during the first eating disorder episode.",
+            "$comment": "Source coding: 1 Gained; 2 Lost; 3 Stayed the same; A Both gained and lost weight (a letter answer the questionnaire does not print, kept as given). Present for the 1st episode only (the dictionary has no such row for episodes 2 and 3).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1052",
+                "S02:p.26 Q8:10 Did you gain or lose weight during this eating disorder, or did your weight stay the same on average? Gained weight Lost weight Stayed the same"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "Gained"
+              },
+              {
+                "const": 2,
+                "title": "Lost"
+              },
+              {
+                "const": 3,
+                "title": "Stayed the same"
+              },
+              {
+                "const": 4,
+                "title": "Both gained and lost weight"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'. First episode only: the 2nd and 3rd episode use the four weight boxes of the nested list, and carry -999 here.",
+            "x-formerName": "Q8_10_1",
+            "x-questionID": 1462,
+            "x-answerIDs": {
+              "1": 1235,
+              "2": 1236,
+              "3": 1237,
+              "4": 1252
+            },
+            "x-pii": false
+          },
+          "R0_ED_LowWeight_st": {
+            "title": "Lowest weight during the episode: stones",
+            "description": "Lowest weight reached during this episode, stone component.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1053",
+                "S02:p.26 Q8:10 If you lost weight, what was your lowest weight during the period that you had this eating disorder? Stones"
+              ],
+              "minimum": "S01:Questions row 1053"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_10_S_1",
+              "eatingdis_lostst2",
+              "eatingdis_lostst3"
+            ],
+            "x-questionID": 1463,
+            "x-pii": false,
+            "x-unit": "stones"
+          },
+          "R0_ED_LowWeight_lb": {
+            "title": "Lowest weight during the episode: pounds (part of the stones and pounds weight)",
+            "description": "Pounds component of lowest weight (0-15).",
+            "$comment": "Dictionary maximum 15 removed: pounds have no upper limit here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1054",
+                "S02:p.26 Q8:10 If you lost weight, what was your lowest weight during the period that you had this eating disorder? Lbs"
+              ],
+              "minimum": "S01:Questions row 1054"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_10_L_1",
+              "eatingdis_lostlb2",
+              "eatingdis_lostlb3"
+            ],
+            "x-questionID": 1464,
+            "x-pii": false,
+            "x-unit": "pounds"
+          },
+          "R0_ED_LowWeight_kg": {
+            "title": "Lowest weight during the episode: kilograms",
+            "description": "Lowest weight reached during this episode, kilograms.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1055",
+                "S02:p.26 Q8:10 If you lost weight, what was your lowest weight during the period that you had this eating disorder? Kilograms"
+              ],
+              "minimum": "S01:Questions row 1055"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_10_K_1",
+              "eatingdis_lostkg2",
+              "eatingdis_lostkg3"
+            ],
+            "x-questionID": 1465,
+            "x-pii": false,
+            "x-unit": "kg"
+          },
+          "R0_ED_HighWeight_st": {
+            "title": "Greatest weight during the episode: stones",
+            "description": "Highest weight reached during this episode, stone component.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1056",
+                "S02:p.26 Q8:10 If you gained weight, what was your greatest weight during the period that you had this eating disorder? Stones"
+              ],
+              "minimum": "S01:Questions row 1056"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_10_S_2",
+              "eatingdis_gainst2",
+              "eatingdis_gainst3"
+            ],
+            "x-questionID": 1466,
+            "x-pii": false,
+            "x-unit": "stones"
+          },
+          "R0_ED_HighWeight_lb": {
+            "title": "Greatest weight during the episode: pounds (part of the stones and pounds weight)",
+            "description": "Pounds component of highest weight (0-15).",
+            "$comment": "Dictionary maximum 15 removed: pounds have no upper limit here.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1057",
+                "S02:p.26 Q8:10 If you gained weight, what was your greatest weight during the period that you had this eating disorder? Lbs"
+              ],
+              "minimum": "S01:Questions row 1057"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_10_L_2",
+              "eatingdis_gainlb2",
+              "eatingdis_gainlb3"
+            ],
+            "x-questionID": 1467,
+            "x-pii": false,
+            "x-unit": "pounds"
+          },
+          "R0_ED_HighWeight_kg": {
+            "title": "Greatest weight during the episode: kilograms",
+            "description": "Highest weight reached during this episode, kilograms.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1058",
+                "S02:p.26 Q8:10 If you gained weight, what was your greatest weight during the period that you had this eating disorder? Kilograms"
+              ],
+              "minimum": "S01:Questions row 1058"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+            "x-formerName": [
+              "Q8_10_K_2",
+              "eatingdis_gainkg2",
+              "eatingdis_gainkg3"
+            ],
+            "x-questionID": 1468,
+            "x-pii": false,
+            "x-unit": "kg"
+          },
+          "EatingDisorderExtra": {
+            "title": "Further details of the 2nd and 3rd episode",
+            "description": "What kind of episode it was (four yes/no answers), when it happened (age, month and year, or a range) and whether the weight went up, down, stayed the same or fluctuated.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 33"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ]
+            ],
+            "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_ED_ConsultDr": {
+                  "title": "Consulted a doctor for this episode (only)",
+                  "description": "Flag that a doctor was consulted for this subsequent episode.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1060"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "yesdoc2",
+                    "yesdoc3"
+                  ],
+                  "x-questionID": 1470,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_ED_LostPeriods": {
+                  "title": "Lost the periods because of this episode (only)",
+                  "description": "Flag that periods were temporarily lost during this subsequent episode.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1061"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "yesperiods2",
+                    "yesperiods3"
+                  ],
+                  "x-questionID": 1471,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_ED_ConsultDrPeriods": {
+                  "title": "Consulted a doctor and lost the periods for this episode",
+                  "description": "Flag that both doctor consultation and loss of periods occurred for this episode.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1062"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "yesboth2",
+                    "yesboth3"
+                  ],
+                  "x-questionID": 1472,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_ED_General": {
+                  "title": "Had this eating disorder without consulting a doctor or losing the periods",
+                  "description": "General flag that a subsequent eating disorder episode occurred.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1063"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "yes2",
+                    "yes3"
+                  ],
+                  "x-questionID": 1473,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_EatingDisorderDoctor_Start_Shifted": {
+                  "title": "R0_EatingDisorderDoctor_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_ED_DrStartMth",
+                    "R0_ED_DrStartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_ED_PeriodsMth": {
+                  "title": "Month when the periods were lost",
+                  "description": "Calendar month of onset of temporary loss of periods during this episode.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1071"
+                    ],
+                    "minimum": "S01:Questions row 1071",
+                    "maximum": "S01:Questions row 1071"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 12
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_periodsmth2",
+                    "eatingdis_periodsmth3"
+                  ],
+                  "x-questionID": 1481,
+                  "x-pii": false
+                },
+                "R0_ED_PeriodsYr": {
+                  "title": "Year when the periods were lost",
+                  "description": "Calendar year of onset of temporary loss of periods during this episode.",
+                  "$comment": "Dictionary minimum 0; 1900 used.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1072"
+                    ]
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1900
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_periodsyr2",
+                    "eatingdis_periodsyr3"
+                  ],
+                  "x-questionID": 1482,
+                  "x-pii": false
+                },
+                "R0_ED_Age": {
+                  "title": "Age when the eating disorder happened (years)",
+                  "description": "Participant age (in years) when this episode occurred.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1075"
+                    ],
+                    "minimum": "S01:Questions row 1075"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_age2",
+                    "eatingdis_age3"
+                  ],
+                  "x-questionID": 1485,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_ED_FromAge": {
+                  "title": "Age when the eating disorder started (years)",
+                  "description": "Age (in years) at episode start.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1076"
+                    ],
+                    "minimum": "S01:Questions row 1076"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_fromage2",
+                    "eatingdis_fromage3"
+                  ],
+                  "x-questionID": 1486,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_ED_ToAge": {
+                  "title": "Age when the eating disorder ended (years)",
+                  "description": "Age (in years) at episode end.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1077"
+                    ],
+                    "minimum": "S01:Questions row 1077"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_toage2",
+                    "eatingdis_toage3"
+                  ],
+                  "x-questionID": 1487,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_ED_Ongoing": {
+                  "title": "Still has the eating disorder",
+                  "description": "Whether this eating disorder episode is ongoing.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1078"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_still2",
+                    "eatingdis_still3"
+                  ],
+                  "x-questionID": 1488,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_EatingDisorder_2_Shifted": {
+                  "title": "R0_EatingDisorder_2_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_ED_StartMth",
+                    "R0_ED_StartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_EatingDisorder_2_RangeStart_Shifted": {
+                  "title": "R0_EatingDisorder_2_RangeStart_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_ED_FromMth",
+                    "R0_ED_FromYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_EatingDisorder_2_RangeEnd_Shifted": {
+                  "title": "R0_EatingDisorder_2_RangeEnd_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_ED_ToMth",
+                    "R0_ED_ToYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_ED_WeightGain": {
+                  "title": "Gained weight during this episode",
+                  "description": "Flag indicating weight gain occurred during this episode.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1088"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_wtgain2",
+                    "eatingdis_wtgain3"
+                  ],
+                  "x-questionID": 1498,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_ED_WeightLoss": {
+                  "title": "Lost weight during this episode",
+                  "description": "Flag indicating weight loss occurred during this episode.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1089"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_wtlost2",
+                    "eatingdis_wtlost3"
+                  ],
+                  "x-questionID": 1499,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_ED_WeightSame": {
+                  "title": "Weight stayed the same during this episode",
+                  "description": "Flag indicating weight remained stable during this episode.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1090"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_wtsame2",
+                    "eatingdis_wtsame3"
+                  ],
+                  "x-questionID": 1500,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_ED_WeightFluctuate": {
+                  "title": "Both gained and lost weight during this episode",
+                  "description": "Flag indicating both loss and gain occurred during this episode.",
+                  "$comment": "Source coding: 0 No; 1 Yes.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 1091"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only the 2nd and 3rd episode have it (the dictionary block EatingDisorderExtra); page 15:1 of the form, not in the questionnaire PDF.",
+                  "x-formerName": [
+                    "eatingdis_wtgainlost2",
+                    "eatingdis_wtgainlost3"
+                  ],
+                  "x-questionID": 1501,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_ED_ConsultDr",
+                "R0_ED_LostPeriods",
+                "R0_ED_ConsultDrPeriods",
+                "R0_ED_General",
+                "R0_EatingDisorderDoctor_Start_Shifted",
+                "R0_ED_PeriodsMth",
+                "R0_ED_PeriodsYr",
+                "R0_ED_Age",
+                "R0_ED_FromAge",
+                "R0_ED_ToAge",
+                "R0_ED_Ongoing",
+                "R0_EatingDisorder_2_Shifted",
+                "R0_EatingDisorder_2_RangeStart_Shifted",
+                "R0_EatingDisorder_2_RangeEnd_Shifted",
+                "R0_ED_WeightGain",
+                "R0_ED_WeightLoss",
+                "R0_ED_WeightSame",
+                "R0_ED_WeightFluctuate"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_EatingDisorder_Num",
+          "R0_ED_Type",
+          "R0_ED_DrAge",
+          "R0_ED_DrAgeNA",
+          "R0_ED_LostPeriods_Age",
+          "R0_ED_LostPeriods_AgeNA",
+          "R0_ED_LostPeriods_Yrs",
+          "R0_ED_LengthLostPeriod_Mnths",
+          "R0_ED_PreWeight_st",
+          "R0_ED_PreWeight_lb",
+          "R0_ED_PreWeight_kg",
+          "R0_ED_GainLoss",
+          "R0_ED_LowWeight_st",
+          "R0_ED_LowWeight_lb",
+          "R0_ED_LowWeight_kg",
+          "R0_ED_HighWeight_st",
+          "R0_ED_HighWeight_lb",
+          "R0_ED_HighWeight_kg",
+          "EatingDisorderExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_ED_MoreEpisodes": {
+      "title": "Further separate episodes of eating disorder",
+      "description": "Indicator that additional eating disorder episodes exist beyond those captured above.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'Yes (additional detail provided elsewhere)').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1059",
+          "S02:p.26 Q8:10 If you had further separate episodes of eating disorder, please cross the box and give details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when the participant has had an eating disorder (R0_EatingDisorder is not 0 or 1); 8:8 says 'No (go to question 8:11)'.",
+      "x-formerName": "Q8_10_more",
+      "x-questionID": 1469,
+      "x-answerIDs": {
+        "1": 1238
+      },
+      "x-pii": false
+    },
+    "R0_ED_MoreThanThree": {
+      "title": "More than 3 episodes of eating disorder",
+      "description": "Flag indicating the participant experienced more than three distinct eating disorder episodes.",
+      "$comment": "Not printed on the questionnaire pages 24 to 26; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1136"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "eatingdis_morethan",
+      "x-questionID": 1546,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_Diabetes",
+    "R0_DiabetesAge",
+    "R0_TreatedWithInsulin",
+    "R0_ThyroidDisease",
+    "R0_ThyroidDiseaseType",
+    "R0_ThyroidDiseaseOther",
+    "ThyroidTreatment",
+    "R0_ThyroidTreatment_MoreTwo",
+    "R0_Blind",
+    "R0_Gallstones",
+    "R0_Gallstones_Age",
+    "R0_Cholecystectomy",
+    "R0_Cholecystectomy_Age",
+    "R0_BrokenHip",
+    "R0_HipFractureYear_Shifted",
+    "R0_BrokenHip_Age",
+    "R0_EatingDisorder",
+    "EatingDisorderEpisodes",
+    "R0_ED_MoreEpisodes",
+    "R0_ED_MoreThanThree"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R076: the participant does not have diabetes (2 No), so the age at diagnosis and the insulin question are structurally not applicable and carry the missing-numeric sentinel. Questionnaire p.24 Q8:2: 'If yes, at what age was this diagnosed?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.24 Q8:2 If 'yes', at what age was this diagnosed?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_Diabetes"
+        ],
+        "properties": {
+          "R0_Diabetes": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_DiabetesAge": {
+            "const": -999
+          },
+          "R0_TreatedWithInsulin": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R077: the participant has not had a thyroid disease or problem (0 or 2), so the disease, the other disease, the drug treatments and the 'more than 2' box are not asked -- the codes carry the missing-numeric sentinel, the text the missing-string sentinel and ThyroidTreatment is empty. Questionnaire p.24 Q8:3: 'If no, go to question 8:4'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.24 Q8:3 If 'no', go to question 8:4"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_ThyroidDisease"
+        ],
+        "properties": {
+          "R0_ThyroidDisease": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_ThyroidDiseaseType": {
+            "const": -999
+          },
+          "R0_ThyroidDiseaseOther": {
+            "const": "MISSING"
+          },
+          "ThyroidTreatment": {
+            "maxItems": 0
+          },
+          "R0_ThyroidTreatment_MoreTwo": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R078: the thyroid disease is not Other (4), so the other disease in words is structurally not applicable -- R0_ThyroidDiseaseOther carries the missing-string sentinel. Questionnaire p.24 Q8:3: 'If other, please specify'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.24 Q8:3 If other, please specify"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_ThyroidDiseaseType"
+        ],
+        "properties": {
+          "R0_ThyroidDiseaseType": {
+            "not": {
+              "const": 4
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_ThyroidDiseaseOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R079: the participant has not had gallstones (2 No), so the age is structurally not applicable. Questionnaire p.25 Q8:5: 'If yes, at what age?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.25 Q8:5 If yes, at what age?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_Gallstones"
+        ],
+        "properties": {
+          "R0_Gallstones": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_Gallstones_Age": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R080: the gallbladder has not been removed (2 No), so the age is structurally not applicable. Questionnaire p.25 Q8:6: 'If yes, at what age?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.25 Q8:6 If yes, at what age?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_Cholecystectomy"
+        ],
+        "properties": {
+          "R0_Cholecystectomy": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_Cholecystectomy_Age": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R081: no doctor has said the participant broke a hip (0 or 2), so the year and the age are structurally not applicable. Questionnaire p.26 Q8:7: 'If yes, when did you break your hip for the first time?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.26 Q8:7 If 'yes', when did you break your hip for the first time?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_BrokenHip"
+        ],
+        "properties": {
+          "R0_BrokenHip": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_BrokenHip_Age": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R082: the participant has not had an eating disorder (0 more than one option or 1 No), so the episodes are not asked -- EatingDisorderEpisodes is empty and the 'further episodes' box carries the missing-numeric sentinel. Questionnaire p.26 Q8:8: 'No (go to question 8:11)'. The dictionary's 'more than 3 episodes' box R0_ED_MoreThanThree is also not applicable (R088).",
+      "x-provenance": {
+        "default": [
+          "S02:p.26 Q8:8 No (go to question 8:11)"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_EatingDisorder"
+        ],
+        "properties": {
+          "R0_EatingDisorder": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "EatingDisorderEpisodes": {
+            "maxItems": 0
+          },
+          "R0_ED_MoreEpisodes": {
+            "const": -999
+          },
+          "R0_ED_MoreThanThree": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Eating-disorder age routing R084: in each episode where the Not applicable box beside an age is ticked, the age is not given, so R0_ED_DrAge (box R0_ED_DrAgeNA) and R0_ED_LostPeriods_Age (box R0_ED_LostPeriods_AgeNA) carry the missing-numeric sentinel. Questionnaire p.26 Q8:8: 'at what age did this first happen? ... Not applicable'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.26 Q8:8 at what age did this first happen? Not applicable"
+        ]
+      },
+      "properties": {
+        "EatingDisorderEpisodes": {
+          "items": {
+            "allOf": [
+              {
+                "if": {
+                  "required": [
+                    "R0_ED_DrAgeNA"
+                  ],
+                  "properties": {
+                    "R0_ED_DrAgeNA": {
+                      "const": 1
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "R0_ED_DrAge": {
+                      "const": -999
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "required": [
+                    "R0_ED_LostPeriods_AgeNA"
+                  ],
+                  "properties": {
+                    "R0_ED_LostPeriods_AgeNA": {
+                      "const": 1
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "R0_ED_LostPeriods_Age": {
+                      "const": -999
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

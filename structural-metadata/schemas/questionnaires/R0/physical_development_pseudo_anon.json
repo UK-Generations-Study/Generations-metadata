@@ -1,0 +1,1904 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/physical_development_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Physical Development (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from physical_development.json containing Weight and height through life, childhood height records, puberty, bra size and body measurements collected at baseline.",
+  "type": "object",
+  "$comment": "Not enforceable here: the 40 and 60 weights (3:4, 3:5), the height at age 20 (3:12) and the bra size at age 20 (3:18) are asked only of participants old enough; age is not a field of this table.",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "WeightComparison": {
+      "title": "Weight compared with other girls, at ages 7 and 11",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 55",
+          "S02:Source question (3:1) At the age of 7 years, were you thinner, about the same or heavier than other girls of your age?",
+          "S02:Source question (3:2) At the age of 11 years ..."
+        ],
+        "maxItems": "S01:ArrayDef row 55"
+      },
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_WghtComp_Num": {
+            "x-role": "entity key",
+            "title": "Age this answer refers to (years)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 55"
+            },
+            "oneOf": [
+              {
+                "const": 7,
+                "title": "7"
+              },
+              {
+                "const": 11,
+                "title": "11"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_WghtComp": {
+            "title": "Thinner, about the same or heavier than other girls",
+            "description": "Participant's weight comparison to peers.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 83",
+                "S02:Source question (3:1/3:2) were you thinner, about the same or heavier than other girls of your age?"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Much thinner"
+              },
+              {
+                "const": 2,
+                "title": "A little thinner"
+              },
+              {
+                "const": 3,
+                "title": "About the same"
+              },
+              {
+                "const": 4,
+                "title": "Much heavier"
+              },
+              {
+                "const": 5,
+                "title": "A little heavier"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_remember",
+                "$comment": "local code 6 (Don't remember) recoded by the ETL sentinel step"
+              },
+              {
+                "const": "A",
+                "title": "Little thinner and about the same"
+              },
+              {
+                "const": "B",
+                "title": "Little heavier and about the same"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_1_1",
+              "Q3_2_1"
+            ],
+            "x-questionID": 101,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 201,
+              "2": 202,
+              "3": 203,
+              "4": 204,
+              "5": 205,
+              "-777": 5,
+              "A": 271,
+              "B": 272
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_WghtComp_Num",
+          "R0_WghtComp"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "RecordedWeights": {
+      "title": "Weight now and at ages 20, 40 and 60",
+      "description": "Always four entries; old names are listed in the key's order Cur, 20, 40, 60.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 50",
+          "S02:Source question (3:3) What was your non-pregnant weight at the age of 20?",
+          "S02:Source question (3:4) If you are aged 40 or more, what was your non-pregnant weight at the age of 40?",
+          "S02:Source question (3:5) If you are aged 60 or more, what was your weight at the age of 60?",
+          "S02:Source question (3:8) What is your current weight?"
+        ],
+        "maxItems": "S01:ArrayDef row 50"
+      },
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_RecWght_Num": {
+            "x-role": "entity key",
+            "title": "Which weight this entry is (Cur = current; 20, 40, 60 = at that age)",
+            "$comment": "Dictionary values Cur, 20, 40, 60 (ArrayDef row 50). 40 is asked only of those aged 40 or more, 60 only of those aged 60 or more.",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 50"
+            },
+            "oneOf": [
+              {
+                "const": "Cur",
+                "title": "Cur"
+              },
+              {
+                "const": "20",
+                "title": "20"
+              },
+              {
+                "const": "40",
+                "title": "40"
+              },
+              {
+                "const": "60",
+                "title": "60"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_WghtAge_St": {
+            "title": "Weight: stones",
+            "description": "Participant's non-pregnant weight in stones currently, or at age 20, 40, or 60.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 102",
+                "S02:Source question (3:3/3:4/3:5/3:8) Stones"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_8_stones",
+              "Q3_3_stones",
+              "Q3_4_stones",
+              "Q3_5_stones"
+            ],
+            "x-questionID": 103,
+            "x-pii": false
+          },
+          "R0_WghtAge_Lbs": {
+            "title": "Weight: pounds (part of the stones and pounds weight)",
+            "description": "Participant's non-pregnant weight in pounds currently, or at age 20, 40, or 60.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 103",
+                "S02:Source question (3:3/3:4/3:5/3:8) Lbs"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_8_lbs",
+              "Q3_3_lbs",
+              "Q3_4_lbs",
+              "Q3_5_lbs"
+            ],
+            "x-questionID": 104,
+            "x-pii": false
+          },
+          "R0_WghtAge_Kg": {
+            "title": "Weight: kilograms",
+            "description": "Participant's non-pregnant weight in kilograms currently, or at age 20, 40, or 60.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 104",
+                "S02:Source question (3:3/3:4/3:5/3:8) or Kilograms"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_8_kgs",
+              "Q3_3_kgs",
+              "Q3_4_kgs",
+              "Q3_5_kgs"
+            ],
+            "x-questionID": 105,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_RecWght_Num",
+          "R0_WghtAge_St",
+          "R0_WghtAge_Lbs",
+          "R0_WghtAge_Kg"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_LowestWght_St": {
+      "title": "Lowest weight since age 18: stones",
+      "description": "Participant's lowest weight in stones since age 18.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 94",
+          "S02:Source question (3:6) What is the lowest weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_6_stones",
+      "x-questionID": 112,
+      "x-pii": false
+    },
+    "R0_LowestWght_Lbs": {
+      "title": "Lowest weight since age 18: pounds (part of the stones and pounds weight)",
+      "description": "Participant's lowest weight in pounds since age 18.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 95",
+          "S02:Source question (3:6) What is the lowest weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_6_lbs",
+      "x-questionID": 113,
+      "x-pii": false
+    },
+    "R0_LowestWght_Kg": {
+      "title": "Lowest weight since age 18: kilograms",
+      "description": "Participant's lowest weight in kilograms since age 18.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 96",
+          "S02:Source question (3:6) What is the lowest weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_6_kgs",
+      "x-questionID": 114,
+      "x-pii": false
+    },
+    "R0_LowestWght_Age": {
+      "title": "Age at the lowest weight since age 18",
+      "description": "Age when participant weighed the lowest.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 97",
+          "S02:Source question (3:6) What is the lowest weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_6_age",
+      "x-questionID": 115,
+      "x-pii": false
+    },
+    "R0_HighestWght_St": {
+      "title": "Greatest non-pregnant weight since age 18: stones",
+      "description": "Participant's highest non-pregnant weight in stones since age 18.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 98",
+          "S02:Source question (3:7) What is the greatest (non-pregnant) weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_7_stones",
+      "x-questionID": 116,
+      "x-pii": false
+    },
+    "R0_HighestWght_Lbs": {
+      "title": "Greatest non-pregnant weight since age 18: pounds (part of the stones and pounds weight)",
+      "description": "Participant's highest non-pregnant weight in pounds since age 18.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 99",
+          "S02:Source question (3:7) What is the greatest (non-pregnant) weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_7_lbs",
+      "x-questionID": 117,
+      "x-pii": false
+    },
+    "R0_HighestWght_Kg": {
+      "title": "Greatest non-pregnant weight since age 18: kilograms",
+      "description": "Participant's highest non-pregnant weight in kilograms since age 18.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 100",
+          "S02:Source question (3:7) What is the greatest (non-pregnant) weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_7_kgs",
+      "x-questionID": 118,
+      "x-pii": false
+    },
+    "R0_HighestWght_Age": {
+      "title": "Age at the greatest weight since age 18",
+      "description": "Age when participant weighed the highest.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 101",
+          "S02:Source question (3:7) What is the greatest (non-pregnant) weight you have had since age 18? ... This was at age years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_7_age",
+      "x-questionID": 119,
+      "x-pii": false
+    },
+    "R0_CurrentWght_When": {
+      "title": "When the current weight was measured",
+      "description": "Timing of current weight measurement.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 105",
+          "S02:Source question (3:8) When was your weight measured? Today In the last few months Not measured, it is an estimate"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Today"
+        },
+        {
+          "const": 2,
+          "title": "Last few months"
+        },
+        {
+          "const": 3,
+          "title": "Not measured, it is an estimate"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_8_when_1",
+      "x-questionID": 123,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 211,
+        "2": 212,
+        "3": 213
+      },
+      "x-pii": false
+    },
+    "HeightComparison": {
+      "title": "Height compared with other girls, at ages 7 and 11",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 36",
+          "S02:Source question (3:9) At the age of 7 years, were you relatively shorter, about the same height, or taller than other girls of your age?",
+          "S02:Source question (3:10) At the age of 11 years ..."
+        ],
+        "maxItems": "S01:ArrayDef row 36"
+      },
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_HghtComp_Num": {
+            "x-role": "entity key",
+            "title": "Age this answer refers to (years)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 36"
+            },
+            "oneOf": [
+              {
+                "const": 7,
+                "title": "7"
+              },
+              {
+                "const": 11,
+                "title": "11"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_HghtComp": {
+            "title": "Shorter, about the same or taller than other girls",
+            "description": "Participant's height comparison to peers.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 106",
+                "S02:Source question (3:9/3:10) were you relatively shorter, about the same height, or taller than other girls of your age?"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Much shorter"
+              },
+              {
+                "const": 2,
+                "title": "A little shorter"
+              },
+              {
+                "const": 3,
+                "title": "About the same"
+              },
+              {
+                "const": 4,
+                "title": "Much taller"
+              },
+              {
+                "const": 5,
+                "title": "A little taller"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/dont_remember",
+                "$comment": "local code 6 (Don't remember) recoded by the ETL sentinel step"
+              },
+              {
+                "const": "A",
+                "title": "Little shorter and about the same"
+              },
+              {
+                "const": "B",
+                "title": "Little taller and about the same"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_9_1",
+              "Q3_10_1"
+            ],
+            "x-questionID": 124,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 214,
+              "2": 215,
+              "3": 203,
+              "4": 217,
+              "5": 218,
+              "-777": 5,
+              "A": 269,
+              "B": 270
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_HghtComp_Num",
+          "R0_HghtComp"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_GrowthStopped_Age": {
+      "title": "Age stopped growing taller",
+      "description": "Age when participant stopped growing taller.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 108",
+          "S02:Source question (3:11) At what age did you stop growing taller? years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_11",
+      "x-questionID": 126,
+      "x-pii": false
+    },
+    "R0_GrowthStopped_Unkn": {
+      "title": "Does not remember when growth stopped",
+      "description": "Participant does not remember when growth stopped.",
+      "$comment": "Source coding: 1 = Don't remember (a tick box). Titled \"Doesn't remember\" so the sentinel step's title match leaves it a flag, as for the 'Don't know' tick boxes in Birth Details.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 109",
+          "S02:Source question (3:11) or Don't remember"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't remember"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_11_dn",
+      "x-questionID": 127,
+      "x-answerIDs": {
+        "1": 5
+      },
+      "x-pii": false
+    },
+    "RecordedHeights": {
+      "title": "Height now and at age 20",
+      "description": "Always two entries; old names are listed in the key's order Cur, 20.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 49",
+          "S02:Source question (3:12) If older than 20 years, what was your height at age 20?",
+          "S02:Source question (3:13) What is your current height?"
+        ],
+        "maxItems": "S01:ArrayDef row 49"
+      },
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_RecHght_Num": {
+            "x-role": "entity key",
+            "title": "Which height this entry is (Cur = current; 20 = at age 20)",
+            "$comment": "Dictionary values Cur and 20 (ArrayDef row 49). 20 is asked only of those older than 20.",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 49"
+            },
+            "oneOf": [
+              {
+                "const": "Cur",
+                "title": "Cur"
+              },
+              {
+                "const": "20",
+                "title": "20"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_HghtAge_Ft": {
+            "title": "Height: feet",
+            "description": "Participant's height in feet at age 20 or at study entry.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 113",
+                "S02:Source question (3:12/3:13) Feet"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_13_feet",
+              "Q3_12_feet"
+            ],
+            "x-questionID": 128,
+            "x-pii": false
+          },
+          "R0_HghtAge_In": {
+            "title": "Height: inches (part of the feet and inches height)",
+            "description": "Participant's height in inches at age 20 or at study entry.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 114",
+                "S02:Source question (3:12/3:13) Inches"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_13_inch",
+              "Q3_12_inch"
+            ],
+            "x-questionID": 129,
+            "x-pii": false
+          },
+          "R0_HghtAge_Cm": {
+            "title": "Height: centimetres",
+            "description": "Participant's height in centimeters at age 20 or at study entry.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 115",
+                "S02:Source question (3:12/3:13) or Centimetres"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_13_cm",
+              "Q3_12_cm"
+            ],
+            "x-questionID": 130,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_RecHght_Num",
+          "R0_HghtAge_Ft",
+          "R0_HghtAge_In",
+          "R0_HghtAge_Cm"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_ChildhoodHghtRec": {
+      "title": "Has records of measured height in childhood",
+      "description": "Existence of childhood height records.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 116",
+          "S02:Source question (3:14) Do you have any records of your measured height at any point in your childhood? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_14_1",
+      "x-questionID": 134,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "U16RecordedHeights": {
+      "title": "Recorded heights under age 16",
+      "description": "Up to three entries; further measurements go on page 15:1.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 53",
+          "S02:Source question (3:14) If yes, please list below any recorded height you know under age 16"
+        ],
+        "minItems": "S01:ArrayDef row 53",
+        "maxItems": "S01:ArrayDef row 53"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 3,
+      "x-universe": "Only completed when R0_ChildhoodHghtRec = 1 (Yes); 3:14 says 'If yes, please list below any recorded height you know under age 16'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_RecHeightU16_Num": {
+            "x-role": "entity key",
+            "title": "Which recorded height this entry is (1st, 2nd, 3rd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 53",
+              "maximum": "S01:ArrayDef row 53"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "x-pii": false
+          },
+          "R0_RecordedHeight_Shifted": {
+            "title": "R0_RecordedHeight_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_RecHght_Day",
+              "R0_RecHght_Mnth",
+              "R0_RecHght_Yr"
+            ],
+            "x-pii": false
+          },
+          "R0_RecHght_AgeYr": {
+            "title": "Age at the recorded height: years",
+            "description": "Age in years when height was recorded.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 120",
+                "S02:Source question (3:14) If yes, please list below any recorded height you know under age 16: date, age, my height was"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_14ageY1",
+              "Q3_14ageY2",
+              "Q3_14ageY3"
+            ],
+            "x-questionID": 138,
+            "x-pii": false
+          },
+          "R0_RecHght_AgeMnth": {
+            "title": "Age at the recorded height: months (part of years and months)",
+            "description": "Age in months when height was recorded.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 121",
+                "S02:Source question (3:14) If yes, please list below any recorded height you know under age 16: date, age, my height was"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_14ageM1",
+              "Q3_14ageM2",
+              "Q3_14ageM3"
+            ],
+            "x-questionID": 139,
+            "x-pii": false
+          },
+          "R0_RecHght_Ft": {
+            "title": "Recorded height: feet",
+            "description": "Height in feet.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 122",
+                "S02:Source question (3:14) If yes, please list below any recorded height you know under age 16: date, age, my height was"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_14FT1",
+              "Q3_14FT2",
+              "Q3_14FT3"
+            ],
+            "x-questionID": 140,
+            "x-pii": false
+          },
+          "R0_RecHght_In": {
+            "title": "Recorded height: inches (part of the feet and inches height)",
+            "description": "Height in inches.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 123",
+                "S02:Source question (3:14) If yes, please list below any recorded height you know under age 16: date, age, my height was"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_14IN1",
+              "Q3_14IN2",
+              "Q3_14IN3"
+            ],
+            "x-questionID": 141,
+            "x-pii": false
+          },
+          "R0_RecHght_Cm": {
+            "title": "Recorded height: centimetres",
+            "description": "Height in centimeters.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 124",
+                "S02:Source question (3:14) If yes, please list below any recorded height you know under age 16: date, age, my height was"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_14CM1",
+              "Q3_14CM2",
+              "Q3_14CM3"
+            ],
+            "x-questionID": 142,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_RecHeightU16_Num",
+          "R0_RecordedHeight_Shifted",
+          "R0_RecHght_AgeYr",
+          "R0_RecHght_AgeMnth",
+          "R0_RecHght_Ft",
+          "R0_RecHght_In",
+          "R0_RecHght_Cm"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_RecHght_Institution": {
+      "title": "Institutions may hold records of childhood height",
+      "description": "Existence of institutions with childhood height records.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 141",
+          "S02:Source question (3:15) Are there any institutions that may have records of your height in childhood ...? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_15_1",
+      "x-questionID": 159,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "Institutions": {
+      "title": "Institutions that may hold childhood height records",
+      "description": "Up to two entries; further institutions go on page 15:1.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 38",
+          "S02:Source question (3:15) If yes, please state what the institutions were, and at what age or range of ages they measured you"
+        ],
+        "minItems": "S01:ArrayDef row 38",
+        "maxItems": "S01:ArrayDef row 38"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "x-universe": "Only completed when R0_RecHght_Institution = 1 (Yes); 3:15 says 'If yes, please state what the institutions were'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_Inst_Num": {
+            "x-role": "entity key",
+            "title": "Which institution this entry is (1st, 2nd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 38",
+              "maximum": "S01:ArrayDef row 38"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2,
+            "x-pii": false
+          },
+          "R0_InstitutionName": {
+            "title": "Name of the institution",
+            "description": "Name of the institution with height records.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 142",
+                "S02:Source question (3:15) Name of institution / Town / Age or age range ... to"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-formerName": [
+              "Q3_15inst1",
+              "Q3_15inst2"
+            ],
+            "x-questionID": 160,
+            "x-pii": false
+          },
+          "R0_AgeMeas": {
+            "title": "Age they measured you",
+            "description": "Age when measured by the institution.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 144",
+                "S02:Source question (3:15) Name of institution / Town / Age or age range ... to"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_15age1",
+              "Q3_15age2"
+            ],
+            "x-questionID": 162,
+            "x-pii": false
+          },
+          "R0_AgeMeas_From": {
+            "title": "Age range they measured you: from",
+            "description": "Starting age range for measurements.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 145",
+                "S02:Source question (3:15) Name of institution / Town / Age or age range ... to"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_15from1",
+              "Q3_15from2"
+            ],
+            "x-questionID": 163,
+            "x-pii": false
+          },
+          "R0_AgeMeas_To": {
+            "title": "Age range they measured you: to",
+            "description": "Ending age range for measurements.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 146",
+                "S02:Source question (3:15) Name of institution / Town / Age or age range ... to"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_15to2",
+              "Q3_15to3"
+            ],
+            "x-questionID": 164,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_Inst_Num",
+          "R0_InstitutionName",
+          "R0_AgeMeas",
+          "R0_AgeMeas_From",
+          "R0_AgeMeas_To"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_AgeBreastDev": {
+      "title": "Age breasts started to develop",
+      "description": "Age when participant's breast development began.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 152",
+          "S02:Source question (3:16) How old were you when you first started to develop breasts? years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_16",
+      "x-questionID": 170,
+      "x-pii": false
+    },
+    "R0_AgeBreastDev_Unkn": {
+      "title": "Does not remember when breasts started to develop",
+      "description": "Participant does not remember age of breast development.",
+      "$comment": "Source coding: 1 = Don't remember (a tick box). Titled \"Doesn't remember\" so the sentinel step's title match leaves it a flag, as for the 'Don't know' tick boxes in Birth Details.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 153",
+          "S02:Source question (3:16) or Don't remember"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Doesn't remember"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_16dn",
+      "x-questionID": 171,
+      "x-answerIDs": {
+        "1": 5
+      },
+      "x-pii": false
+    },
+    "BraSize": {
+      "title": "Bra cup size now and at age 20",
+      "description": "Always two entries; old names are listed in the key's order Cur, 20.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 24",
+          "S02:Source question (3:17) What is your current bra cup size?",
+          "S02:Source question (3:18) If over age 20, what was your bra cup size at age 20?"
+        ],
+        "maxItems": "S01:ArrayDef row 24"
+      },
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_BraSize_Num": {
+            "x-role": "entity key",
+            "title": "Which cup size this entry is (Cur = current; 20 = at age 20)",
+            "$comment": "Dictionary values Cur and 20 (ArrayDef row 24). 20 is asked only of those over age 20.",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 24"
+            },
+            "oneOf": [
+              {
+                "const": "Cur",
+                "title": "Cur"
+              },
+              {
+                "const": "20",
+                "title": "20"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_BraCupSize": {
+            "title": "Bra cup size",
+            "description": "Participant's current bra cup size at age 20 or study entry.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 154",
+                "S02:Source question (3:17/3:18) What is your (current / at age 20) bra cup size? (Cross only one option)"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "AA"
+              },
+              {
+                "const": 2,
+                "title": "A"
+              },
+              {
+                "const": 3,
+                "title": "B"
+              },
+              {
+                "const": 4,
+                "title": "C"
+              },
+              {
+                "const": 5,
+                "title": "D"
+              },
+              {
+                "const": 6,
+                "title": "DD"
+              },
+              {
+                "const": 7,
+                "title": "E"
+              },
+              {
+                "const": 8,
+                "title": "EE"
+              },
+              {
+                "const": 9,
+                "title": "F"
+              },
+              {
+                "const": 10,
+                "title": "FF"
+              },
+              {
+                "const": 11,
+                "title": "G"
+              },
+              {
+                "const": 12,
+                "title": "H"
+              },
+              {
+                "const": 13,
+                "title": "J"
+              },
+              {
+                "const": 14,
+                "title": "Other"
+              },
+              {
+                "const": "AB",
+                "title": "A & B"
+              },
+              {
+                "const": "BC",
+                "title": "B & C"
+              },
+              {
+                "const": "DD",
+                "title": "D & DD"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q3_17_1",
+              "Q3_18_1"
+            ],
+            "x-questionID": 172,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 237,
+              "2": 238,
+              "3": 239,
+              "4": 240,
+              "5": 241,
+              "6": 242,
+              "7": 243,
+              "8": 244,
+              "9": 245,
+              "10": 246,
+              "11": 247,
+              "12": 248,
+              "13": 249,
+              "14": 13,
+              "AB": 265,
+              "BC": 266,
+              "DD": 267
+            },
+            "x-pii": false
+          },
+          "R0_BraCupSize_Other": {
+            "title": "Other bra cup size",
+            "description": "Participant's specified other bra cup size at age 20 or study entry.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 155",
+                "S02:Source question (3:17/3:18) If other, please specify"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_BraCupSize = 14 (Other); 3:17 and 3:18 say 'If other, please specify'.",
+            "x-formerName": [
+              "Q3_17other",
+              "Q3_18other"
+            ],
+            "x-questionID": 173,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_BraSize_Num",
+          "R0_BraCupSize",
+          "R0_BraCupSize_Other"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "$comment": "Skip pattern R007: this entry's cup size is not 'Other' (14), so the description is structurally not applicable -- R0_BraCupSize_Other must carry the missing-string sentinel. Questionnaire p.9 Q3:17 and Q3:18: 'If other, please specify'.",
+            "x-provenance": {
+              "default": "S02:p.9 Q3:17 If other, please specify"
+            },
+            "if": {
+              "required": [
+                "R0_BraCupSize"
+              ],
+              "properties": {
+                "R0_BraCupSize": {
+                  "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    "AB",
+                    "BC",
+                    "DD"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_BraCupSize_Other": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "x-pii": false
+    },
+    "R0_Dif_LeftRight_Breast": {
+      "title": "Size difference between left and right breasts",
+      "description": "Presence of breast size difference.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 158",
+          "S02:Source question (3:19) Is there a difference in size between your left and right breasts? Yes, left larger Yes, right larger Not applicable No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes left larger"
+        },
+        {
+          "const": 2,
+          "title": "Yes right larger"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/not_applicable",
+          "$comment": "local code 3 (Not applicable) recoded by the ETL sentinel step"
+        },
+        {
+          "const": 4,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_19_1_1",
+      "x-questionID": 176,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 252,
+        "2": 253,
+        "-666": 6,
+        "4": 2
+      },
+      "x-pii": false
+    },
+    "R0_BreastDif_Size": {
+      "title": "How large the difference between the breasts is",
+      "description": "Magnitude of breast size difference.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 159",
+          "S02:Source question (3:19) If yes, about how large is the difference between your left and right breasts?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Less than 1 cup size"
+        },
+        {
+          "const": 2,
+          "title": "About 1 cup size or more"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_Dif_LeftRight_Breast = 1 or 2 (Yes); 3:19 says 'If yes, about how large is the difference'.",
+      "x-formerName": "Q3_19_2_1",
+      "x-questionID": 177,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 254,
+        "2": 255
+      },
+      "x-pii": false
+    },
+    "R0_WaistCircum_In": {
+      "title": "Waist circumference: inches",
+      "description": "Participant's waist circumference in inches.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 160",
+          "S02:Source question (3:20) What is your waist circumference? Inches"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_20inches",
+      "x-questionID": 178,
+      "x-pii": false
+    },
+    "R0_WaistCircum_Cm": {
+      "title": "Waist circumference: centimetres",
+      "description": "Participant's waist circumference in centimeters.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 161",
+          "S02:Source question (3:20) or Centimetres"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_20cm",
+      "x-questionID": 179,
+      "x-pii": false
+    },
+    "R0_WaistCircum_When": {
+      "title": "When the waist was measured",
+      "description": "Timing of waist circumference measurement.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 162",
+          "S02:Source question (3:20) When was this measured? Today In the last few months Not measured, it is an estimate"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Today"
+        },
+        {
+          "const": 2,
+          "title": "Last few months"
+        },
+        {
+          "const": 3,
+          "title": "Not measured, it is an estimate"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_20when_1",
+      "x-questionID": 180,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 211,
+        "2": 212,
+        "3": 213
+      },
+      "x-pii": false
+    },
+    "R0_HipCircum_In": {
+      "title": "Hip circumference: inches",
+      "description": "Participant's hip circumference in inches.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 163",
+          "S02:Source question (3:21) What is your hip circumference? Inches"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_21inches",
+      "x-questionID": 181,
+      "x-pii": false
+    },
+    "R0_HipCircum_Cm": {
+      "title": "Hip circumference: centimetres",
+      "description": "Participant's hip circumference in centimeters.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 164",
+          "S02:Source question (3:21) or Centimetres"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_21cm",
+      "x-questionID": 182,
+      "x-pii": false
+    },
+    "R0_HipCircum_When": {
+      "title": "When the hips were measured",
+      "description": "Timing of hip circumference measurement.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 165",
+          "S02:Source question (3:21) When was this measured? Today In the last few months Not measured, it is an estimate"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Today"
+        },
+        {
+          "const": 2,
+          "title": "Last few months"
+        },
+        {
+          "const": 3,
+          "title": "Not measured, it is an estimate"
+        },
+        {
+          "const": "A",
+          "title": "Use with caution"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_21when_1",
+      "x-questionID": 183,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 211,
+        "2": 212,
+        "3": 213,
+        "A": 268
+      },
+      "x-pii": false
+    },
+    "R0_ArmSpan_Ft": {
+      "title": "Arm span: feet",
+      "description": "Participant's arm span in feet.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 166",
+          "S02:Source question (3:22) What is your arm span? Feet"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_22feet",
+      "x-questionID": 184,
+      "x-pii": false
+    },
+    "R0_ArmSpan_In": {
+      "title": "Arm span: inches (part of the feet and inches span)",
+      "description": "Participant's arm span in inches.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 167",
+          "S02:Source question (3:22) Inches"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_22inches",
+      "x-questionID": 185,
+      "x-pii": false
+    },
+    "R0_ArmSpan_Cm": {
+      "title": "Arm span: centimetres",
+      "description": "Participant's arm span in centimeters.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 168",
+          "S02:Source question (3:22) or Centimetres"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_22cm",
+      "x-questionID": 186,
+      "x-pii": false
+    },
+    "R0_ArmSpan_NotPractical": {
+      "title": "Measuring the arm span was not practical",
+      "description": "Arm span measurement is not practical.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 169",
+          "S02:Source question (3:22) Not practical"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Checked"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q3_22na",
+      "x-questionID": 187,
+      "x-answerIDs": {
+        "1": 264
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "WeightComparison",
+    "RecordedWeights",
+    "R0_LowestWght_St",
+    "R0_LowestWght_Lbs",
+    "R0_LowestWght_Kg",
+    "R0_LowestWght_Age",
+    "R0_HighestWght_St",
+    "R0_HighestWght_Lbs",
+    "R0_HighestWght_Kg",
+    "R0_HighestWght_Age",
+    "R0_CurrentWght_When",
+    "HeightComparison",
+    "R0_GrowthStopped_Age",
+    "R0_GrowthStopped_Unkn",
+    "RecordedHeights",
+    "R0_ChildhoodHghtRec",
+    "U16RecordedHeights",
+    "R0_RecHght_Institution",
+    "Institutions",
+    "R0_AgeBreastDev",
+    "R0_AgeBreastDev_Unkn",
+    "BraSize",
+    "R0_Dif_LeftRight_Breast",
+    "R0_BreastDif_Size",
+    "R0_WaistCircum_In",
+    "R0_WaistCircum_Cm",
+    "R0_WaistCircum_When",
+    "R0_HipCircum_In",
+    "R0_HipCircum_Cm",
+    "R0_HipCircum_When",
+    "R0_ArmSpan_Ft",
+    "R0_ArmSpan_In",
+    "R0_ArmSpan_Cm",
+    "R0_ArmSpan_NotPractical"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern: the participant has no records of her measured height in childhood (3:14: 'If yes, please list below any recorded height you know under age 16'), so the U16RecordedHeights list must be empty.",
+      "x-provenance": {
+        "default": "S02:p.8 Q3:14 If yes, please list below any recorded height you know under age 16"
+      },
+      "if": {
+        "required": [
+          "R0_ChildhoodHghtRec"
+        ],
+        "properties": {
+          "R0_ChildhoodHghtRec": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "U16RecordedHeights": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: no institution is reported to hold her childhood height records (3:15: 'If yes, please state what the institutions were'), so the Institutions list must be empty.",
+      "x-provenance": {
+        "default": "S02:p.8 Q3:15 If yes, please state what the institutions were"
+      },
+      "if": {
+        "required": [
+          "R0_RecHght_Institution"
+        ],
+        "properties": {
+          "R0_RecHght_Institution": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "Institutions": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: no size difference between the breasts is reported (3:19: 'If yes, about how large is the difference'), so the size of the difference is structurally not applicable -- R0_BreastDif_Size must carry the missing-numeric sentinel.",
+      "x-provenance": {
+        "default": "S02:p.9 Q3:19 If yes, about how large is the difference between your left and right breasts?"
+      },
+      "if": {
+        "required": [
+          "R0_Dif_LeftRight_Breast"
+        ],
+        "properties": {
+          "R0_Dif_LeftRight_Breast": {
+            "enum": [
+              0,
+              -666,
+              4
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_BreastDif_Size": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

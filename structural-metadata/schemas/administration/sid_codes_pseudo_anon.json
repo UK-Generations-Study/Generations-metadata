@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Administration/schemas/pseudo_anon/sid_codes_pseudo_anon.json",
+  "title": "Study ID codes (pseudonymised)",
+  "description": "The pseudo-anonymised ID codes of each participant, without the raw study ID or the date shifts.",
+  "type": "object",
+  "properties": {
+    "KCode": {
+      "title": "K code (IEP CC mammographic images)",
+      "description": "Pseudo-anonymised ID for Mammographic images received via IEP CC study",
+      "type": "string",
+      "pattern": "^K.{7}$",
+      "x-pii": false
+    },
+    "JCode": {
+      "title": "J code (BCAC)",
+      "description": "Pseudo-anonymised ID for BCAC",
+      "type": "string",
+      "pattern": "^J.{7}$",
+      "x-pii": false
+    },
+    "MCode": {
+      "title": "M code (BIRAS mammographic images)",
+      "description": "Pseudo-anonymised ID for Mammographic images for BIRAS",
+      "type": "string",
+      "pattern": "^M.{7}$",
+      "x-pii": false
+    },
+    "LCode": {
+      "title": "L code (UMass B2Risk GD datasets)",
+      "description": "Pseudo-anonymised ID for GD datasets sent to UMass for B2Risk",
+      "type": "string",
+      "pattern": "^L.{7}$",
+      "x-pii": false
+    },
+    "NCode": {
+      "title": "N code (Nightingale collaboration)",
+      "description": "Pseudo-anonymised ID for Nightingale cohort collaboration",
+      "type": "string",
+      "pattern": "^N.{7}$",
+      "x-pii": false
+    },
+    "TCode": {
+      "title": "T code (RDS work)",
+      "description": "Pseudo-anonymised ID for RDS datasets",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-pii": false,
+      "x-role": "primary key"
+    },
+    "PCode": {
+      "title": "P code (Cambridge TMA project)",
+      "description": "Pseudo-anonymised ID for Cambridge TMA project",
+      "type": "string",
+      "pattern": "^P.{7}$",
+      "x-pii": false
+    },
+    "QCode": {
+      "title": "Q code (Master Students RDS work)",
+      "description": "Pseudo-anonymised ID for Master Students RDS work",
+      "type": "string",
+      "pattern": "^Q.{7}$",
+      "x-pii": false
+    },
+    "RCode": {
+      "title": "R code (EHBCCG Oxford assay data)",
+      "description": "Pseudo-anonymised ID for Endogenous Hormones and Breast Cancer Collaborative Group (EHBCCG) Oxford assay data",
+      "type": "string",
+      "pattern": "^R.{7}$",
+      "x-pii": false
+    },
+    "SCode": {
+      "title": "S code (Regeneron project)",
+      "description": "Pseudo-anonymised ID for Regeneron Project",
+      "type": "string",
+      "pattern": "^S.{7}$",
+      "x-pii": false
+    },
+    "ICode": {
+      "title": "I code (mammographic images)",
+      "description": "Pseudo-anonymised ID for mammographic images",
+      "type": "string",
+      "pattern": "^I.{7}$",
+      "x-pii": false
+    },
+    "Ccode": {
+      "title": "C code (ctDNA study)",
+      "description": "Pseudo-anonymised ID for ctDNA Study",
+      "type": "string",
+      "pattern": "^C.{7}$",
+      "x-pii": false
+    }
+  },
+  "required": [
+    "KCode",
+    "JCode",
+    "MCode",
+    "LCode",
+    "NCode",
+    "PCode",
+    "QCode",
+    "RCode",
+    "SCode",
+    "ICode",
+    "Ccode"
+  ]
+}

@@ -1,0 +1,826 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/other_breast_surgery_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Other Breast Surgery (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from other_breast_surgery.json containing Surgery to the breasts for cosmetic or other non-cancer reasons (up to four operations), collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "OtherBreastSurgeries": {
+      "title": "Cosmetic or other non-cancer breast operations",
+      "description": "One entry per operation to the breasts for cosmetic or other non-cancer reasons, up to 4, in the order reported; further operations are on page 15:1 and more than four are flagged by R0_CosmeticOther_MoreFour.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 12",
+          "S02:Source question (7:9) Have you had any surgery to your breasts for cosmetic reasons or other reasons not mentioned above?"
+        ],
+        "minItems": "S01:ArrayDef row 12",
+        "maxItems": "S01:ArrayDef row 12"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_OtherBreastSurgery_Num": {
+            "x-role": "entity key",
+            "title": "Which operation this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 12",
+              "maximum": "S01:ArrayDef row 12"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "x-pii": false
+          },
+          "R0_CosmeticOther_Surgery": {
+            "title": "Whether the participant had surgery to the breasts for cosmetic or other non-cancer reasons",
+            "description": "Indicates whether the participant had this specific cosmetic or other breast surgery episode.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No; 8 Not sure.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 926",
+                "S02:p.23 Q7:9 Have you had any surgery to your breasts for cosmetic reasons or other reasons not mentioned above? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/not_sure",
+                "$comment": "local code 8 (Not sure) recoded by the ETL sentinel step"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q7_9_1_1",
+              "brsurg2",
+              "brsurg3",
+              "brsurg4"
+            ],
+            "x-questionID": 1309,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2,
+              "-444": 8
+            },
+            "x-pii": false
+          },
+          "R0_CosmeticOther_Age": {
+            "title": "Age at the operation (years)",
+            "description": "Age of the participant when this cosmetic or other breast surgery was performed.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 929",
+                "S02:p.23 Q7:9 How old were you when you had this surgery? years"
+              ],
+              "minimum": "S01:Questions row 929"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+            "x-formerName": [
+              "Q7_9_4",
+              "brsurgage2",
+              "brsurgage3",
+              "brsurgage4"
+            ],
+            "x-questionID": 1312,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "OtherBreastSurgeriesExtra": {
+            "title": "Further details of operations 2 to 4",
+            "description": "Extra details of breast surgeries undertaken for cosmetic or other non-cancer reasons: month, year and the type boxes of the 2nd to the 4th operation.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 41"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "x-universe": "Only the 2nd to 4th operation have it; the 1st operation has a coded type instead.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_CosmeticOther_Mnth": {
+                  "title": "Month of the operation (further operations)",
+                  "description": "Calendar month in which this cosmetic or other breast surgery was performed.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 938"
+                    ],
+                    "minimum": "S01:Questions row 938",
+                    "maximum": "S01:Questions row 938"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 12
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgmth2",
+                    "brsurgmth3",
+                    "brsurgmth4"
+                  ],
+                  "x-questionID": 1321,
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_Yr": {
+                  "title": "Year of the operation (further operations)",
+                  "description": "Calendar year in which this cosmetic or other breast surgery was performed.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999. Dictionary minimum 0; 1900 used. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 939"
+                    ]
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1900
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgyr2",
+                    "brsurgyr3",
+                    "brsurgyr4"
+                  ],
+                  "x-questionID": 1322,
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_Reduction": {
+                  "title": "Operation: breast reduction",
+                  "description": "Indicates whether the surgery involved breast reduction.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 940",
+                      "S02:p.23 Q7:9 Breast reduction"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgreduction2",
+                    "brsurgreduction3",
+                    "brsurgreduction4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_Lump": {
+                  "title": "Operation: part of the breast or a lump removed",
+                  "description": "Indicates whether the surgery involved removal of part of the breast or a lump.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The dictionary gives all eight boxes the SchemaPropertyName R0_CosmeticOther_Reduction; the name here is the NewVariableName without the number. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 941",
+                      "S02:p.23 Q7:9 Part of breast(s) or a lump removed"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurglumpectomy2",
+                    "brsurglumpectomy3",
+                    "brsurglumpectomy4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_Enlargement": {
+                  "title": "Operation: breast enlargement",
+                  "description": "Indicates whether the surgery involved breast enlargement.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The dictionary gives all eight boxes the SchemaPropertyName R0_CosmeticOther_Reduction; the name here is the NewVariableName without the number. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 942",
+                      "S02:p.23 Q7:9 Breast enlargement"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgenlarge2",
+                    "brsurgenlarge3",
+                    "brsurgenlarge4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_Removed": {
+                  "title": "Operation: the whole breast removed",
+                  "description": "Indicates whether the surgery involved removal of the whole breast.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The dictionary gives all eight boxes the SchemaPropertyName R0_CosmeticOther_Reduction; the name here is the NewVariableName without the number. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 943",
+                      "S02:p.23 Q7:9 The whole breast removed"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgmastectomy2",
+                    "brsurgmastectomy3",
+                    "brsurgmastectomy4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_Aspiration": {
+                  "title": "Operation: aspiration (needle) biopsy",
+                  "description": "Indicates whether the surgery involved an aspiration (needle) biopsy.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The dictionary gives all eight boxes the SchemaPropertyName R0_CosmeticOther_Reduction; the name here is the NewVariableName without the number. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 944",
+                      "S02:p.23 Q7:9 Aspiration (needle) biopsy"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgaspiration2",
+                    "brsurgaspiration3",
+                    "brsurgaspiration4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_BothRemoved": {
+                  "title": "Operation: both breasts removed",
+                  "description": "Indicates whether the surgery involved removal of both breasts.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The dictionary gives all eight boxes the SchemaPropertyName R0_CosmeticOther_Reduction; the name here is the NewVariableName without the number. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 945",
+                      "S02:p.23 Q7:9 Both breasts removed"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgbilateral2",
+                    "brsurgbilateral3",
+                    "brsurgbilateral4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_SmallSample": {
+                  "title": "Operation: a small sample removed (biopsy)",
+                  "description": "Indicates whether the surgery involved removal of a small sample (biopsy).",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The dictionary gives all eight boxes the SchemaPropertyName R0_CosmeticOther_Reduction; the name here is the NewVariableName without the number. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 946",
+                      "S02:p.23 Q7:9 A small sample removed (biopsy)"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgbiopsy2",
+                    "brsurgbiopsy3",
+                    "brsurgbiopsy4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_CosmeticOther_Other": {
+                  "title": "Operation: other",
+                  "description": "Indicates whether the surgery was another type of operation.",
+                  "$comment": "Operations 2 to 4 only (the dictionary block OtherBreastSurgeriesExtra); operation 1 carries -999 (it has the coded type above). Source coding: 0 No; 1 Yes. The eight boxes share QuestionID 1323. The dictionary gives all eight boxes the SchemaPropertyName R0_CosmeticOther_Reduction; the name here is the NewVariableName without the number. The list of old names starts with a placeholder for operation 1, which has no column, so that each name keeps its position (the dictionary block OtherBreastSurgeriesExtra covers operations 2 to 4 only).",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 947",
+                      "S02:p.23 Q7:9 Other"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+                  "x-formerName": [
+                    "brsurgother2",
+                    "brsurgother3",
+                    "brsurgother4"
+                  ],
+                  "x-questionID": 1323,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_CosmeticOther_Mnth",
+                "R0_CosmeticOther_Yr",
+                "R0_CosmeticOther_Reduction",
+                "R0_CosmeticOther_Lump",
+                "R0_CosmeticOther_Enlargement",
+                "R0_CosmeticOther_Removed",
+                "R0_CosmeticOther_Aspiration",
+                "R0_CosmeticOther_BothRemoved",
+                "R0_CosmeticOther_SmallSample",
+                "R0_CosmeticOther_Other"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "R0_CosmeticOther_Type": {
+            "title": "Type of operation (1st operation)",
+            "description": "Type of the cosmetic or other breast surgery.",
+            "$comment": "Operation 1 only; operations 2 to 4 give the eight yes/no boxes below and carry -999 here. Source coding: 0 More than one option chosen; 1 Breast reduction; 2 Part of breast(s) or a lump removed; 3 Breast enlargement; 4 The whole breast removed; 5 Aspiration (needle) biopsy; 6 Both breasts removed; 7 A small sample removed (biopsy); 8 Other.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 930",
+                "S02:p.23 Q7:9 What was the operation? Breast reduction / Part of breast(s) or a lump removed / Breast enlargement / The whole breast removed / Aspiration (needle) biopsy / Both breasts removed / A small sample removed (biopsy) / Other"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Breast reduction"
+              },
+              {
+                "const": 2,
+                "title": "Part of breast(s) or a lump removed"
+              },
+              {
+                "const": 3,
+                "title": "Breast enlargement"
+              },
+              {
+                "const": 4,
+                "title": "The whole breast removed"
+              },
+              {
+                "const": 5,
+                "title": "Aspiration (needle) biopsy"
+              },
+              {
+                "const": 6,
+                "title": "Both breasts removed"
+              },
+              {
+                "const": 7,
+                "title": "A small sample removed (biopsy)"
+              },
+              {
+                "const": 8,
+                "title": "Other"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+            "x-formerName": "Q7_9_5_1",
+            "x-questionID": 1313,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1002,
+              "2": 968,
+              "3": 1004,
+              "4": 965,
+              "5": 1006,
+              "6": 967,
+              "7": 966,
+              "8": 13
+            },
+            "x-pii": false
+          },
+          "R0_CosmeticOther_OtherOther": {
+            "title": "The other operation, specified",
+            "description": "Free-text description of another type of breast operation not listed.",
+            "$comment": "The dictionary gives these four rows no ArrayName and no SchemaPropertyName; they are held as one field of the entry.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 931",
+                "S02:p.23 Q7:9 If other, please specify"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_CosmeticOther_Type = 8 (Other) or R0_CosmeticOther_Other = 1; 7:9 says 'If other, please specify'.",
+            "x-formerName": [
+              "Q7_9_6",
+              "brsurgotherwhat2",
+              "brsurgotherwhat3",
+              "brsurgotherwhat4"
+            ],
+            "x-questionID": 1314,
+            "x-pii": false
+          },
+          "R0_CosmeticOther_Breast": {
+            "title": "Which breast the operation was on",
+            "description": "Which breast(s) the cosmetic or other surgery was performed on.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Left; 2 Right; 3 Both.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 932",
+                "S02:p.23 Q7:9 In which breast was it? Left Right Both"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Left"
+              },
+              {
+                "const": 2,
+                "title": "Right"
+              },
+              {
+                "const": 3,
+                "title": "Both"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when R0_CosmeticOther_Surgery = 1 (Yes); 7:9 says 'If no, go to question 7:10'.",
+            "x-formerName": [
+              "Q7_9_7_1",
+              "brsurgside2",
+              "brsurgside3",
+              "brsurgside4"
+            ],
+            "x-questionID": 1315,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 959,
+              "2": 960,
+              "3": 961
+            },
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_OtherBreastSurgery_Num",
+          "R0_CosmeticOther_Surgery",
+          "R0_CosmeticOther_Age",
+          "OtherBreastSurgeriesExtra",
+          "R0_CosmeticOther_Type",
+          "R0_CosmeticOther_OtherOther",
+          "R0_CosmeticOther_Breast"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "$comment": "Other breast surgery routing R021: the participant did not answer Yes to having had this surgery (0 or 2), so everything asked about the operation is structurally not applicable -- the hospital, town and other-operation text must carry the missing-string sentinel, and the age, month, year, the type, the eight boxes and the breast must carry the missing-numeric sentinel. Questionnaire p.23 Q7:9: 'If no, go to question 7:10'. The month, year and type boxes of the nested extra-details list are left out (it is empty).",
+            "x-provenance": {
+              "default": [
+                "S02:p.23 Q7:9 If 'no', go to question 7:10"
+              ]
+            },
+            "if": {
+              "required": [
+                "R0_CosmeticOther_Surgery"
+              ],
+              "properties": {
+                "R0_CosmeticOther_Surgery": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_CosmeticOther_Hosp": {
+                  "const": "MISSING"
+                },
+                "R0_CosmeticOther_Town": {
+                  "const": "MISSING"
+                },
+                "R0_CosmeticOther_Age": {
+                  "const": -999
+                },
+                "R0_CosmeticOther_Type": {
+                  "const": -999
+                },
+                "R0_CosmeticOther_OtherOther": {
+                  "const": "MISSING"
+                },
+                "R0_CosmeticOther_Breast": {
+                  "const": -999
+                },
+                "OtherBreastSurgeriesExtra": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        ]
+      },
+      "x-pii": false
+    },
+    "R0_CosmeticOther_Details": {
+      "title": "Further breast operations (details on page 15:1)",
+      "description": "Free-text field capturing any additional information the participant provided about further cosmetic or other breast surgeries other than the first.",
+      "$comment": "Tick box. Dictionary AnswerText: the question text; the ticked answer is Yes (AnswerID 1014).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 933",
+          "S02:p.23 Q7:9 If you have had any further breast operations not mentioned above, cross this box and fill in details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q7_9_8",
+      "x-questionID": 1316,
+      "x-answerIDs": {
+        "1": 1014
+      },
+      "x-pii": false
+    },
+    "R0_CosmeticOther_MoreFour": {
+      "title": "More than 4 cosmetic or other breast operations",
+      "description": "Indicates whether the participant has had more than four cosmetic or other breast surgeries in total.",
+      "$comment": "Not printed on the questionnaire page 23. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 982"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "brsurgmorex",
+      "x-questionID": 1365,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "OtherBreastSurgeries",
+    "R0_CosmeticOther_Details",
+    "R0_CosmeticOther_MoreFour"
+  ],
+  "allOf": [
+    {
+      "$comment": "Other breast surgery routing R022: in each operation, neither the coded type is Other (8) nor the Other box of the nested extra-details list is ticked, so the description is structurally not applicable -- R0_CosmeticOther_OtherOther must carry the missing-string sentinel. Questionnaire p.23 Q7:9: 'If other, please specify'. It is written here, not in the operation's own allOf, because the box is inside the nested list.",
+      "x-provenance": {
+        "default": [
+          "S02:p.23 Q7:9 If other, please specify"
+        ]
+      },
+      "properties": {
+        "OtherBreastSurgeries": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_CosmeticOther_Type"
+              ],
+              "properties": {
+                "R0_CosmeticOther_Type": {
+                  "not": {
+                    "const": 8
+                  }
+                },
+                "OtherBreastSurgeriesExtra": {
+                  "not": {
+                    "contains": {
+                      "required": [
+                        "R0_CosmeticOther_Other"
+                      ],
+                      "properties": {
+                        "R0_CosmeticOther_Other": {
+                          "const": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_CosmeticOther_OtherOther": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

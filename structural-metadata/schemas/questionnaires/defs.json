@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/defs.json",
+  "title": "UK Generations Study R0 questionnaire (schemify pilot) — shared definitions",
+  "description": "Only invariant tokens are centralised here; context-specific sentinels are inlined per field because their meanings differ by variable.",
+  "$defs": {
+    "missing_numeric": {
+      "const": -999,
+      "title": "Missing or not recorded",
+      "description": "The source data has no distinguishing code for why a numeric or coded value is absent — agent-decided sentinel, since BaselineMetadata.xlsx's Answers sheet defines no dedicated missing-value code for these fields. Open for steward confirmation at review.",
+      "x-value-kind": "sentinel"
+    },
+    "missing_string": {
+      "const": "MISSING",
+      "title": "Missing or not recorded",
+      "description": "The source data has no distinguishing code for why a string value is absent — agent-decided sentinel, mirroring missing_numeric for string-typed fields. Open for steward confirmation at review.",
+      "x-value-kind": "sentinel"
+    },
+    "dont_know": {
+      "const": -888,
+      "title": "Don't know",
+      "description": "The participant indicated they did not know the answer. Harmonised from BaselineMetadata.xlsx's Answers sheet, AnswerID=3 — reused verbatim across 49 answer rows in the source. D011 (2026-09-18) fixes -888 as the one universal recoded value for this meaning everywhere it appears, replacing the source's per-question local code; confirmed final by the steward. A field whose own local code for this meaning must be preserved (e.g. a companion flag-field's own coding, D004) inlines its own const + title instead of $ref'ing this def — see D017.",
+      "x-value-kind": "sentinel"
+    },
+    "dont_remember": {
+      "const": -777,
+      "title": "Don't remember",
+      "description": "The participant indicated they did not remember the answer. Harmonised from BaselineMetadata.xlsx's Answers sheet, AnswerID=5 (6 uses in the source). D011 (2026-09-18) fixes -777 as the one universal recoded value, confirmed final by the steward.",
+      "x-value-kind": "sentinel"
+    },
+    "not_applicable": {
+      "const": -666,
+      "title": "Not applicable",
+      "description": "The question did not apply to the participant. Harmonised from BaselineMetadata.xlsx's Answers sheet, AnswerID=6 (9 uses in the source). D011 (2026-09-18) fixes -666 as the one universal recoded value, confirmed final by the steward.",
+      "x-value-kind": "sentinel"
+    },
+    "prefer_not_to_answer": {
+      "const": -555,
+      "title": "Prefer not to answer",
+      "description": "The participant declined to answer. Harmonised from BaselineMetadata.xlsx's Answers sheet, AnswerID=7 — 0 uses in Baseline itself, reserved for future rounds (R2/R4). D011 (2026-09-18) fixes -555 as the universal recoded value, confirmed final by the steward.",
+      "x-value-kind": "sentinel"
+    },
+    "not_sure": {
+      "const": -444,
+      "title": "Not sure",
+      "description": "The participant was not sure of the answer. Harmonised from BaselineMetadata.xlsx's Answers sheet, AnswerID=8 (2 uses: Q560, Q1309). D011 (2026-09-18) fixes -444 as the universal recoded value, confirmed final by the steward.",
+      "x-value-kind": "sentinel"
+    },
+    "none_of_these": {
+      "const": -333,
+      "title": "None of these",
+      "description": "The participant read the listed options and none applied. A real answer, not a missing value (D008, D012), so it is marked as a value. Kept here so the ETL's sentinel step can match the title (D102).",
+      "x-value-kind": "value"
+    }
+  }
+}

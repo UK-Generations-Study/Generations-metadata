@@ -1,0 +1,2047 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/alcohol_smoking_diet_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Alcohol, Smoking, and Diet (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from alcohol_smoking_diet.json containing Alcohol consumption, smoking history, and dietary habits collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_AlcoholRegularUse": {
+      "title": "Has the participant ever been a regular drinker of alcohol?",
+      "description": "Participant's history of regular alcohol consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1478",
+          "S02:Source question (11:1) Have you ever been a regular drinker of alcohol (at least one glass per week)?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_1_1_1",
+      "x-questionID": 2150,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_AlcoholStartAge": {
+      "title": "Age started drinking at least once a week",
+      "description": "Age participant began weekly alcohol consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1479",
+          "S02:Source question (11:1) At what age did you start drinking at least once a week?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AlcoholRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_1_2",
+      "x-questionID": 2151,
+      "x-pii": false
+    },
+    "R0_AlcoholCurrentUse": {
+      "title": "Does the participant still drink at least once a week?",
+      "description": "Participant's current weekly alcohol consumption status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1480",
+          "S02:Source question (11:1) Do you still drink at least once a week?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Printed as a bulleted follow-up directly under 11:1's 'if yes' branch -- only completed when R0_AlcoholRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_1_3_1",
+      "x-questionID": 2152,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_AlcoholStopAge": {
+      "title": "Age stopped drinking at least once a week",
+      "description": "Age participant discontinued weekly alcohol consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1481",
+          "S02:Source question (11:1) If you stopped, at what age did you stop drinking?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AlcoholCurrentUse = 2 (No, stopped).",
+      "x-formerName": "Q11_1_4",
+      "x-questionID": 2153,
+      "x-pii": false
+    },
+    "AlcoholConsumption": {
+      "title": "Alcohol consumption by period of life",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 21",
+          "S02:Source question (11:2) Please tell us on average the amount you drank at different periods of your life."
+        ],
+        "maxItems": "S01:ArrayDef row 21"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_AlcoholConsumption_Num": {
+            "x-role": "entity key",
+            "title": "Age band this occasion refers to",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 21"
+            },
+            "oneOf": [
+              {
+                "const": "18-24",
+                "title": "18-24"
+              },
+              {
+                "const": "25-49",
+                "title": "25-49"
+              },
+              {
+                "const": "50+",
+                "title": "50+"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_AlcoholBeer": {
+            "title": "Beer, lager, stout or cider consumed (pints per week)",
+            "description": "Beer consumption during a given age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1482",
+                "S02:Source question (11:2) Amount of alcohol consumed at different periods of life, beer, lager, stout, cider (pints per week)."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q11_2_A_1",
+              "Q11_2_B_1",
+              "Q11_2_C_1"
+            ],
+            "x-questionID": 2154,
+            "x-pii": false
+          },
+          "R0_AlcoholWhiteWine": {
+            "title": "White wine consumed (glasses per week)",
+            "description": "White wine consumption during a given age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1483",
+                "S02:Source question (11:2) Amount of alcohol consumed at different periods of life, white wine (glasses per week)."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q11_2_A_2",
+              "Q11_2_B_2",
+              "Q11_2_C_2"
+            ],
+            "x-questionID": 2155,
+            "x-pii": false
+          },
+          "R0_AlcoholRedWine": {
+            "title": "Red wine consumed (glasses per week)",
+            "description": "Red wine consumption during a given age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1484",
+                "S02:Source question (11:2) Amount of alcohol consumed at different periods of life, red wine (glasses per week)."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q11_2_A_3",
+              "Q11_2_B_3",
+              "Q11_2_C_3"
+            ],
+            "x-questionID": 2156,
+            "x-pii": false
+          },
+          "R0_AlcoholLiqueur": {
+            "title": "Sherry, liqueurs, Martini and similar drinks consumed (glasses per week)",
+            "description": "Sherry, liqueurs, Martini, and other similar drinks consumption during a given age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1485",
+                "S02:Source question (11:2) Amount of alcohol consumed at different periods of life, sherry, liqueurs, Martini, and other similar drinks (glasses per week)."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q11_2_A_4",
+              "Q11_2_B_4",
+              "Q11_2_C_4"
+            ],
+            "x-questionID": 2157,
+            "x-pii": false
+          },
+          "R0_AlcoholSpirits": {
+            "title": "Alcopops or spirits consumed (glasses per week)",
+            "description": "Number of glasses of alcopops or spirits consumed per week during this life stage.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1486",
+                "S02:Source question (11:2) Amount of alcohol consumed at different periods of life, alcopops or spirits (glasses (singles) per week)."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q11_2_A_5",
+              "Q11_2_B_5",
+              "Q11_2_C_5"
+            ],
+            "x-questionID": 2158,
+            "x-pii": false
+          },
+          "R0_AlcoholOther": {
+            "title": "Other types of alcohol consumed (glasses per week)",
+            "description": "Number of glasses of other types of alcohol consumed per week during this life stage.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1487",
+                "S02:Source question (11:2) Other types of alcohol (glasses per week)."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q11_2_A_6",
+              "Q11_2_B_6",
+              "Q11_2_C_6"
+            ],
+            "x-questionID": 2159,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_AlcoholConsumption_Num",
+          "R0_AlcoholBeer",
+          "R0_AlcoholWhiteWine",
+          "R0_AlcoholRedWine",
+          "R0_AlcoholLiqueur",
+          "R0_AlcoholSpirits",
+          "R0_AlcoholOther"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_AlcoholTypeOther": {
+      "title": "Type of 'other' alcohol, if specified",
+      "description": "If the alcohol specified was other, the participant specified in text what the other alcohol was.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1500",
+          "S02:Source question (11:2) If other, please specify type of alcohol."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when at least one AlcoholConsumption item has a real (non-missing) R0_AlcoholOther value.",
+      "x-formerName": "Q11_2_other",
+      "x-questionID": 2172,
+      "x-pii": false
+    },
+    "R0_AlcoholDaysRecentWeek": {
+      "title": "Days drunk alcohol in the last 7 days",
+      "description": "Recent alcohol consumption frequency.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1501",
+          "S02:Source question (11:3) On how many days in the last 7 days have you drunk alcohol?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_3",
+      "x-questionID": 2173,
+      "x-pii": false
+    },
+    "R0_SmokingRegularUse": {
+      "title": "Has the participant ever smoked regularly?",
+      "description": "Participant's history of regular smoking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1502",
+          "S02:Source question (11:4) Have you ever smoked regularly (most days for at least 6 months)?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_4_1",
+      "x-questionID": 2174,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_SmokingStartAge": {
+      "title": "Age started smoking regularly",
+      "description": "Age participant began regular smoking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1503",
+          "S02:Source question (11:4) At what age did you start smoking regularly?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SmokingRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_4age",
+      "x-questionID": 2175,
+      "x-pii": false
+    },
+    "R0_SmokingDuringPregnancy": {
+      "title": "Did the participant smoke during their first pregnancy?",
+      "description": "Smoking status during first pregnancy.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1504",
+          "S02:Source question (11:5) If you have ever been preganant, did you smoke during your first pregnancy?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/not_applicable",
+          "$comment": "local code 3 (Not applicable) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SmokingRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_5_1",
+      "x-questionID": 2176,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-666": 6
+      },
+      "x-pii": false
+    },
+    "R0_SmokingCurrentUse": {
+      "title": "Does the participant still smoke regularly?",
+      "description": "Current smoking status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1505",
+          "S02:Source question (11:6) Do you still smoke regularly?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SmokingRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_6_1",
+      "x-questionID": 2177,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_SmokingStopAge": {
+      "title": "Age stopped smoking regularly",
+      "description": "Age participant discontinued smoking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1506",
+          "S02:Source question (11:6) If you stopped smoking, at what age did you stop?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SmokingCurrentUse = 2 (No, stopped).",
+      "x-formerName": "Q11_6age",
+      "x-questionID": 2178,
+      "x-pii": false
+    },
+    "R0_SmokingRestartUse": {
+      "title": "Has the participant ever stopped smoking for a year or more and restarted?",
+      "description": "Whether the participant has every stopped smoking for over a year and then restarted smoking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1507",
+          "S02:Source question (11:7) Have you ever stopped smoking temporarily for a year or more and then restarted?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SmokingRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_7_1",
+      "x-questionID": 2179,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "CigaretteConsumption": {
+      "title": "Average cigarettes smoked per day, by period of life",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 28",
+          "S02:Source question (11:8) How many cigarettes per day did you smoke on average, when you were a smoker, at different periods of your life."
+        ],
+        "maxItems": "S01:ArrayDef row 28"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_CigaretteConsumption_Num": {
+            "x-role": "entity key",
+            "title": "Age band this occasion refers to",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 28"
+            },
+            "oneOf": [
+              {
+                "const": "16-24",
+                "title": "16-24"
+              },
+              {
+                "const": "25-49",
+                "title": "25-49"
+              },
+              {
+                "const": "50+",
+                "title": "50+"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_Cigarettes": {
+            "title": "Cigarettes smoked per day on average",
+            "description": "Cigarette consumption during a given age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1508",
+                "S02:Source question (11:8) Average number of cigarettes smoked per day at a given age range."
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q11_8_1",
+              "Q11_8_2",
+              "Q11_8_3"
+            ],
+            "x-questionID": 2180,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_CigaretteConsumption_Num",
+          "R0_Cigarettes"
+        ],
+        "additionalProperties": false
+      },
+      "x-universe": "Only completed when R0_SmokingRegularUse = 1 (Yes).",
+      "x-pii": false
+    },
+    "R0_SmokingInhale": {
+      "title": "Depth of inhalation while smoking",
+      "description": "Depth of inhalation while smoking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1511",
+          "S02:Source question (11:9) Did you inhale when smoking?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes, deeply"
+        },
+        {
+          "const": 2,
+          "title": "Yes, moderately"
+        },
+        {
+          "const": 3,
+          "title": "Yes, a little"
+        },
+        {
+          "const": 4,
+          "title": "No, not at all"
+        },
+        {
+          "const": "A",
+          "title": "Deeply and moderately"
+        },
+        {
+          "const": "B",
+          "title": "Deeply and a little"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SmokingRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_9_1",
+      "x-questionID": 2183,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2227,
+        "2": 2228,
+        "3": 2229,
+        "4": 2230,
+        "A": 2231,
+        "B": 2232
+      },
+      "x-pii": false
+    },
+    "R0_OtherTobaccoUse": {
+      "title": "Has the participant regularly smoked other tobacco (cigars, pipes, etc.)?",
+      "description": "Use of non-cigarette tobacco products.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1512",
+          "S02:Source question (11:10) Have you regularly smoked any other form of tobacco (e.g., cigars, pipes)?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SmokingRegularUse = 1 (Yes).",
+      "x-formerName": "Q11_10_1",
+      "x-questionID": 2184,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_MeatConsumption": {
+      "title": "Does the participant eat meat, poultry, or processed meats?",
+      "description": "Current meat consumption status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1513",
+          "S02:Source question (11:11) Do you eat meat (including poultry and processed meats)?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_11_1_1",
+      "x-questionID": 2185,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_MeatDaysRecentWeek": {
+      "title": "Days eaten meat in the last 7 days",
+      "description": "Recent meat consumption frequency.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1514",
+          "S02:Source question (11:11) If you eat meat (including poultry and processed meats), how many days in the last 7 have you eaten meat?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_MeatConsumption = 1 (Yes).",
+      "x-formerName": "Q11_11_2",
+      "x-questionID": 2186,
+      "x-pii": false
+    },
+    "R0_MeatLastAge": {
+      "title": "Age last ate meat",
+      "description": "Age of meat consumption cessation.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1515",
+          "S02:Source question (11:11) If you do not eat meat, how old were you when you last ate meat? - years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_MeatConsumption = 2 (No).",
+      "x-formerName": "Q11_11_3",
+      "x-questionID": 2187,
+      "x-pii": false
+    },
+    "R0_MeatNever": {
+      "title": "Participant has never eaten meat",
+      "description": "Lifetime abstinence from meat.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1516",
+          "S02:Source question (11:11) Never eaten meat."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Never eaten"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_MeatConsumption = 2 (No).",
+      "x-formerName": "Q11_11_4",
+      "x-questionID": 2188,
+      "x-answerIDs": {
+        "1": 2201
+      },
+      "x-pii": false
+    },
+    "R0_FishConsumption": {
+      "title": "Does the participant eat fish?",
+      "description": "Fish consumption status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1517",
+          "S02:Source question (11:12) Do you eat fish?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_12_1_1",
+      "x-questionID": 2189,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_FishDaysRecentWeek": {
+      "title": "Days eaten fish in the last 7 days",
+      "description": "Recent fish consumption frequency.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1518",
+          "S02:Source question (11:12) If you eat fish, how many days in the last 7 have you eaten fish?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_FishConsumption = 1 (Yes).",
+      "x-formerName": "Q11_12_2",
+      "x-questionID": 2190,
+      "x-pii": false
+    },
+    "R0_FishLastAge": {
+      "title": "Age last ate fish",
+      "description": "Age at last fish consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1519",
+          "S02:Source question (11:12) If you do not eat fish, how old were you when you last ate fish? - years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_FishConsumption = 2 (No).",
+      "x-formerName": "Q11_12_3",
+      "x-questionID": 2191,
+      "x-pii": false
+    },
+    "R0_FishNever": {
+      "title": "Participant has never eaten fish",
+      "description": "Lifetime fish abstinence.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1520",
+          "S02:Source question (11:12) Never eaten fish."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Never eaten"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_FishConsumption = 2 (No); a companion field to R0_FishConsumption.",
+      "x-formerName": "Q11_12_4",
+      "x-questionID": 2192,
+      "x-answerIDs": {
+        "1": 2201
+      },
+      "x-pii": false
+    },
+    "R0_EggConsumption": {
+      "title": "Does the participant eat eggs?",
+      "description": "Egg consumption status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1521",
+          "S02:Source question (11:13) Do you eat eggs (including in baked foods)?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_13_1_1",
+      "x-questionID": 2193,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_EggDaysRecentWeek": {
+      "title": "Days eaten eggs in the last 7 days",
+      "description": "Recent egg consumption frequency.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1522",
+          "S02:Source question (11:13) If you eat eggs, how many days in the last 7 have you eaten eggs?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EggConsumption = 1 (Yes).",
+      "x-formerName": "Q11_13_2",
+      "x-questionID": 2194,
+      "x-pii": false
+    },
+    "R0_EggLastAge": {
+      "title": "Age last ate eggs",
+      "description": "Age at last egg consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1523",
+          "S02:Source question (11:13) If you do not eat eggs, how old were you when you last ate eggs? - years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EggConsumption = 2 (No).",
+      "x-formerName": "Q11_13_3",
+      "x-questionID": 2195,
+      "x-pii": false
+    },
+    "R0_EggNever": {
+      "title": "Participant has never eaten eggs",
+      "description": "Lifetime egg abstinence.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1524",
+          "S02:Source question (11:13) Never eaten eggs."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Never eaten"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_EggConsumption = 2 (No); a companion field to R0_EggConsumption.",
+      "x-formerName": "Q11_13_4",
+      "x-questionID": 2196,
+      "x-answerIDs": {
+        "1": 2201
+      },
+      "x-pii": false
+    },
+    "R0_DairyConsumption": {
+      "title": "Does the participant eat dairy products?",
+      "description": "Dairy consumption status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1525",
+          "S02:Source question (11:14) Do you eat dairy products (milk, cheese, yogurt, butter)?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_14_1_1",
+      "x-questionID": 2197,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_DairyDaysRecentWeek": {
+      "title": "Days eaten dairy products in the last 7 days",
+      "description": "Recent dairy consumption frequency.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1526",
+          "S02:Source question (11:14) If you eat dairy products, how many days in the last 7 have you eaten dairy products?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_DairyConsumption = 1 (Yes).",
+      "x-formerName": "Q11_14_2",
+      "x-questionID": 2198,
+      "x-pii": false
+    },
+    "R0_DairyLastAge": {
+      "title": "Age last ate dairy products",
+      "description": "Age at last dairy consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1527",
+          "S02:Source question (11:14) If you do not eat dairy products, how old were you when you last ate dairy products? - years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_DairyConsumption = 2 (No).",
+      "x-formerName": "Q11_14_3",
+      "x-questionID": 2199,
+      "x-pii": false
+    },
+    "R0_DairyNever": {
+      "title": "Participant has never eaten dairy products",
+      "description": "Lifetime dairy abstinence.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1528",
+          "S02:Source question (11:14) Never eaten dairy products."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Never eaten"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_DairyConsumption = 2 (No); a companion field to R0_DairyConsumption.",
+      "x-formerName": "Q11_14_4",
+      "x-questionID": 2200,
+      "x-answerIDs": {
+        "1": 2201
+      },
+      "x-pii": false
+    },
+    "R0_SoyaConsumption": {
+      "title": "Does the participant eat soya products?",
+      "description": "Soya consumption status.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1529",
+          "S02:Source question (11:15) Do you eat soya products?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_15_1_1",
+      "x-questionID": 2201,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_SoyaDaysRecentWeek": {
+      "title": "Days eaten soya products in the last 7 days",
+      "description": "Recent soya consumption frequency.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1530",
+          "S02:Source question (11:15) If you eat soya, how many days in the last 7 have you eaten soya?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SoyaConsumption = 1 (Yes).",
+      "x-formerName": "Q11_15_2",
+      "x-questionID": 2202,
+      "x-pii": false
+    },
+    "R0_SoyaLastAge": {
+      "title": "Age last ate soya products",
+      "description": "Age at last soya consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1531",
+          "S02:Source question (11:15) If you do not eat soya, how old were you when you last ate soya? - years"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SoyaConsumption = 2 (No).",
+      "x-formerName": "Q11_15_3",
+      "x-questionID": 2203,
+      "x-pii": false
+    },
+    "R0_SoyaNever": {
+      "title": "Participant has never eaten soya products",
+      "description": "Lifetime soya abstinence.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1532",
+          "S02:Source question (11:15) Never eaten soya."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Never eaten"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_SoyaConsumption = 2 (No); a companion field to R0_SoyaConsumption.",
+      "x-formerName": "Q11_15_4",
+      "x-questionID": 2204,
+      "x-answerIDs": {
+        "1": 2201
+      },
+      "x-pii": false
+    },
+    "R0_GreenVegDailyServings": {
+      "title": "Servings of green vegetables eaten daily on average",
+      "description": "Average daily green vegetable consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1533",
+          "S02:Source question (11:16) How many servings of green vegetables do you eat daily on average?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_16",
+      "x-questionID": 2205,
+      "x-pii": false
+    },
+    "R0_FruitDailyServings": {
+      "title": "Servings of fruit eaten daily on average",
+      "description": "Average daily fruit consumption.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1534",
+          "S02:Source question (11:17) How many servings of fruit do you eat daily on average?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_17",
+      "x-questionID": 2206,
+      "x-pii": false
+    },
+    "R0_FatTypeButter": {
+      "title": "Cooking fat used: butter",
+      "description": "Primary cooking fat/oil used - butter.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1535",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - butter"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Butter"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_1",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "1": 6000
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeVegetableOil": {
+      "title": "Cooking fat used: other vegetable oil",
+      "description": "Primary cooking fat/oil used - other vegetable oil.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1536",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - other vegetable oil"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 2,
+          "title": "Other vegetable oil"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_2",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "2": 6001
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeLardDripping": {
+      "title": "Cooking fat used: lard/dripping",
+      "description": "Primary cooking fat/oil used - lard/dripping.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1537",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - lard/dripping"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 3,
+          "title": "Lard/dripping"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_3",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "3": 6002
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeSolidVegetable": {
+      "title": "Cooking fat used: solid white vegetable fat",
+      "description": "Primary cooking fat/oil used - solid white vegetable fat.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1538",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - solid white vegetable fat"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 4,
+          "title": "Solid white vegetable fat"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_4",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "4": 6003
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeOliveOil": {
+      "title": "Cooking fat used: olive oil",
+      "description": "Primary cooking fat/oil used - olive oil.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1539",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - olive oil"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 5,
+          "title": "Olive oil"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_5",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "5": 6004
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeMargarineSpreads": {
+      "title": "Cooking fat used: margarine/spreads",
+      "description": "Primary cooking fat/oil used - margarine/spreads.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1540",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - margarine/spreads"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 6,
+          "title": "Margarine/spreads"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_6",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "6": 6005
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeSunflowerOil": {
+      "title": "Cooking fat used: sunflower oil",
+      "description": "Primary cooking fat/oil used - sunflower oil.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1541",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - sunflower oil"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 7,
+          "title": "Sunflower oil"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_7",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "7": 6006
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeOther": {
+      "title": "Cooking fat used: other",
+      "description": "Primary cooking fat/oil used - other fat or oil.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1542",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - other"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 8,
+          "title": "Other"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_8",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "8": 13
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeNone": {
+      "title": "Cooking fat used: none",
+      "description": "Primary cooking fat/oil used - none of these.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1543",
+          "S02:Source question (11:18) What kind of fat do you most often use for frying, roasting, grilling, etc.? - none"
+        ]
+      },
+      "oneOf": [
+        {
+          "$ref": "../../../defs.json#/$defs/none_of_these",
+          "$comment": "local code 9 (None of these) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q11_18_9",
+      "x-questionID": 2207,
+      "x-answerIDs": {
+        "-333": 4
+      },
+      "x-pii": false
+    },
+    "R0_FatTypeOtherSpecify": {
+      "title": "Type of 'other' cooking fat, if specified",
+      "description": "Specification of 'other' cooking fat.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1544",
+          "S02:Source question (11:18) If other fat, please specify."
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_FatTypeOther is ticked (const 8).",
+      "x-formerName": "Q11_18other",
+      "x-questionID": 2216,
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_AlcoholRegularUse",
+    "R0_AlcoholStartAge",
+    "R0_AlcoholCurrentUse",
+    "R0_AlcoholStopAge",
+    "AlcoholConsumption",
+    "R0_AlcoholTypeOther",
+    "R0_AlcoholDaysRecentWeek",
+    "R0_SmokingRegularUse",
+    "R0_SmokingStartAge",
+    "R0_SmokingDuringPregnancy",
+    "R0_SmokingCurrentUse",
+    "R0_SmokingStopAge",
+    "R0_SmokingRestartUse",
+    "CigaretteConsumption",
+    "R0_SmokingInhale",
+    "R0_OtherTobaccoUse",
+    "R0_MeatConsumption",
+    "R0_MeatDaysRecentWeek",
+    "R0_MeatLastAge",
+    "R0_MeatNever",
+    "R0_FishConsumption",
+    "R0_FishDaysRecentWeek",
+    "R0_FishLastAge",
+    "R0_FishNever",
+    "R0_EggConsumption",
+    "R0_EggDaysRecentWeek",
+    "R0_EggLastAge",
+    "R0_EggNever",
+    "R0_DairyConsumption",
+    "R0_DairyDaysRecentWeek",
+    "R0_DairyLastAge",
+    "R0_DairyNever",
+    "R0_SoyaConsumption",
+    "R0_SoyaDaysRecentWeek",
+    "R0_SoyaLastAge",
+    "R0_SoyaNever",
+    "R0_GreenVegDailyServings",
+    "R0_FruitDailyServings",
+    "R0_FatTypeButter",
+    "R0_FatTypeVegetableOil",
+    "R0_FatTypeLardDripping",
+    "R0_FatTypeSolidVegetable",
+    "R0_FatTypeOliveOil",
+    "R0_FatTypeMargarineSpreads",
+    "R0_FatTypeSunflowerOil",
+    "R0_FatTypeOther",
+    "R0_FatTypeNone",
+    "R0_FatTypeOtherSpecify"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern: the participant has not confirmed being a regular drinker (11:1), so start age, current-use status, and stop age are all structurally not applicable -- R0_AlcoholStartAge/R0_AlcoholCurrentUse/R0_AlcoholStopAge must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_AlcoholRegularUse"
+        ],
+        "properties": {
+          "R0_AlcoholRegularUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_AlcoholStartAge": {
+            "const": -999
+          },
+          "R0_AlcoholCurrentUse": {
+            "const": -999
+          },
+          "R0_AlcoholStopAge": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant has not confirmed stopping drinking (11:1), so a stop age is structurally not applicable -- R0_AlcoholStopAge must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_AlcoholCurrentUse"
+        ],
+        "properties": {
+          "R0_AlcoholCurrentUse": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_AlcoholStopAge": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Alcohol routing: no AlcoholConsumption item carries a real 'other type' amount, so a description of the other type is structurally not applicable -- R0_AlcoholTypeOther must carry the missing-string sentinel. Array-contains trigger -- not one of SKIP-PATTERNS.md's documented forms; schemify has no nested-array guidance (flagged for upstream proposal, see DECISIONS.md).",
+      "if": {
+        "properties": {
+          "AlcoholConsumption": {
+            "not": {
+              "contains": {
+                "properties": {
+                  "R0_AlcoholOther": {
+                    "not": {
+                      "const": -999
+                    }
+                  }
+                },
+                "required": [
+                  "R0_AlcoholOther"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_AlcoholTypeOther": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant has not confirmed ever smoking regularly (11:4: 'If no, go to question 11:11'), so the entire rest of the smoking sub-section is structurally not applicable -- every dependent field must carry its missing sentinel and every CigaretteConsumption band must carry the missing-numeric sentinel (all three bands are always delivered).",
+      "if": {
+        "required": [
+          "R0_SmokingRegularUse"
+        ],
+        "properties": {
+          "R0_SmokingRegularUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_SmokingStartAge": {
+            "const": -999
+          },
+          "R0_SmokingDuringPregnancy": {
+            "const": -999
+          },
+          "R0_SmokingCurrentUse": {
+            "const": -999
+          },
+          "R0_SmokingStopAge": {
+            "const": -999
+          },
+          "R0_SmokingRestartUse": {
+            "const": -999
+          },
+          "CigaretteConsumption": {
+            "items": {
+              "properties": {
+                "R0_Cigarettes": {
+                  "const": -999
+                }
+              }
+            }
+          },
+          "R0_SmokingInhale": {
+            "const": -999
+          },
+          "R0_OtherTobaccoUse": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant has not confirmed stopping smoking (11:6), so a stop age is structurally not applicable -- R0_SmokingStopAge must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_SmokingCurrentUse"
+        ],
+        "properties": {
+          "R0_SmokingCurrentUse": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_SmokingStopAge": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant reports eating meat (11:11), so a last-eaten age or never-eaten flag are structurally not applicable -- R0_MeatLastAge/R0_MeatNever must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_MeatConsumption"
+        ],
+        "properties": {
+          "R0_MeatConsumption": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_MeatLastAge": {
+            "const": -999
+          },
+          "R0_MeatNever": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant does not eat meat (11:11), so recent-frequency is structurally not applicable -- R0_MeatDaysRecentWeek must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_MeatConsumption"
+        ],
+        "properties": {
+          "R0_MeatConsumption": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_MeatDaysRecentWeek": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant reports eating fish (11:12), so a last-eaten age or never-eaten flag are structurally not applicable -- R0_FishLastAge/R0_FishNever must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_FishConsumption"
+        ],
+        "properties": {
+          "R0_FishConsumption": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FishLastAge": {
+            "const": -999
+          },
+          "R0_FishNever": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant does not eat fish (11:12), so recent-frequency is structurally not applicable -- R0_FishDaysRecentWeek must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_FishConsumption"
+        ],
+        "properties": {
+          "R0_FishConsumption": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FishDaysRecentWeek": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant reports eating eggs (11:13), so a last-eaten age or never-eaten flag are structurally not applicable -- R0_EggLastAge/R0_EggNever must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_EggConsumption"
+        ],
+        "properties": {
+          "R0_EggConsumption": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_EggLastAge": {
+            "const": -999
+          },
+          "R0_EggNever": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant does not eat eggs (11:13), so recent-frequency is structurally not applicable -- R0_EggDaysRecentWeek must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_EggConsumption"
+        ],
+        "properties": {
+          "R0_EggConsumption": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_EggDaysRecentWeek": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant reports eating dairy products (11:14), so a last-eaten age or never-eaten flag are structurally not applicable -- R0_DairyLastAge/R0_DairyNever must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_DairyConsumption"
+        ],
+        "properties": {
+          "R0_DairyConsumption": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_DairyLastAge": {
+            "const": -999
+          },
+          "R0_DairyNever": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant does not eat dairy products (11:14), so recent-frequency is structurally not applicable -- R0_DairyDaysRecentWeek must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_DairyConsumption"
+        ],
+        "properties": {
+          "R0_DairyConsumption": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_DairyDaysRecentWeek": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant reports eating soya products (11:15), so a last-eaten age or never-eaten flag are structurally not applicable -- R0_SoyaLastAge/R0_SoyaNever must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_SoyaConsumption"
+        ],
+        "properties": {
+          "R0_SoyaConsumption": {
+            "enum": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_SoyaLastAge": {
+            "const": -999
+          },
+          "R0_SoyaNever": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Diet routing: the participant does not eat soya products (11:15), so recent-frequency is structurally not applicable -- R0_SoyaDaysRecentWeek must carry the missing-numeric sentinel.",
+      "if": {
+        "required": [
+          "R0_SoyaConsumption"
+        ],
+        "properties": {
+          "R0_SoyaConsumption": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_SoyaDaysRecentWeek": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant's chosen cooking fat is not 'Other' (8), so a description is structurally not applicable -- R0_FatTypeOtherSpecify must carry the missing-string sentinel.",
+      "if": {
+        "required": [
+          "R0_FatTypeOther"
+        ],
+        "properties": {
+          "R0_FatTypeOther": {
+            "const": -999
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FatTypeOtherSpecify": {
+            "const": "MISSING"
+          }
+        }
+      }
+    }
+  ]
+}

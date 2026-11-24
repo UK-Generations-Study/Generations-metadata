@@ -1,0 +1,552 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/jobs_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Jobs (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from jobs.json containing Jobs involving ionising radiation and jobs involving late evening or night work, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_IonizingRadiationJob": {
+      "title": "Has the participant ever had a job involving ionising radiation?",
+      "description": "Participant's history of jobs involving ionizing radiation.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1432",
+          "S02:Source question (10:1) Have you ever had any jobs that involved working with ionising radiation (e.g. x-rays, nuclear sources)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q10_1_1_1",
+      "x-questionID": 2050,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_RadJobStartYear_Shifted": {
+      "title": "R0_RadJobStartYear_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_RadJobStartYr1"
+      ],
+      "x-pii": false
+    },
+    "R0_RadJobEndYear_Shifted": {
+      "title": "R0_RadJobEndYear_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_RadJobEndYr1"
+      ],
+      "x-pii": false
+    },
+    "R0_RadJobDosimeterUse": {
+      "title": "Wore a dosimeter (dosage badge) in the radiation job",
+      "description": "Participant's use of dosimeter in radiation job.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1435",
+          "S02:Source question (10:1) Did you wear a dosimeter (dosage badge) for this job? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_IonizingRadiationJob = 1 (Yes); 10:1 says 'If no, go to question 10:2'.",
+      "x-formerName": "Q10_1_4_1",
+      "x-questionID": 2053,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_RadJobWeeklyHrs": {
+      "title": "Radiation job: average hours per week around ionising radiation",
+      "description": "Weekly hours spent around radiation.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1436",
+          "S02:Source question (10:1) What was the average time per week you worked around ionising radiation? Hours per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_IonizingRadiationJob = 1 (Yes); 10:1 says 'If no, go to question 10:2'.",
+      "x-formerName": "Q10_1_5",
+      "x-questionID": 2054,
+      "x-pii": false
+    },
+    "R0_RadJobWeeklyMins": {
+      "title": "Radiation job: average minutes per week around ionising radiation (part of the weekly total)",
+      "description": "Weekly minutes spent around radiation.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1437",
+          "S02:Source question (10:1) What was the average time per week you worked around ionising radiation? Minutes per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_IonizingRadiationJob = 1 (Yes); 10:1 says 'If no, go to question 10:2'.",
+      "x-formerName": "Q10_1_6",
+      "x-questionID": 2055,
+      "x-pii": false
+    },
+    "R0_RadJobDutiesLineOne": {
+      "title": "Radiation-related duties (line 1)",
+      "description": "Description of radiation-related job duties.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1438",
+          "S02:Source question (10:1) What were your radiation-related duties for this job? (line 1)"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_IonizingRadiationJob = 1 (Yes); 10:1 says 'If no, go to question 10:2'.",
+      "x-formerName": "Q10_1_7",
+      "x-questionID": 2056,
+      "x-pii": false
+    },
+    "R0_RadJobDutiesLineTwo": {
+      "title": "Radiation-related duties (line 2)",
+      "description": "Additional description of radiation-related job duties.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1439",
+          "S02:Source question (10:1) What were your radiation-related duties for this job? (line 2)"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_IonizingRadiationJob = 1 (Yes); 10:1 says 'If no, go to question 10:2'.",
+      "x-formerName": "Q10_1_8",
+      "x-questionID": 2057,
+      "x-pii": false
+    },
+    "R0_RadJobMore": {
+      "title": "Had more jobs involving ionising radiation (details on page 15:1)",
+      "description": "Flag for additional radiation jobs.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1440",
+          "S02:Source question (10:1) If you have had more jobs involving work with ionising radiation please cross the box and fill in the details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_IonizingRadiationJob = 1 (Yes); 10:1 says 'If no, go to question 10:2'.",
+      "x-formerName": "Q10_1_9",
+      "x-questionID": 2058,
+      "x-answerIDs": {
+        "1": 2106
+      },
+      "x-pii": false
+    },
+    "R0_NightWorkRecentTenYrs": {
+      "title": "Night or late evening work in the last ten years",
+      "description": "Participant's history of night work.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1441",
+          "S02:Source question (10:2) Over the last ten years, have you had any jobs that regularly involved work in the late evening or night (between 10pm and 7am)? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q10_2_1",
+      "x-questionID": 2059,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "NightWork": {
+      "title": "Night work jobs",
+      "description": "One entry per job involving late evening or night work in the last ten years, up to 7; jobs beyond the first two come from the 'more jobs' page (15:1).",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 11",
+          "S02:Source question (10:2) If yes, please fill in details for each job."
+        ],
+        "minItems": "S01:ArrayDef row 11",
+        "maxItems": "S01:ArrayDef row 11"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 7,
+      "x-universe": "Only completed when R0_NightWorkRecentTenYrs = 1 (Yes); 10:2 says 'If yes, please fill in details for each job'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_NightWork_Num": {
+            "x-role": "entity key",
+            "title": "Which night work job this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 11",
+              "maximum": "S01:ArrayDef row 11"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7,
+            "x-pii": false
+          },
+          "R0_NightWorkType": {
+            "title": "Type of night work job",
+            "description": "Type of night work performed.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1442",
+                "S02:Source question (10:2) Type of job"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-formerName": [
+              "Q10_2Typ1",
+              "Q10_2Typ2",
+              "Gen07_full_Q10_2Typ3",
+              "Gen07_full_Q10_2Typ4",
+              "Gen07_full_Q10_2Typ5",
+              "Gen07_full_Q10_2Typ6",
+              "Gen07_full_Q10_2Typ7"
+            ],
+            "x-questionID": 2060,
+            "x-pii": false
+          },
+          "R0_NightWorkStart_Shifted": {
+            "title": "R0_NightWorkStart_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_NightWorkStartYr"
+            ],
+            "x-pii": false
+          },
+          "R0_NightWorkEnd_Shifted": {
+            "title": "R0_NightWorkEnd_Shifted (date shifted for pseudonymisation)",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-shiftedFrom": [
+              "R0_NightWorkEndYr"
+            ],
+            "x-pii": false
+          },
+          "R0_NightWorkDaysWeek": {
+            "title": "Average days per week working at night",
+            "description": "Weekly frequency of night work.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1445",
+                "S02:Source question (10:2) Average number of days per week working at night or late evening"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q10_2days1",
+              "Q10_2days2",
+              "gen07_full@Q10_2days3",
+              "gen07_full@Q10_2days4",
+              "gen07_full@Q10_2days5",
+              "gen07_full@Q10_2days6",
+              "gen07_full@Q10_2days7"
+            ],
+            "x-questionID": 2063,
+            "x-pii": false
+          },
+          "R0_NightWorkHrsWeek": {
+            "title": "Average hours worked between 10pm and 7am on those days",
+            "description": "Duration of nightly work hours.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1446",
+                "S02:Source question (10:2) Average number of hours worked between 10pm and 7am on these days"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q10_2hrs1",
+              "Q10_2hrs2",
+              "gen07_full@Q10_2hrs3",
+              "gen07_full@Q10_2hrs4",
+              "gen07_full@Q10_2hrs5",
+              "gen07_full@Q10_2hrs6",
+              "gen07_full@Q10_2hrs7"
+            ],
+            "x-questionID": 2064,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_NightWork_Num",
+          "R0_NightWorkType",
+          "R0_NightWorkStart_Shifted",
+          "R0_NightWorkEnd_Shifted",
+          "R0_NightWorkDaysWeek",
+          "R0_NightWorkHrsWeek"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_NightWorkMore": {
+      "title": "Had more jobs involving night work (details on page 15:1)",
+      "description": "Flag for additional night work episodes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1452",
+          "S02:Source question (10:2) If you have had more jobs involving work at night please cross the box and fill in details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_NightWorkRecentTenYrs = 1 (Yes); 10:2 says 'If yes, please fill in details for each job'.",
+      "x-formerName": "Q10_2more",
+      "x-questionID": 2070,
+      "x-answerIDs": {
+        "1": 2112
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_IonizingRadiationJob",
+    "R0_RadJobStartYear_Shifted",
+    "R0_RadJobEndYear_Shifted",
+    "R0_RadJobDosimeterUse",
+    "R0_RadJobWeeklyHrs",
+    "R0_RadJobWeeklyMins",
+    "R0_RadJobDutiesLineOne",
+    "R0_RadJobDutiesLineTwo",
+    "R0_RadJobMore",
+    "R0_NightWorkRecentTenYrs",
+    "NightWork",
+    "R0_NightWorkMore"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern: the participant has not answered Yes to ever having had a job involving ionising radiation (10:1: 'If no, go to question 10:2'), so the job's years, dosimeter use, weekly time, duties and the 'more jobs' box are structurally not applicable -- each must carry its missing sentinel (-999, or MISSING for the duties text).",
+      "x-provenance": {
+        "default": [
+          "S02:p.32 Q10:1 If 'no', go to question 10:2"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_IonizingRadiationJob"
+        ],
+        "properties": {
+          "R0_IonizingRadiationJob": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_RadJobDosimeterUse": {
+            "const": -999
+          },
+          "R0_RadJobWeeklyHrs": {
+            "const": -999
+          },
+          "R0_RadJobWeeklyMins": {
+            "const": -999
+          },
+          "R0_RadJobDutiesLineOne": {
+            "const": "MISSING"
+          },
+          "R0_RadJobDutiesLineTwo": {
+            "const": "MISSING"
+          },
+          "R0_RadJobMore": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern: the participant has not answered Yes to having had night or late evening work in the last ten years (10:2: 'If yes, please fill in details for each job'), so the NightWork list is empty and the 'more jobs' box is structurally not applicable -- R0_NightWorkMore must carry the missing-numeric sentinel.",
+      "x-provenance": {
+        "default": [
+          "S02:p.33 Q10:2 If yes, please fill in details for each job"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_NightWorkRecentTenYrs"
+        ],
+        "properties": {
+          "R0_NightWorkRecentTenYrs": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "NightWork": {
+            "maxItems": 0
+          },
+          "R0_NightWorkMore": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

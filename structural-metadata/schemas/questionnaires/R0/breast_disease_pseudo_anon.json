@@ -1,0 +1,1202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/breast_disease_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Breast Disease (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from breast_disease.json containing Benign breast disease or abnormality (up to four episodes) and other breast injury or disease, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_BBD_Abnormality": {
+      "title": "Ever told by a doctor of benign breast disease or abnormality?",
+      "description": "Participant's history of benign breast disease or abnormality.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 729",
+          "S02:p.21 Q7:4 Have you ever been told by a doctor that you have had benign breast disease or abnormality? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q7_4_1_1",
+      "x-questionID": 1111,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "BBD": {
+      "title": "Benign breast disease episodes",
+      "description": "One entry per benign breast disease or abnormality, up to 4, in the order reported; further episodes are on page 15:1 and more than four are flagged by R0_BBD_MoreThan4.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 3",
+          "S02:Source question (7:4) If yes, what was the disease or abnormality?"
+        ],
+        "minItems": "S01:ArrayDef row 3",
+        "maxItems": "S01:ArrayDef row 3"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 4,
+      "x-universe": "Only populated when R0_BBD_Abnormality = 1 (Yes); 7:4 says 'If no, go to question 7:5'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_BBD_Num": {
+            "x-role": "entity key",
+            "title": "Which benign breast disease this entry refers to (1st, 2nd, ...)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 3",
+              "maximum": "S01:ArrayDef row 3"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "x-pii": false
+          },
+          "R0_BBD_Type": {
+            "title": "What the benign breast disease or abnormality was",
+            "description": "Type of benign breast disease or abnormality.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 730",
+                "S02:p.21 Q7:4 If yes, what was the disease or abnormality?"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-formerName": [
+              "Q7_4_2",
+              "brbenwhat2",
+              "brbenwhat3",
+              "brbenwhat4"
+            ],
+            "x-questionID": 1112,
+            "x-pii": false
+          },
+          "R0_BBD_Age": {
+            "title": "Age when first diagnosed (years)",
+            "description": "Age at diagnosis of benign breast disease or abnormality.",
+            "$comment": "The dictionary names this field R0_BBD__Age3 and R0_BBD__Age4 (double underscore) for episodes 3 and 4 [source typo]; the SchemaPropertyName R0_BBD_Age is used.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 731",
+                "S02:p.21 Q7:4 How old were you when it was first diagnosed?"
+              ],
+              "minimum": "S01:Questions row 731"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q7_4_3",
+              "brbenage2",
+              "brbenage3",
+              "brbenage4"
+            ],
+            "x-questionID": 1113,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "BBD_Extra": {
+            "title": "Further details of episodes 2 to 4",
+            "description": "Additional benign breast disease episodes: when it happened, the age range and the procedures, as the questionnaire asks them for the 2nd to the 4th episode.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 23"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "x-universe": "Only the 2nd to 4th episode have it; the 1st episode is asked in a different form.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_BBD_Date_Shifted": {
+                  "title": "R0_BBD_Date_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_BBD_Month",
+                    "R0_BBD_Year"
+                  ],
+                  "x-pii": false
+                },
+                "R0_BBD_FromAge": {
+                  "title": "Start age if the diagnosis is given as a range (years)",
+                  "description": "Start age if diagnosis given as a range.",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); the dictionary has no column for episode 1, which carries -999. The list of old names starts with a placeholder for episode 1 so that each name keeps its position.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 743"
+                    ],
+                    "minimum": "S01:Questions row 743"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbenfromage2",
+                    "brbenfromage3",
+                    "brbenfromage4"
+                  ],
+                  "x-questionID": 1125,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_BBD_ToAge": {
+                  "title": "End age if the diagnosis is given as a range (years)",
+                  "description": "End age if diagnosis given as a range.",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); the dictionary has no column for episode 1, which carries -999. The list of old names starts with a placeholder for episode 1 so that each name keeps its position.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 744"
+                    ],
+                    "minimum": "S01:Questions row 744"
+                  },
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbentoage2",
+                    "brbentoage3",
+                    "brbentoage4"
+                  ],
+                  "x-questionID": 1126,
+                  "x-pii": false,
+                  "x-unit": "years"
+                },
+                "R0_BBD_RangeStart_Shifted": {
+                  "title": "R0_BBD_RangeStart_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_BBD_FromMnth",
+                    "R0_BBD_FromYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_BBD_RangeEnd_Shifted": {
+                  "title": "R0_BBD_RangeEnd_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_BBD_ToMnth",
+                    "R0_BBD_ToYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_BBD_CystDrained": {
+                  "title": "Procedure: cyst or fluid drained",
+                  "description": "If the procedure type was cyst or fluid drained.",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); episode 1 carries -999 (it has the coded procedure above). The list of old names starts with a placeholder for episode 1. Source coding: 0 No; 1 Yes. The six boxes share QuestionID 1135. The dictionary names this box R0_BBD_ProcedureType2/3/4, as episode 1's coded question, and gives all six boxes the SchemaPropertyName R0_BBD_Mastec; a new name is used.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 753",
+                      "S02:p.21 Q7:4 A cyst or fluid drained"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbencyst2",
+                    "brbencyst3",
+                    "brbencyst4"
+                  ],
+                  "x-questionID": 1135,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_BBD_Mastec": {
+                  "title": "Procedure: whole breast removed",
+                  "description": "If the procedure type was whole breast removed.",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); episode 1 carries -999 (it has the coded procedure above). The list of old names starts with a placeholder for episode 1. Source coding: 0 No; 1 Yes. The six boxes share QuestionID 1135. The dictionary question text of the episode 3 and 4 rows swaps this box's label with the other of the pair (whole breast removal / small sample); the old column name (brbenmastec) is followed.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 754",
+                      "S02:p.21 Q7:4 The whole breast removed"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbenmastec2",
+                    "brbenmastec3",
+                    "brbenmastec4"
+                  ],
+                  "x-questionID": 1135,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_BBD_Lump": {
+                  "title": "Procedure: part of the breast or a lump removed",
+                  "description": "If the procedure type was part of the breast or a lump removed.",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); episode 1 carries -999 (it has the coded procedure above). The list of old names starts with a placeholder for episode 1. Source coding: 0 No; 1 Yes. The six boxes share QuestionID 1135.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 755",
+                      "S02:p.21 Q7:4 Part of the breast(s) or a lump removed"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbenlump2",
+                    "brbenlump3",
+                    "brbenlump4"
+                  ],
+                  "x-questionID": 1135,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_BBD_Biopsy": {
+                  "title": "Procedure: small sample removed (biopsy)",
+                  "description": "If the procedure type was small sample removed (biopsy).",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); episode 1 carries -999 (it has the coded procedure above). The list of old names starts with a placeholder for episode 1. Source coding: 0 No; 1 Yes. The six boxes share QuestionID 1135. The dictionary question text of the episode 3 and 4 rows swaps this box's label with the other of the pair (whole breast removal / small sample); the old column name (brbenbiopsy) is followed.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 756",
+                      "S02:p.21 Q7:4 A small sample removed (biopsy)"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbenbiopsy2",
+                    "brbenbiopsy3",
+                    "brbenbiopsy4"
+                  ],
+                  "x-questionID": 1135,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_BBD_BothRem": {
+                  "title": "Procedure: both breasts removed",
+                  "description": "If the procedure type was both breasts removed.",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); episode 1 carries -999 (it has the coded procedure above). The list of old names starts with a placeholder for episode 1. Source coding: 0 No; 1 Yes. The six boxes share QuestionID 1135.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 757",
+                      "S02:p.21 Q7:4 Both breasts removed"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbenboth2",
+                    "brbenboth3",
+                    "brbenboth4"
+                  ],
+                  "x-questionID": 1135,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                },
+                "R0_BBD_Other": {
+                  "title": "Procedure: other",
+                  "description": "If the procedure type was something other than the options listed.",
+                  "$comment": "Episodes 2 to 4 only (the dictionary block BBD_Extra); episode 1 carries -999 (it has the coded procedure above). The list of old names starts with a placeholder for episode 1. Source coding: 0 No; 1 Yes. The six boxes share QuestionID 1135.",
+                  "x-provenance": {
+                    "default": [
+                      "S01:Questions row 758",
+                      "S02:p.21 Q7:4 Other"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "No"
+                    },
+                    {
+                      "const": 1,
+                      "title": "Yes"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_numeric"
+                    }
+                  ],
+                  "x-formerName": [
+                    "brbenother2",
+                    "brbenother3",
+                    "brbenother4"
+                  ],
+                  "x-questionID": 1135,
+                  "x-answerIDs": {
+                    "0": 2,
+                    "1": 1
+                  },
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_BBD_Date_Shifted",
+                "R0_BBD_FromAge",
+                "R0_BBD_ToAge",
+                "R0_BBD_RangeStart_Shifted",
+                "R0_BBD_RangeEnd_Shifted",
+                "R0_BBD_CystDrained",
+                "R0_BBD_Mastec",
+                "R0_BBD_Lump",
+                "R0_BBD_Biopsy",
+                "R0_BBD_BothRem",
+                "R0_BBD_Other"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "R0_BBD_Breast": {
+            "title": "Which breast was affected",
+            "description": "Breast affected by benign disease/abnormality.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Left; 2 Right; 3 Both.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 732",
+                "S02:p.21 Q7:4 In which breast was it? Left Right Both"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Left"
+              },
+              {
+                "const": 2,
+                "title": "Right"
+              },
+              {
+                "const": 3,
+                "title": "Both"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q7_4_4_1",
+              "brbenside2",
+              "brbenside3",
+              "brbenside4"
+            ],
+            "x-questionID": 1114,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 959,
+              "2": 960,
+              "3": 961
+            },
+            "x-pii": false
+          },
+          "R0_BBD_Surgery": {
+            "title": "Whether surgery was had for it",
+            "description": "Whether surgery was performed for the benign condition.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 733",
+                "S02:p.21 Q7:4 Did you have surgery for it? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q7_4_5_1",
+              "brbensurg2",
+              "brbensurg3",
+              "brbensurg4"
+            ],
+            "x-questionID": 1115,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false
+          },
+          "R0_BBD_ProcedureType": {
+            "title": "Type of procedure for the benign breast disease (1st episode)",
+            "description": "Type of procedure performed for the benign condition.",
+            "$comment": "Episode 1 only; episodes 2 to 4 give the six yes/no boxes below and carry -999 here. Source coding: 0 More than one option chosen; 1 Cyst/fluid drained; 2 Whole breast removal; 3 Biopsy; 4 Both breasts removed; 5 Lump removal; 6 Other.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 736",
+                "S02:p.21 Q7:4 Did you have: A cyst or fluid drained / The whole breast removed / A small sample removed (biopsy) / Both breasts removed / Part of the breast(s) or a lump removed / Other"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Cyst/fluid drained"
+              },
+              {
+                "const": 2,
+                "title": "Whole breast removal"
+              },
+              {
+                "const": 3,
+                "title": "Biopsy"
+              },
+              {
+                "const": 4,
+                "title": "Both breasts removed"
+              },
+              {
+                "const": 5,
+                "title": "Lump removal"
+              },
+              {
+                "const": 6,
+                "title": "Other"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": "Q7_4_8_1",
+            "x-questionID": 1118,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 964,
+              "2": 965,
+              "3": 966,
+              "4": 967,
+              "5": 968,
+              "6": 13
+            },
+            "x-pii": false
+          },
+          "R0_BBD_OtherType": {
+            "title": "The other procedure for the benign breast disease",
+            "description": "Free-text other procedure for benign condition.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 737",
+                "S02:p.21 Q7:4 If other, please specify"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when R0_BBD_ProcedureType = 6 (Other) or R0_BBD_Other = 1; 7:4 says 'If other, please specify'.",
+            "x-formerName": [
+              "Q7_4_9",
+              "brbensurgtypeother2",
+              "brbensurgtypeother3",
+              "brbensurgtypeother4"
+            ],
+            "x-questionID": 1119,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_BBD_Num",
+          "R0_BBD_Type",
+          "R0_BBD_Age",
+          "BBD_Extra",
+          "R0_BBD_Breast",
+          "R0_BBD_Surgery",
+          "R0_BBD_ProcedureType",
+          "R0_BBD_OtherType"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "$comment": "Skip pattern R011: the participant did not answer Yes to surgery for this benign breast disease (0 or 2), so where the surgery was done is structurally not applicable -- hospital and town must carry the missing-string sentinel. Questionnaire p.21 Q7:4: 'If yes for surgery, where was the surgery done?'.",
+            "x-provenance": {
+              "default": "S02:p.21 Q7:4 If 'yes' for surgery, where was the surgery done?"
+            },
+            "if": {
+              "required": [
+                "R0_BBD_Surgery"
+              ],
+              "properties": {
+                "R0_BBD_Surgery": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_BBD_HospitalSurgery": {
+                  "const": "MISSING"
+                },
+                "R0_BBD_TownSurgery": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Skip pattern R013: not printed on the questionnaire but confirmed by the author. The participant did not answer Yes to surgery for this benign breast disease (0 or 2), so no procedure type was asked -- the coded procedure must carry -999 and the other-procedure text MISSING. The six procedure boxes are in the nested extra-details list; a rule on this entry cannot pin them, so they are not checked here.",
+            "x-provenance": {
+              "default": [
+                "S02:p.21 Q7:4 type of procedure follows the surgery question"
+              ]
+            },
+            "if": {
+              "required": [
+                "R0_BBD_Surgery"
+              ],
+              "properties": {
+                "R0_BBD_Surgery": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_BBD_ProcedureType": {
+                  "const": -999
+                },
+                "R0_BBD_OtherType": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "x-pii": false
+    },
+    "R0_BBD_Further": {
+      "title": "Further benign breast diseases (details on page 15:1)",
+      "description": "Indicator for additional benign breast disease episodes.",
+      "$comment": "Dictionary AnswerText: 'Checked'. The dictionary's OriginalAnswerID is 712; AnswerID 971 is used.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 738",
+          "S02:p.21 Q7:4 If you have had further benign breast diseases, cross this box and fill in details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Checked"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_BBD_Abnormality = 1 (Yes); 7:4 says 'If no, go to question 7:5'.",
+      "x-formerName": "Q7_4_10",
+      "x-questionID": 1120,
+      "x-answerIDs": {
+        "1": 971
+      },
+      "x-pii": false
+    },
+    "R0_BBD_MoreRangeTime": {
+      "title": "More range of time for benign breast diseases (tick box)",
+      "description": "Indicator for extended time ranges for a 5th benign breast disease episode.",
+      "$comment": "Not printed on the questionnaire page 21; dictionary question text: 'If you have more range of time for benign breast diseases, please tick here'. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 802"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "brbenmorerange",
+      "x-questionID": 1184,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_BBD_MoreThan4": {
+      "title": "More than 4 benign breast diseases (tick box)",
+      "description": "Indicator for existence of a 5th benign breast disease episode.",
+      "$comment": "Not printed on the questionnaire page 21; dictionary question text: 'If you have had more than 4 benign breast diseases, please tick here'. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 803"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "brbenmore4",
+      "x-questionID": 1185,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_BreastInjuryDisease": {
+      "title": "Ever had a serious injury to the breast(s) or any breast disease not mentioned above?",
+      "description": "History of serious breast injury or other breast disease (5th instance).",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. The dictionary calls this the '5th instance' (question text '[5]') but gives no ArrayName: drafted as single fields.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 983",
+          "S02:p.23 Q7:10 Have you ever had a serious injury to your breast(s), or any breast disease not mentioned above? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q7_10_1_1",
+      "x-questionID": 1366,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_BreastInjuryDisease_Type": {
+      "title": "What the breast injury or disease was",
+      "description": "Type of breast injury or disease (5th instance).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 984",
+          "S02:p.23 Q7:10 If yes, what was the injury or disease?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when R0_BreastInjuryDisease = 1 (Yes); 7:10 says 'If no, go to question 8:1'.",
+      "x-formerName": "Q7_10_2",
+      "x-questionID": 1367,
+      "x-pii": false
+    },
+    "R0_BreastAffected": {
+      "title": "Which breast(s) was affected by the injury or disease",
+      "description": "Breast affected by injury/disease (5th instance).",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Left; 2 Right; 3 Both.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 985",
+          "S02:p.23 Q7:10 Which breast(s) was affected? Left Right Both"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Left"
+        },
+        {
+          "const": 2,
+          "title": "Right"
+        },
+        {
+          "const": 3,
+          "title": "Both"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_BreastInjuryDisease = 1 (Yes); 7:10 says 'If no, go to question 8:1'.",
+      "x-formerName": "Q7_10_3_1",
+      "x-questionID": 1368,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 959,
+        "2": 960,
+        "3": 961
+      },
+      "x-pii": false
+    },
+    "R0_BreastInjuryDiseaseAge": {
+      "title": "Age when the injury happened or the disease was diagnosed (years)",
+      "description": "Age at injury/disease diagnosis (5th instance).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 986",
+          "S02:p.23 Q7:10 At what age did the injury happen or was the disease diagnosed? years"
+        ],
+        "minimum": "S01:Questions row 986"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_BreastInjuryDisease = 1 (Yes); 7:10 says 'If no, go to question 8:1'.",
+      "x-formerName": "Q7_10_4",
+      "x-questionID": 1369,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_FurtherBreastInjuryDisease": {
+      "title": "Further breast injuries or diseases (details on page 15:1)",
+      "description": "Flag for additional breast injuries/diseases beyond the 5th instance.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 987",
+          "S02:p.23 Q7:10 If you have had any further breast injuries or disease not mentioned above, please cross this box and enter details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Checked"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_BreastInjuryDisease = 1 (Yes); 7:10 says 'If no, go to question 8:1'.",
+      "x-formerName": "Q7_10_5",
+      "x-questionID": 1370,
+      "x-answerIDs": {
+        "1": 1019
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_BBD_Abnormality",
+    "BBD",
+    "R0_BBD_Further",
+    "R0_BBD_MoreRangeTime",
+    "R0_BBD_MoreThan4",
+    "R0_BreastInjuryDisease",
+    "R0_BreastInjuryDisease_Type",
+    "R0_BreastAffected",
+    "R0_BreastInjuryDiseaseAge",
+    "R0_FurtherBreastInjuryDisease"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R009: the participant did not answer Yes to ever having had benign breast disease or abnormality (0 or 2), so the episodes list is empty and the 'further benign breast diseases' box is structurally not applicable -- R0_BBD_Further must carry the missing-numeric sentinel. Questionnaire p.21 Q7:4: 'If no, go to question 7:5'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.21 Q7:4 If 'no', go to question 7:5"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_BBD_Abnormality"
+        ],
+        "properties": {
+          "R0_BBD_Abnormality": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "BBD": {
+            "maxItems": 0
+          },
+          "R0_BBD_Further": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R010: the participant did not answer Yes to a serious breast injury or other breast disease (0 or 2), so the injury or disease type, the breast affected, the age and the 'further' box are structurally not applicable -- each must carry its missing sentinel (-999, or MISSING for the text). Questionnaire p.23 Q7:10: 'If no, go to question 8:1'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.23 Q7:10 If 'no', go to question 8:1"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_BreastInjuryDisease"
+        ],
+        "properties": {
+          "R0_BreastInjuryDisease": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_BreastInjuryDisease_Type": {
+            "const": "MISSING"
+          },
+          "R0_BreastAffected": {
+            "const": -999
+          },
+          "R0_BreastInjuryDiseaseAge": {
+            "const": -999
+          },
+          "R0_FurtherBreastInjuryDisease": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R014: not printed on the questionnaire but confirmed by the author. The participant did not answer Yes to benign breast disease (0 or 2), so the two follow-on tick boxes 'more range of time' and 'more than 4' are structurally not applicable -- each must carry the missing-numeric sentinel.",
+      "x-provenance": {
+        "default": [
+          "S02:p.21 Q7:4 If 'no', go to question 7:5"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_BBD_Abnormality"
+        ],
+        "properties": {
+          "R0_BBD_Abnormality": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_BBD_MoreRangeTime": {
+            "const": -999
+          },
+          "R0_BBD_MoreThan4": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Benign breast disease routing R012: in each episode, neither the coded procedure is Other (6) nor the Other box of the nested extra-details list is ticked, so the other-procedure text is structurally not applicable -- R0_BBD_OtherType must carry the missing-string sentinel. Questionnaire p.21 Q7:4: 'If other, please specify'. It is written here, not in the episode's own allOf, because the box is inside the nested list.",
+      "x-provenance": {
+        "default": [
+          "S02:p.21 Q7:4 If other, please specify"
+        ]
+      },
+      "properties": {
+        "BBD": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_BBD_ProcedureType"
+              ],
+              "properties": {
+                "R0_BBD_ProcedureType": {
+                  "not": {
+                    "const": 6
+                  }
+                },
+                "BBD_Extra": {
+                  "not": {
+                    "contains": {
+                      "required": [
+                        "R0_BBD_Other"
+                      ],
+                      "properties": {
+                        "R0_BBD_Other": {
+                          "const": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_BBD_OtherType": {
+                  "const": "MISSING"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Benign breast disease routing R025: not printed on the questionnaire but confirmed by the author. The participant did not answer Yes to surgery for this benign breast disease (0 or 2), so no procedure was asked -- the six procedure boxes of the nested extra-details list must carry the missing-numeric sentinel. It is written here because a rule in the episode cannot pin fields inside its nested list.",
+      "x-provenance": {
+        "default": [
+          "S02:p.21 Q7:4 type of procedure follows the surgery question"
+        ]
+      },
+      "properties": {
+        "BBD": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_BBD_Surgery"
+              ],
+              "properties": {
+                "R0_BBD_Surgery": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "BBD_Extra": {
+                  "items": {
+                    "properties": {
+                      "R0_BBD_CystDrained": {
+                        "const": -999
+                      },
+                      "R0_BBD_Mastec": {
+                        "const": -999
+                      },
+                      "R0_BBD_Lump": {
+                        "const": -999
+                      },
+                      "R0_BBD_Biopsy": {
+                        "const": -999
+                      },
+                      "R0_BBD_BothRem": {
+                        "const": -999
+                      },
+                      "R0_BBD_Other": {
+                        "const": -999
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

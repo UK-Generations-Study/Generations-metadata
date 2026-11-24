@@ -1,0 +1,1195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/other_lifestyle_factors_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Other Lifestyle Factors (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from other_lifestyle_factors.json containing Sleep, light at night, stress, air travel and underarm product use collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_SleepTimeWeekdayHour": {
+      "title": "Usual weekday bedtime: hour",
+      "description": "Usual hour of going to sleep on weekdays in the last year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1598",
+          "S02:Source question (13:1) Over the last year, what time have you usually gone to sleep on weekdays? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_1_H",
+      "x-questionID": 2400,
+      "x-pii": false
+    },
+    "R0_SleepTimeWeekdayMinute": {
+      "title": "Usual weekday bedtime: minute",
+      "description": "Usual minute of going to sleep on weekdays in the last year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1599",
+          "S02:Source question (13:1) Over the last year, what time have you usually gone to sleep on weekdays? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_1_M",
+      "x-questionID": 2401,
+      "x-pii": false
+    },
+    "R0_SleepTimeAMPM": {
+      "title": "Usual weekday bedtime: AM, PM or midnight",
+      "description": "Clock period (AM, PM, or midnight) for usual weekday bedtime in the last year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1600",
+          "S02:Source question (13:1) Cross the box indicating AM, PM or Midnight for when you usually go to sleep on weekdays."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "AM (after midnight)"
+        },
+        {
+          "const": 2,
+          "title": "PM (before midnight)"
+        },
+        {
+          "const": 3,
+          "title": "Midnight"
+        },
+        {
+          "const": 4,
+          "title": "AM and PM"
+        },
+        {
+          "const": 5,
+          "title": "AM and Midnight"
+        },
+        {
+          "const": 6,
+          "title": "PM and Midnight"
+        },
+        {
+          "const": 7,
+          "title": "AM, PM and Midnight"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_1_ampm_1",
+      "x-questionID": 2402,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2352,
+        "2": 2353,
+        "3": 2354,
+        "4": 2355,
+        "5": 2356,
+        "6": 2357,
+        "7": 2358
+      },
+      "x-pii": false
+    },
+    "R0_WakeTimeHour": {
+      "title": "Usual wake-up time: hour",
+      "description": "Usual hour of waking up on weekdays in the last year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1601",
+          "S02:Source question (13:2) What time do you usually wake up? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_2_H",
+      "x-questionID": 2403,
+      "x-pii": false
+    },
+    "R0_WakeTimeMinute": {
+      "title": "Usual wake-up time: minute",
+      "description": "Usual minute of waking up on weekdays in the last year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1602",
+          "S02:Source question (13:2) What time do you usually wake up? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_2_M",
+      "x-questionID": 2404,
+      "x-pii": false
+    },
+    "R0_WakeTimeAMPM": {
+      "title": "Usual wake-up time: AM, PM or noon",
+      "description": "Clock period (AM, PM, or noon) for usual weekday wake-up time in the last year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1603",
+          "S02:Source question (13:2) Cross the box indicating AM, PM or Noon for when you usually wake up."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "AM (before noon)"
+        },
+        {
+          "const": 2,
+          "title": "PM (after noon)"
+        },
+        {
+          "const": 3,
+          "title": "Noon"
+        },
+        {
+          "const": 4,
+          "title": "AM and PM"
+        },
+        {
+          "const": 5,
+          "title": "AM and Noon"
+        },
+        {
+          "const": 6,
+          "title": "PM and Noon"
+        },
+        {
+          "const": 7,
+          "title": "AM, PM and Noon"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_2_ampm_1",
+      "x-questionID": 2405,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2361,
+        "2": 2362,
+        "3": 2363,
+        "4": 2355,
+        "5": 2365,
+        "6": 2366,
+        "7": 2367
+      },
+      "x-pii": false
+    },
+    "R0_SleepDurationHours": {
+      "title": "Usual sleep per night: hours",
+      "description": "Typical number of hours slept per night over the last year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1604",
+          "S02:Source question (13:3) How many hours do you usually sleep per night? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_3_H",
+      "x-questionID": 2406,
+      "x-pii": false
+    },
+    "R0_SleepDurationMinutes": {
+      "title": "Usual sleep per night: minutes",
+      "description": "Additional minutes slept per night over the last year, beyond whole hours.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1605",
+          "S02:Source question (13:3) How many hours do you usually sleep per night? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_3_M",
+      "x-questionID": 2407,
+      "x-pii": false
+    },
+    "R0_RoomDarkness": {
+      "title": "Darkness of the room when sleeping",
+      "description": "Usual level of darkness in the participant’s bedroom while sleeping at their current age.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1606",
+          "S02:Source question (13:4) On average over the last year, between closing your eyes to go to sleep and waking up, how dark has been the room you sleep in? (cross only one box)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Light enough to read"
+        },
+        {
+          "const": 2,
+          "title": "Light enough to see across the room, but not read"
+        },
+        {
+          "const": 3,
+          "title": "Light enough to see your hand in front of you, but not across the room"
+        },
+        {
+          "const": 4,
+          "title": "Too dark to see your hand, or you wore a mask"
+        },
+        {
+          "const": 5,
+          "title": "Light enough to read AND light enough to see across the room, but not read"
+        },
+        {
+          "const": 6,
+          "title": "Light enough to read AND light enough to see your hand in front of you, but not across the room"
+        },
+        {
+          "const": 7,
+          "title": "Light enough to see your hand in front of you, but not across the room AND too dark to see your hand, or you wear a mask"
+        },
+        {
+          "const": 8,
+          "title": "Light enough to see across the room, but not read AND too dark to see your hand, or you wear a mask"
+        },
+        {
+          "const": 9,
+          "title": "Light enough to read AND too dark to see your hand, or you wear a mask"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_4_1",
+      "x-questionID": 2408,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2370,
+        "2": 2371,
+        "3": 2372,
+        "4": 2373,
+        "5": 2374,
+        "6": 2375,
+        "7": 2376,
+        "8": 2377,
+        "9": 2378
+      },
+      "x-pii": false
+    },
+    "R0_RoomDarknessAge20": {
+      "title": "Darkness of the room when sleeping at age 20",
+      "description": "Reported level of darkness in the bedroom when the participant was about 20 years old.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1607",
+          "S02:Source question (13:5) When you were 20 years old, between closing your eyes to go to sleep and waking up, on average how dark was the room you slept in? (cross only one box)"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Not yet 20 years old"
+        },
+        {
+          "const": 2,
+          "title": "Light enough to read"
+        },
+        {
+          "const": 3,
+          "title": "Light enough to see across the room, but not read"
+        },
+        {
+          "const": 4,
+          "title": "Light enough to see your hand in front of you, but not across the room"
+        },
+        {
+          "const": 5,
+          "title": "Too dark to see your hand, or you wore a mask"
+        },
+        {
+          "const": 6,
+          "title": "Light enough to read AND light enough to see across the room, but not read"
+        },
+        {
+          "const": 7,
+          "title": "Light enough to read AND light enough to see your hand in front of you, but not across the room"
+        },
+        {
+          "const": 8,
+          "title": "Light enough to see your hand in front of you, but not across the room AND too dark to see your hand, or you wear a mask"
+        },
+        {
+          "const": 9,
+          "title": "Light enough to see across the room, but not read AND too dark to see your hand, or you wear a mask"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_5_1",
+      "x-questionID": 2409,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2379,
+        "2": 2370,
+        "3": 2371,
+        "4": 2372,
+        "5": 2373,
+        "6": 2374,
+        "7": 2375,
+        "8": 2376,
+        "9": 2377
+      },
+      "x-pii": false
+    },
+    "NightWakeups": {
+      "title": "Night wake-ups (recent months and about age 20)",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 40",
+          "S02:Source question (13:6) On average in recent months, how many times per night did you wake and put the lights on or go into a bright room?",
+          "S02:Source question (13:7) When you were about 20 years old, how many times per night did you wake and put the lights on or go into a bright room?"
+        ],
+        "maxItems": "S01:ArrayDef row 40"
+      },
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_NightWakeup_Num": {
+            "x-role": "entity key",
+            "title": "Period this answer refers to",
+            "$comment": "Dictionary values Rec and 20 (ArrayDef row 40). Read as: Rec = recent months (13:6), 20 = about age 20 (13:7); that reading is the author's, from the question wording.",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 40",
+              "values": "S01:ArrayDef row 40"
+            },
+            "oneOf": [
+              {
+                "const": "Rec",
+                "title": "Rec"
+              },
+              {
+                "const": "20",
+                "title": "20"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_NightWakeups": {
+            "title": "Times per night woke and put the lights on",
+            "description": "Average number of times per night in recent months, or at age 20, the participant woke up and went into bright light.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1608",
+                "S01:Questions row 1609",
+                "S02:Source question (13:6) On average in recent months, how many times per night did you wake and put the lights on or go into a bright room?",
+                "S02:Source question (13:7) When you were about 20 years old, how many times per night did you wake and put the lights on or go into a bright room?"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q13_6",
+              "Q13_7"
+            ],
+            "x-questionID": 2410,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_NightWakeup_Num",
+          "R0_NightWakeups"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_PerceivedStress": {
+      "title": "Stress experienced over the last 5 years",
+      "description": "Participant’s overall perception of how much stress they have experienced in the last 5 years.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1610",
+          "S02:Source question (13:8) Do you feel that you have been experiencing stress over the last 5 years?"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Never"
+        },
+        {
+          "const": 2,
+          "title": "Occasionally"
+        },
+        {
+          "const": 3,
+          "title": "Frequently"
+        },
+        {
+          "const": 4,
+          "title": "Continuously"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_8_1",
+      "x-questionID": 2412,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2384,
+        "2": 2385,
+        "3": 2386,
+        "4": 2387
+      },
+      "x-pii": false
+    },
+    "R0_StressEventDeathPartner": {
+      "title": "Major stressful life event in the last 5 years: death of a husband or long-term partner",
+      "description": "Whether the participant experienced the death of a husband or long-term partner in the last 5 years.",
+      "$comment": "Dictionary defect: Questions rows 1611-1617 (Q13_9_1 to Q13_9_7) share the NewVariableName R0_StressEventDeathPartner; one column per box, the boxes after the first named from their labels.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1611",
+          "S02:Source question (13:9) In the last 5 years have you experienced: (cross any that apply) - Death of a husband or long-term partner"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Death of a husband or long-term partner"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_9_1",
+      "x-questionID": 2413,
+      "x-answerIDs": {
+        "1": 2388
+      },
+      "x-pii": false
+    },
+    "R0_StressEventSeriousIllness": {
+      "title": "Major stressful life event in the last 5 years: serious personal illness or injury",
+      "description": "Whether the participant experienced a serious personal illness or injury in the last 5 years.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1612",
+          "S02:Source question (13:9) In the last 5 years have you experienced: (cross any that apply) - Serious personal illness or injury"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 2,
+          "title": "Serious personal illness or injury"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_9_2",
+      "x-questionID": 2413,
+      "x-answerIDs": {
+        "2": 2389
+      },
+      "x-pii": false
+    },
+    "R0_StressEventDeathRelative": {
+      "title": "Major stressful life event in the last 5 years: death of a child, parent or other close relative",
+      "description": "Whether the participant experienced the death of a child, parent or other close relative in the last 5 years.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1613",
+          "S02:Source question (13:9) In the last 5 years have you experienced: (cross any that apply) - Death of a child, parent or other close relative"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 3,
+          "title": "Death of a child, parent or other close relative"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_9_3",
+      "x-questionID": 2413,
+      "x-answerIDs": {
+        "3": 2390
+      },
+      "x-pii": false
+    },
+    "R0_StressEventJobLoss": {
+      "title": "Major stressful life event in the last 5 years: loss of a job",
+      "description": "Whether the participant experienced the loss of a job in the last 5 years.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1614",
+          "S02:Source question (13:9) In the last 5 years have you experienced: (cross any that apply) - Loss of a job"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 4,
+          "title": "Loss of a job"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_9_4",
+      "x-questionID": 2413,
+      "x-answerIDs": {
+        "4": 2391
+      },
+      "x-pii": false
+    },
+    "R0_StressEventDivorce": {
+      "title": "Major stressful life event in the last 5 years: divorce or separation",
+      "description": "Whether the participant experienced a divorce or separation in the last 5 years.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1615",
+          "S02:Source question (13:9) In the last 5 years have you experienced: (cross any that apply) - Divorce or separation"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 5,
+          "title": "Divorce or separation"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_9_5",
+      "x-questionID": 2413,
+      "x-answerIDs": {
+        "5": 2392
+      },
+      "x-pii": false
+    },
+    "R0_StressEventOther": {
+      "title": "Major stressful life event in the last 5 years: other life event that was very stressful",
+      "description": "Whether the participant experienced another life event in the last 5 years that was very stressful.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1616",
+          "S02:Source question (13:9) In the last 5 years have you experienced: (cross any that apply) - Other life event that was very stressful"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 6,
+          "title": "Other life event that was very stressful"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_9_6",
+      "x-questionID": 2413,
+      "x-answerIDs": {
+        "6": 2393
+      },
+      "x-pii": false
+    },
+    "R0_StressEventDeathFriend": {
+      "title": "Major stressful life event in the last 5 years: death of a close friend",
+      "description": "Whether the participant experienced the death of a close friend in the last 5 years.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1617",
+          "S02:Source question (13:9) In the last 5 years have you experienced: (cross any that apply) - Death of a close friend"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 7,
+          "title": "Death of a close friend"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_9_7",
+      "x-questionID": 2413,
+      "x-answerIDs": {
+        "7": 2394
+      },
+      "x-pii": false
+    },
+    "R0_AircrewTravelHistory": {
+      "title": "Has the participant worked as aircrew or travelled frequently by air?",
+      "description": "Whether the participant has ever worked as aircrew or travelled frequently by air for at least one year.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1618",
+          "S02:Source question (13:10) Have you ever worked as an airline pilot or aircrew, or had a period of a year or more when you travelled as a passenger on an aircraft regularly for more than 20 hours per month? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_10_1",
+      "x-questionID": 2420,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_AircrewTravel_Start_Shifted": {
+      "title": "R0_AircrewTravel_Start_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_AircrewTravelStartYear"
+      ],
+      "x-pii": false
+    },
+    "R0_AircrewTravel_End_Shifted": {
+      "title": "R0_AircrewTravel_End_Shifted (date shifted for pseudonymisation)",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-shiftedFrom": [
+        "R0_AircrewTravelEndYear"
+      ],
+      "x-pii": false
+    },
+    "R0_AircrewTravelCurrent": {
+      "title": "Still working as aircrew or travelling frequently by air",
+      "description": "Indicator that the participant is currently working as aircrew or travelling frequently by air.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1621",
+          "S02:Source question (13:10) Check this if you are still working as aircrew or travelling frequently by air."
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Still working as aircrew or travelling frequently by air"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_10still",
+      "x-questionID": 2423,
+      "x-answerIDs": {
+        "1": 2397
+      },
+      "x-pii": false
+    },
+    "R0_AirborneHoursWeek": {
+      "title": "Average hours airborne per week",
+      "description": "Average number of hours per week the participant was airborne during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1622",
+          "S02:Source question (13:11) On average, how many hours per week or month were you airborne during this period? Number of hours per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'. The participant gives hours per week or per month.",
+      "x-formerName": "Q13_11wk",
+      "x-questionID": 2424,
+      "x-pii": false
+    },
+    "R0_AirborneHoursMonth": {
+      "title": "Average hours airborne per month",
+      "description": "Average number of hours per month the participant was airborne during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1623",
+          "S02:Source question (13:11) On average, how many hours per week or month were you airborne during this period? Number of hours per month"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'. The participant gives hours per week or per month.",
+      "x-formerName": "Q13_11month",
+      "x-questionID": 2425,
+      "x-pii": false
+    },
+    "R0_MediumFlightsMonth": {
+      "title": "Flights per month lasting 5 to 9 hours",
+      "description": "Average number of 5-9 hour flights per month during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1624",
+          "S02:Source question (13:12) During this period, on average how many flights per month did you make that lasted: Between 5 and 9 hours?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_12_1",
+      "x-questionID": 2426,
+      "x-pii": false
+    },
+    "R0_LongFlightsMonth": {
+      "title": "Flights per month lasting 10 or more hours",
+      "description": "Average number of flights lasting 10 or more hours per month during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1625",
+          "S02:Source question (13:12) During this period, on average how many flights per month did you make that lasted: 10 or more hours?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_12_2",
+      "x-questionID": 2427,
+      "x-pii": false
+    },
+    "R0_FlightsCrossEquatorMonth": {
+      "title": "Flights per month crossing the equator",
+      "description": "Average number of monthly flights crossing the equator during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1626",
+          "S02:Source question (13:13) During this period, on average how many flights per month did you make that were: Crossing the equator?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_13_1",
+      "x-questionID": 2428,
+      "x-pii": false
+    },
+    "R0_TransAtlanticFlightsMonthly": {
+      "title": "Trans-Atlantic flights per month (not crossing the equator)",
+      "description": "Average number of monthly Trans-Atlantic flights (not crossing the equator) during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1627",
+          "S02:Source question (13:13) During this period, on average how many flights per month did you make that were: Trans-Atlantic, but not crossing the equator?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_13_2",
+      "x-questionID": 2429,
+      "x-pii": false
+    },
+    "R0_TransPacificFlightsMonthly": {
+      "title": "Trans-Pacific flights per month (not crossing the equator)",
+      "description": "Average number of monthly Trans-Pacific flights (not crossing the equator) during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1628",
+          "S02:Source question (13:13) During this period, on average how many flights per month did you make that were: Trans-Pacific, but not crossing the equator?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_13_3",
+      "x-questionID": 2430,
+      "x-pii": false
+    },
+    "R0_MediumTimeDiffFlights": {
+      "title": "Journeys per month with a 5 to 9 hour time difference",
+      "description": "Average number of monthly journeys with a 5-9 hour time difference during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1629",
+          "S02:Source question (13:14) During this period, on average how many journeys did you make per month with a time difference between the place of departure and the final destination of: Between 5 and 9 hours?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_14_1",
+      "x-questionID": 2431,
+      "x-pii": false
+    },
+    "R0_LargeTimeDiffFlights": {
+      "title": "Journeys per month with a time difference of 10 or more hours",
+      "description": "Average number of monthly journeys with a time difference of 10 hours or more during the aircrew/travel period.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1630",
+          "S02:Source question (13:14) During this period, on average how many journeys did you make per month with a time difference between the place of departure and the final destination of: 10 or more hours?"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_AircrewTravelHistory = 1 (Yes); 13:10 says 'If no go to question 13:15'.",
+      "x-formerName": "Q13_14_2",
+      "x-questionID": 2432,
+      "x-pii": false
+    },
+    "R0_AntiperspirantDeodorantUse": {
+      "title": "Regularly used under the arms: anti-perspirant deodorant",
+      "description": "Whether the participant has ever regularly used anti-perspirant deodorant products under the arms.",
+      "$comment": "Dictionary defect: Questions rows 1631-1634 (Q13_15_1 to Q13_15_4) share the NewVariableName R0_AntiperspirantDeodorantUse; one column per box, the boxes after the first named from their labels. 'Regular' means at least once a week for 1 year or more.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1631",
+          "S02:Source question (13:15) Have you ever regularly used any of the following products under your arms (cross all that apply)? - Anti-perspirant deodorant"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Anti-perspirant deodorant used regularly"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_15_1",
+      "x-questionID": 2433,
+      "x-answerIDs": {
+        "1": 2407
+      },
+      "x-pii": false
+    },
+    "R0_AntiperspirantOnlyUse": {
+      "title": "Regularly used under the arms: anti-perspirant only",
+      "description": "Whether the participant has ever regularly used an anti-perspirant only (not a deodorant) under the arms.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1632",
+          "S02:Source question (13:15) Have you ever regularly used any of the following products under your arms (cross all that apply)? - Anti-perspirant only"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 2,
+          "title": "Anti-perspirant only used regularly"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_15_2",
+      "x-questionID": 2433,
+      "x-answerIDs": {
+        "2": 2408
+      },
+      "x-pii": false
+    },
+    "R0_DeodorantOnlyUse": {
+      "title": "Regularly used under the arms: deodorant only",
+      "description": "Whether the participant has ever regularly used a deodorant only (not an anti-perspirant) under the arms.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1633",
+          "S02:Source question (13:15) Have you ever regularly used any of the following products under your arms (cross all that apply)? - Deodorant only"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 3,
+          "title": "Deodorant only used regularly"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_15_3",
+      "x-questionID": 2433,
+      "x-answerIDs": {
+        "3": 2409
+      },
+      "x-pii": false
+    },
+    "R0_TalcProductsUse": {
+      "title": "Regularly used under the arms: talc products",
+      "description": "Whether the participant has ever regularly used talc products under the arms.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1634",
+          "S02:Source question (13:15) Have you ever regularly used any of the following products under your arms (cross all that apply)? - Talc products"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 4,
+          "title": "Talc products used regularly"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q13_15_4",
+      "x-questionID": 2433,
+      "x-answerIDs": {
+        "4": 2410
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_SleepTimeWeekdayHour",
+    "R0_SleepTimeWeekdayMinute",
+    "R0_SleepTimeAMPM",
+    "R0_WakeTimeHour",
+    "R0_WakeTimeMinute",
+    "R0_WakeTimeAMPM",
+    "R0_SleepDurationHours",
+    "R0_SleepDurationMinutes",
+    "R0_RoomDarkness",
+    "R0_RoomDarknessAge20",
+    "NightWakeups",
+    "R0_PerceivedStress",
+    "R0_StressEventDeathPartner",
+    "R0_StressEventSeriousIllness",
+    "R0_StressEventDeathRelative",
+    "R0_StressEventJobLoss",
+    "R0_StressEventDivorce",
+    "R0_StressEventOther",
+    "R0_StressEventDeathFriend",
+    "R0_AircrewTravelHistory",
+    "R0_AircrewTravel_Start_Shifted",
+    "R0_AircrewTravel_End_Shifted",
+    "R0_AircrewTravelCurrent",
+    "R0_AirborneHoursWeek",
+    "R0_AirborneHoursMonth",
+    "R0_MediumFlightsMonth",
+    "R0_LongFlightsMonth",
+    "R0_FlightsCrossEquatorMonth",
+    "R0_TransAtlanticFlightsMonthly",
+    "R0_TransPacificFlightsMonthly",
+    "R0_MediumTimeDiffFlights",
+    "R0_LargeTimeDiffFlights",
+    "R0_AntiperspirantDeodorantUse",
+    "R0_AntiperspirantOnlyUse",
+    "R0_DeodorantOnlyUse",
+    "R0_TalcProductsUse"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R002: the participant has not answered Yes to having worked as aircrew or travelled frequently by air (13:10: 'If no go to question 13:15'), so the years, the still-working tick, the hours airborne (13:11) and the flight and journey counts (13:12 to 13:14) are structurally not applicable -- each must carry the missing-numeric sentinel. Questionnaire p.39 Q13:10: 'If no go to question 13:15'.",
+      "x-provenance": {
+        "default": "S02:p.39 Q13:10 If 'no' go to question 13:15"
+      },
+      "if": {
+        "required": [
+          "R0_AircrewTravelHistory"
+        ],
+        "properties": {
+          "R0_AircrewTravelHistory": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_AircrewTravelCurrent": {
+            "const": -999
+          },
+          "R0_AirborneHoursWeek": {
+            "const": -999
+          },
+          "R0_AirborneHoursMonth": {
+            "const": -999
+          },
+          "R0_MediumFlightsMonth": {
+            "const": -999
+          },
+          "R0_LongFlightsMonth": {
+            "const": -999
+          },
+          "R0_FlightsCrossEquatorMonth": {
+            "const": -999
+          },
+          "R0_TransAtlanticFlightsMonthly": {
+            "const": -999
+          },
+          "R0_TransPacificFlightsMonthly": {
+            "const": -999
+          },
+          "R0_MediumTimeDiffFlights": {
+            "const": -999
+          },
+          "R0_LargeTimeDiffFlights": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

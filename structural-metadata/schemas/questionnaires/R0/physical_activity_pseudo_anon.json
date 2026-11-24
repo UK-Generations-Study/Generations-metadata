@@ -1,0 +1,1205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/physical_activity_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Physical Activity (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from physical_activity.json containing Exercise in childhood and as an adult, exercise in the last year, winter comparisons and resting pulse collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_ChildhoodSportParticipation": {
+      "title": "Regular strenuous sport outside school in childhood",
+      "description": "Participant's childhood sports participation status.",
+      "$comment": "Source coding: A = assumed yes (Answers sheet).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1545",
+          "S02:Source question (12:1) During your childhood, did you ever participate regularly in any sporting activities outside school hours sufficiently strenuous to get you out of breath? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "const": 9,
+          "title": "assumed yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_1_1_1",
+      "x-questionID": 2300,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "9": 9
+      },
+      "x-pii": false
+    },
+    "R0_ChildhoodSportDaysWeek": {
+      "title": "Childhood sport: days per week",
+      "description": "Days per week spent on childhood sports.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1546",
+          "S02:Source question (12:1) If yes, on average how many days per week did you participate in sporting activities outside school hours? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_ChildhoodSportParticipation = 1 (Yes) or A (assumed yes); 12:1 says 'If yes'.",
+      "x-formerName": "Q12_1_2",
+      "x-questionID": 2301,
+      "x-pii": false
+    },
+    "R0_ChildhoodSportHoursWeek": {
+      "title": "Childhood sport: hours per week (part of the weekly total)",
+      "description": "Hours per week spent on childhood sports.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1547",
+          "S02:Source question (12:1) ... and for how much time in total per week. Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_ChildhoodSportParticipation = 1 (Yes) or A (assumed yes); 12:1 says 'If yes'.",
+      "x-formerName": "Q12_1_3",
+      "x-questionID": 2302,
+      "x-pii": false
+    },
+    "R0_ChildhoodSportMinutesWeek": {
+      "title": "Childhood sport: minutes per week (part of the weekly total)",
+      "description": "Minutes per week spent on childhood sports.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1548",
+          "S02:Source question (12:1) ... and for how much time in total per week. Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when R0_ChildhoodSportParticipation = 1 (Yes) or A (assumed yes); 12:1 says 'If yes'.",
+      "x-formerName": "Q12_1_4",
+      "x-questionID": 2303,
+      "x-pii": false
+    },
+    "StrenuousExercise": {
+      "title": "Adult strenuous exercise by age band",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 51",
+          "S02:Source question (12:2) As an adult on how many days per week on average have you done strenuous exercise ..."
+        ],
+        "maxItems": "S01:ArrayDef row 51"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_StrenuousExercise_Num": {
+            "x-role": "entity key",
+            "title": "Age band this answer refers to",
+            "$comment": "Dictionary values 18-29, 30-49, 50+ (ArrayDef row 51); the questionnaire prints 'over 50' for the last band.",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 51",
+              "values": "S01:ArrayDef row 51"
+            },
+            "oneOf": [
+              {
+                "const": "18-29",
+                "title": "18-29"
+              },
+              {
+                "const": "30-49",
+                "title": "30-49"
+              },
+              {
+                "const": "50+",
+                "title": "50+"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_StrenuousExerciseDays": {
+            "title": "Strenuous exercise: days per week",
+            "description": "Weekly days of strenuous exercise in this age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1549",
+                "S02:Source question (12:2) As an adult on how many days per week on average have you done strenuous exercise that gets you out of breath ... Days per week"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q12_2_D_1",
+              "Q12_2_D_2",
+              "Q12_2_D_3"
+            ],
+            "x-questionID": 2304,
+            "x-pii": false
+          },
+          "R0_StrenuousExerciseHours": {
+            "title": "Strenuous exercise: hours per week (part of the weekly total)",
+            "description": "Weekly hours of strenuous exercise in this age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1550",
+                "S02:Source question (12:2) ... how long in total over the week did you spend doing these activities? Hours"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q12_2_H_1",
+              "Q12_2_H_2",
+              "Q12_2_H_3"
+            ],
+            "x-questionID": 2305,
+            "x-pii": false
+          },
+          "R0_StrenuousExerciseMinutes": {
+            "title": "Strenuous exercise: minutes per week (part of the weekly total)",
+            "description": "Weekly minutes of strenuous exercise in this age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1551",
+                "S02:Source question (12:2) ... how long in total over the week did you spend doing these activities? Minutes"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q12_2_M_1",
+              "Q12_2_M_2",
+              "Q12_2_M_3"
+            ],
+            "x-questionID": 2306,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_StrenuousExercise_Num",
+          "R0_StrenuousExerciseDays",
+          "R0_StrenuousExerciseHours",
+          "R0_StrenuousExerciseMinutes"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "LightExercise": {
+      "title": "Adult light exercise by age band",
+      "$comment": "Not in the dictionary: the dictionary puts these rows in the StrenuousExercise block; the author asked for a separate list.",
+      "x-provenance": {
+        "default": [
+          "S02:Source question (12:3) As an adult, on how many days per week on average have you done light exercise ..."
+        ],
+        "maxItems": "S01:ArrayDef row 51"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_LightExercise_Num": {
+            "x-role": "entity key",
+            "title": "Age band this answer refers to",
+            "$comment": "Same age bands as StrenuousExercise (ArrayDef row 51); the dictionary defines no LightExercise block. The questionnaire prints 'over 50' for the last band.",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 51",
+              "values": "S01:ArrayDef row 51"
+            },
+            "oneOf": [
+              {
+                "const": "18-29",
+                "title": "18-29"
+              },
+              {
+                "const": "30-49",
+                "title": "30-49"
+              },
+              {
+                "const": "50+",
+                "title": "50+"
+              }
+            ],
+            "x-pii": false
+          },
+          "R0_LightExerciseDays": {
+            "title": "Light exercise: days per week",
+            "description": "Weekly days of light exercise in this age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1558",
+                "S02:Source question (12:3) As an adult, on how many days per week on average have you done light exercise that would increase your heart rate slightly ... Days per week"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q12_3_D_1",
+              "Q12_3_D_2",
+              "Q12_3_D_3"
+            ],
+            "x-questionID": 2313,
+            "x-pii": false
+          },
+          "R0_LightExerciseHours": {
+            "title": "Light exercise: hours per week (part of the weekly total)",
+            "description": "Weekly hours of light exercise in this age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1559",
+                "S02:Source question (12:3) ... how long in total per week did you spend doing this? Hours"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q12_3_H_1",
+              "Q12_3_H_2",
+              "Q12_3_H_3"
+            ],
+            "x-questionID": 2314,
+            "x-pii": false
+          },
+          "R0_LightExerciseMinutes": {
+            "title": "Light exercise: minutes per week (part of the weekly total)",
+            "description": "Weekly minutes of light exercise in this age range.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1560",
+                "S02:Source question (12:3) ... how long in total per week did you spend doing this? Minutes"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q12_3_M_1",
+              "Q12_3_M_2",
+              "Q12_3_M_3"
+            ],
+            "x-questionID": 2315,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_LightExercise_Num",
+          "R0_LightExerciseDays",
+          "R0_LightExerciseHours",
+          "R0_LightExerciseMinutes"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_SportsSweatDays": {
+      "title": "Sport or training that gets you out of breath: days per week",
+      "description": "Weekly days of sweat-inducing sports.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1567",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 1) Participating in a sport or training sufficient to get you out of breath and make you sweat considerably? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_D_1",
+      "x-questionID": 2322,
+      "x-pii": false
+    },
+    "R0_SportsSweatHours": {
+      "title": "Sport or training that gets you out of breath: hours per week (part of the weekly total)",
+      "description": "Weekly hours of sweat-inducing sports.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1568",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 1) Participating in a sport or training sufficient to get you out of breath and make you sweat considerably? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_H_1",
+      "x-questionID": 2323,
+      "x-pii": false
+    },
+    "R0_SportsSweatMinutes": {
+      "title": "Sport or training that gets you out of breath: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes of sweat-inducing sports.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1569",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 1) Participating in a sport or training sufficient to get you out of breath and make you sweat considerably? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_M_1",
+      "x-questionID": 2324,
+      "x-pii": false
+    },
+    "R0_WorkSweatDays": {
+      "title": "Work activities that get you out of breath: days per week",
+      "description": "Weekly days of sweat-inducing work.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1570",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 2) At work participating in activities that get you out of breath and make you sweat considerably? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_D_2",
+      "x-questionID": 2325,
+      "x-pii": false
+    },
+    "R0_WorkSweatHours": {
+      "title": "Work activities that get you out of breath: hours per week (part of the weekly total)",
+      "description": "Weekly hours of sweat-inducing work.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1571",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 2) At work participating in activities that get you out of breath and make you sweat considerably? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_H_2",
+      "x-questionID": 2326,
+      "x-pii": false
+    },
+    "R0_WorkSweatMinutes": {
+      "title": "Work activities that get you out of breath: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes of sweat-inducing work.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1572",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 2) At work participating in activities that get you out of breath and make you sweat considerably? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_M_2",
+      "x-questionID": 2327,
+      "x-pii": false
+    },
+    "R0_OtherSweatDays": {
+      "title": "Other activities that get you out of breath: days per week",
+      "description": "Weekly days of sweat-inducing other activities.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1573",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 3) In any other activities not already covered above that get you out of breath and make you sweat considerably? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_D_3",
+      "x-questionID": 2328,
+      "x-pii": false
+    },
+    "R0_OtherSweatHours": {
+      "title": "Other activities that get you out of breath: hours per week (part of the weekly total)",
+      "description": "Weekly hours of sweat-inducing other activities.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1574",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 3) In any other activities not already covered above that get you out of breath and make you sweat considerably? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_H_3",
+      "x-questionID": 2329,
+      "x-pii": false
+    },
+    "R0_OtherSweatMinutes": {
+      "title": "Other activities that get you out of breath: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes of sweat-inducing other activities.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1575",
+          "S02:Source question (12:4) In a usual week during approximately the period April to September in the last year, how much time did you spend: 3) In any other activities not already covered above that get you out of breath and make you sweat considerably? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_4_M_3",
+      "x-questionID": 2330,
+      "x-pii": false
+    },
+    "R0_ExerciseWinterComparison": {
+      "title": "Strenuous exercise in winter compared with April to September",
+      "description": "How the participant's strenuous exercise in winter compared with April to September: more, about the same or less.",
+      "$comment": "Dictionary defect: Questions rows 1576 (Q12_5_1) and 1595 (Q12_7_1) share the NewVariableName R0_ExerciseWinterComparison and QuestionID 2331; drafted as two columns; 12:7 is R0_LightExerciseWinterComparison.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1576",
+          "S02:Source question (12:5) Compared with the answers in 12:4 above, do you exercise more, the same, or less during the winter months? More About the same Less"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "More"
+        },
+        {
+          "const": 2,
+          "title": "About the same"
+        },
+        {
+          "const": 3,
+          "title": "Less"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_5_1",
+      "x-questionID": 2331,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2277,
+        "2": 203,
+        "3": 2279
+      },
+      "x-pii": false
+    },
+    "R0_ActiveHouseworkDays": {
+      "title": "Active housework: days per week",
+      "description": "Weekly days of active housework.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1577",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 1) Doing active housework? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_D_1",
+      "x-questionID": 2332,
+      "x-pii": false
+    },
+    "R0_ActiveHouseworkHours": {
+      "title": "Active housework: hours per week (part of the weekly total)",
+      "description": "Weekly hours of active housework.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1578",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 1) Doing active housework? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_H_1",
+      "x-questionID": 2333,
+      "x-pii": false
+    },
+    "R0_ActiveHouseworkMinutes": {
+      "title": "Active housework: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes of active housework.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1579",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 1) Doing active housework? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_M_1",
+      "x-questionID": 2334,
+      "x-pii": false
+    },
+    "R0_ManualLaborDays": {
+      "title": "Non-paid manual labour: days per week",
+      "description": "Weekly days spent on manual labor.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1580",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 2) In non-paid manual labour? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_D_2",
+      "x-questionID": 2335,
+      "x-pii": false
+    },
+    "R0_ManualLaborHours": {
+      "title": "Non-paid manual labour: hours per week (part of the weekly total)",
+      "description": "Weekly hours spent on manual labor.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1581",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 2) In non-paid manual labour? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_H_2",
+      "x-questionID": 2336,
+      "x-pii": false
+    },
+    "R0_ManualLaborMinutes": {
+      "title": "Non-paid manual labour: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes spent on manual labor.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1582",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 2) In non-paid manual labour? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_M_2",
+      "x-questionID": 2337,
+      "x-pii": false
+    },
+    "R0_WalkingDays": {
+      "title": "Walking: days per week",
+      "description": "Weekly days spent walking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1583",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 3) Walking, including walking to and from work? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_D_3",
+      "x-questionID": 2338,
+      "x-pii": false
+    },
+    "R0_WalkingHours": {
+      "title": "Walking: hours per week (part of the weekly total)",
+      "description": "Weekly hours spent walking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1584",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 3) Walking, including walking to and from work? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_H_3",
+      "x-questionID": 2339,
+      "x-pii": false
+    },
+    "R0_WalkingMinutes": {
+      "title": "Walking: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes spent walking.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1585",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 3) Walking, including walking to and from work? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_M_3",
+      "x-questionID": 2340,
+      "x-pii": false
+    },
+    "R0_CyclingDays": {
+      "title": "Cycling: days per week",
+      "description": "Weekly days spent cycling.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1586",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 4) Cycling, including to and from work and for pleasure? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_D_4",
+      "x-questionID": 2341,
+      "x-pii": false
+    },
+    "R0_CyclingHours": {
+      "title": "Cycling: hours per week (part of the weekly total)",
+      "description": "Weekly hours spent cycling.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1587",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 4) Cycling, including to and from work and for pleasure? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_H_4",
+      "x-questionID": 2342,
+      "x-pii": false
+    },
+    "R0_CyclingMinutes": {
+      "title": "Cycling: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes spent cycling.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1588",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 4) Cycling, including to and from work and for pleasure? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_M_4",
+      "x-questionID": 2343,
+      "x-pii": false
+    },
+    "R0_DancingDays": {
+      "title": "Dancing: days per week",
+      "description": "Weekly days spent dancing.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1589",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 5) Dancing? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_D_5",
+      "x-questionID": 2344,
+      "x-pii": false
+    },
+    "R0_DancingHours": {
+      "title": "Dancing: hours per week (part of the weekly total)",
+      "description": "Weekly hours spent dancing.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1590",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 5) Dancing? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_H_5",
+      "x-questionID": 2345,
+      "x-pii": false
+    },
+    "R0_DancingMinutes": {
+      "title": "Dancing: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes spent dancing.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1591",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 5) Dancing? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_M_5",
+      "x-questionID": 2346,
+      "x-pii": false
+    },
+    "R0_OtherModerateExerciseDays": {
+      "title": "Moderate or light exercise at work: days per week",
+      "description": "Weekly days of other moderate exercise.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1592",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 6) Engaged in moderate or light exercise at work, not covered above? Days per week"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_D_6",
+      "x-questionID": 2347,
+      "x-pii": false
+    },
+    "R0_OtherModerateExerciseHours": {
+      "title": "Moderate or light exercise at work: hours per week (part of the weekly total)",
+      "description": "Weekly hours of other moderate exercise.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1593",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 6) Engaged in moderate or light exercise at work, not covered above? Hours"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_H_6",
+      "x-questionID": 2348,
+      "x-pii": false
+    },
+    "R0_OtherModerateExerciseMinutes": {
+      "title": "Moderate or light exercise at work: minutes per week (part of the weekly total)",
+      "description": "Weekly minutes of other moderate exercise.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1594",
+          "S02:Source question (12:6) In a usual week during approximately the period April to September in the last year, how much time did you spend: 6) Engaged in moderate or light exercise at work, not covered above? Minutes"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_6_M_6",
+      "x-questionID": 2349,
+      "x-pii": false
+    },
+    "R0_LightExerciseWinterComparison": {
+      "title": "Moderate or light exercise in winter compared with April to September",
+      "description": "How the participant's moderate or light exercise in winter compared with April to September: more, about the same or less.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1595",
+          "S02:Source question (12:7) Compared with the answers you have given in question 12:6, do you exercise more, the same, or less during the winter months? More About the same Less"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "More"
+        },
+        {
+          "const": 2,
+          "title": "About the same"
+        },
+        {
+          "const": 3,
+          "title": "Less"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_7_1",
+      "x-questionID": 2331,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 2277,
+        "2": 203,
+        "3": 2279
+      },
+      "x-pii": false
+    },
+    "R0_PulseRate": {
+      "title": "Resting pulse rate (beats per minute)",
+      "description": "Participant's resting pulse rate.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1596",
+          "S02:Source question (12:8) Your pulse rate per minute: Number of beats per 60 seconds"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 200
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_8",
+      "x-questionID": 2351,
+      "x-pii": false
+    },
+    "R0_PulseMedication": {
+      "title": "Currently taking medication that may affect pulse rate",
+      "description": "Medication affecting pulse rate.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1597",
+          "S02:Source question (12:9) Are you currently taking any medication that may affect your pulse rate ...? Yes No Don't know"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/dont_know",
+          "$comment": "local code 3 (Don't know) recoded by the ETL sentinel step"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q12_9_1",
+      "x-questionID": 2352,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2,
+        "-888": 3
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_ChildhoodSportParticipation",
+    "R0_ChildhoodSportDaysWeek",
+    "R0_ChildhoodSportHoursWeek",
+    "R0_ChildhoodSportMinutesWeek",
+    "StrenuousExercise",
+    "LightExercise",
+    "R0_SportsSweatDays",
+    "R0_SportsSweatHours",
+    "R0_SportsSweatMinutes",
+    "R0_WorkSweatDays",
+    "R0_WorkSweatHours",
+    "R0_WorkSweatMinutes",
+    "R0_OtherSweatDays",
+    "R0_OtherSweatHours",
+    "R0_OtherSweatMinutes",
+    "R0_ExerciseWinterComparison",
+    "R0_ActiveHouseworkDays",
+    "R0_ActiveHouseworkHours",
+    "R0_ActiveHouseworkMinutes",
+    "R0_ManualLaborDays",
+    "R0_ManualLaborHours",
+    "R0_ManualLaborMinutes",
+    "R0_WalkingDays",
+    "R0_WalkingHours",
+    "R0_WalkingMinutes",
+    "R0_CyclingDays",
+    "R0_CyclingHours",
+    "R0_CyclingMinutes",
+    "R0_DancingDays",
+    "R0_DancingHours",
+    "R0_DancingMinutes",
+    "R0_OtherModerateExerciseDays",
+    "R0_OtherModerateExerciseHours",
+    "R0_OtherModerateExerciseMinutes",
+    "R0_LightExerciseWinterComparison",
+    "R0_PulseRate",
+    "R0_PulseMedication"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern: the participant has not answered Yes to regularly taking part in strenuous sport outside school in childhood (12:1: 'If yes, on average how many days per week ...'), so the childhood days, hours and minutes are structurally not applicable -- each must carry the missing-numeric sentinel.",
+      "x-provenance": {
+        "default": "S02:p.36 Q12:1 If yes, on average how many days per week"
+      },
+      "if": {
+        "required": [
+          "R0_ChildhoodSportParticipation"
+        ],
+        "properties": {
+          "R0_ChildhoodSportParticipation": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_ChildhoodSportDaysWeek": {
+            "const": -999
+          },
+          "R0_ChildhoodSportHoursWeek": {
+            "const": -999
+          },
+          "R0_ChildhoodSportMinutesWeek": {
+            "const": -999
+          }
+        }
+      }
+    }
+  ]
+}

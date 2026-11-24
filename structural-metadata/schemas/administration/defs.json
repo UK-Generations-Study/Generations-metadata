@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Administration/schemas/defs.json",
+  "title": "Shared definitions for UK Generations Study administrative event years and pseudonymised study id codes",
+  "$defs": {
+    "missing_numeric": {
+      "const": -999,
+      "title": "Missing or not recorded",
+      "description": "Stands for a numeric value that is absent.",
+      "x-value-kind": "sentinel"
+    },
+    "missing_string": {
+      "const": "MISSING",
+      "title": "Missing or not recorded",
+      "description": "Stands for a text value that is absent.",
+      "x-value-kind": "sentinel"
+    },
+    "missing_datetime": {
+      "const": "9999-12-31T00:00:00Z",
+      "title": "Missing or not recorded",
+      "description": "Stands for a date-time that is absent. A date in year 9999 cannot be a real date. It is never shifted at pseudonymisation.",
+      "x-value-kind": "sentinel"
+    }
+  }
+}

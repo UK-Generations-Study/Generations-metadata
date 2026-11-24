@@ -1,0 +1,2749 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Questionnaire/R0/schemas/pseudo_anon/mh_drugs_supplements_pseudo_anon.json",
+  "title": "R0_QUESTIONNAIRE — Medical history: drugs and supplements (pseudonymised)",
+  "description": "Minimally processed pseudonymised metadata (TCode instead of StudyID, shifted dates, PII removed, letter codes as numbers) from mh_drugs_supplements.json containing Tamoxifen and raloxifene, growth hormone, acne treatment, antibiotics, aspirin, ibuprofen and other painkillers (current and regular use), vitamin and other supplements, melatonin and statins, collected at baseline.",
+  "type": "object",
+  "properties": {
+    "TCode": {
+      "title": "Pseudo-anonymised study identifier",
+      "type": "string",
+      "pattern": "^T.{7}$",
+      "x-role": "primary key"
+    },
+    "R0_NonBCTamoxRaloxUse": {
+      "title": "Whether tamoxifen or raloxifene was ever used other than for breast cancer",
+      "description": "Participant's use of tamoxifen (Soltamox, Nolvadex-D, or Tamofen) or raloxifene (Evista).",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1137",
+          "S02:p.27 Q8:11 Other than for treatment of breast cancer, have you ever used, or are you currently using, the drugs tamoxifen or raloxifene? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_11_1_1",
+      "x-questionID": 1600,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_NonBCDrugType": {
+      "title": "Which drug was used",
+      "description": "Which drug, tamoxifen or raloxifene, the participant used.",
+      "$comment": "Source coding: 1 Tamoxifen; 2 Raloxifene.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1138",
+          "S02:p.27 Q8:11 If yes, what was the drug? Tamoxifen Raloxifene"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Tamoxifen"
+        },
+        {
+          "const": 2,
+          "title": "Raloxifene"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when tamoxifen or raloxifene was used other than for breast cancer (R0_NonBCTamoxRaloxUse = 1); the form says 'If yes, what was the drug?'.",
+      "x-formerName": "Q8_11_2_1",
+      "x-questionID": 1601,
+      "x-answerIDs": {
+        "1": 1300,
+        "2": 1301
+      },
+      "x-pii": false
+    },
+    "R0_NonBCDrugStartAge": {
+      "title": "Age when the drug was first used (years)",
+      "description": "At what age the participant began using the drug.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1139",
+          "S02:p.27 Q8:11 At what age did you first use it? years"
+        ],
+        "minimum": "S01:Questions row 1139"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when tamoxifen or raloxifene was used other than for breast cancer (R0_NonBCTamoxRaloxUse = 1); the form says 'If yes, what was the drug?'.",
+      "x-formerName": "Q8_11_3",
+      "x-questionID": 1602,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_NonBCDrugDurationYrs": {
+      "title": "Total time on the drug: years",
+      "description": "The duration, in years, that the participant was using the drug.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1140",
+          "S02:p.27 Q8:11 For how long in total did you use it? Years"
+        ],
+        "minimum": "S01:Questions row 1140"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when tamoxifen or raloxifene was used other than for breast cancer (R0_NonBCTamoxRaloxUse = 1); the form says 'If yes, what was the drug?'.",
+      "x-formerName": "Q8_11_4",
+      "x-questionID": 1603,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_NonBCDrugDurationMnths": {
+      "title": "Total time on the drug: months",
+      "description": "If years were not round, how many months of top of the year the participant was using the drug.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1141",
+          "S02:p.27 Q8:11 For how long in total did you use it? Months"
+        ],
+        "minimum": "S01:Questions row 1141"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when tamoxifen or raloxifene was used other than for breast cancer (R0_NonBCTamoxRaloxUse = 1); the form says 'If yes, what was the drug?'.",
+      "x-formerName": "Q8_11_5",
+      "x-questionID": 1604,
+      "x-pii": false,
+      "x-unit": "months"
+    },
+    "R0_NonBCDrugOngoing": {
+      "title": "Still using the drug",
+      "description": "Indicator that the participant is still using the drug.",
+      "$comment": "Tick box. Source coding: 1 Still using (dictionary AnswerText 'Still using tamoxifen/raloxifene').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1142",
+          "S02:p.27 Q8:11 For how long in total did you use it? ... or Still using"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Still using"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when tamoxifen or raloxifene was used other than for breast cancer (R0_NonBCTamoxRaloxUse = 1); the form says 'If yes, what was the drug?'.",
+      "x-formerName": "Q8_11_6",
+      "x-questionID": 1605,
+      "x-answerIDs": {
+        "1": 804
+      },
+      "x-pii": false
+    },
+    "R0_NonBCDrugEpisodes": {
+      "title": "More than one episode of using the drug",
+      "description": "Indicator whether the participant has used these drugs for more than one episode.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'If you have used these drugs for more than one episode, please provide details').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1143",
+          "S02:p.27 Q8:11 If you have used these drugs for more than 1 episode, please cross this box and give details on page 15:1 More than 1 episode"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when tamoxifen or raloxifene was used other than for breast cancer (R0_NonBCTamoxRaloxUse = 1); the form says 'If yes, what was the drug?'.",
+      "x-formerName": "Q8_11_7",
+      "x-questionID": 1606,
+      "x-answerIDs": {
+        "1": 1307
+      },
+      "x-pii": false
+    },
+    "R0_GrowthHormoneUse": {
+      "title": "Whether the participant has ever been treated with growth hormone",
+      "description": "Whether the participant has ever been treated by growth hormones.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1144",
+          "S02:p.27 Q8:12 Have you ever been treated with growth hormone? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_12_1",
+      "x-questionID": 1607,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_AcneMedsPrescribed": {
+      "title": "Whether a doctor ever prescribed tablets or pills for acne",
+      "description": "Whether the participant has ever been prescribed acne pills or tablets.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1145",
+          "S02:p.27 Q8:13 Have you ever been prescribed tablets or pills by a doctor for acne? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_13_1_1",
+      "x-questionID": 1608,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_AcneMedsStartAge": {
+      "title": "Age when the acne treatment started (years)",
+      "description": "Starting age of the participant for taking acne pills or tablets.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1146",
+          "S02:p.27 Q8:13 If yes, at what age did you start treatment? years"
+        ],
+        "minimum": "S01:Questions row 1146"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when acne tablets were prescribed (R0_AcneMedsPrescribed = 1); the form says 'If yes, at what age did you start treatment?'.",
+      "x-formerName": "Q8_13_2",
+      "x-questionID": 1609,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_AntibioticsRecentUse": {
+      "title": "Whether antibiotics were taken in the last 12 months",
+      "description": "If the participant has taken antibiotics by mouth or injection in the 12 months pre-entry into the study.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1147",
+          "S02:p.27 Q8:14 In the last 12 months have you taken antibiotics by mouth or injection? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_14_1_1",
+      "x-questionID": 1610,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_AntibioticsDays": {
+      "title": "Days on antibiotics in the last 12 months",
+      "description": "Number of days that the participant took antibiotics in the 12 months pre-entry into the study.",
+      "$comment": "Dictionary minimum 0 and maximum 11; the maximum is not used (it reads as the 11 of the months-of-age fields, and a year has more than 11 days).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1148",
+          "S02:p.27 Q8:14 If yes, on how many days in the last 12 months? days"
+        ],
+        "minimum": "S01:Questions row 1148"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when antibiotics were taken (R0_AntibioticsRecentUse = 1); the form says 'If yes, on how many days in the last 12 months?'.",
+      "x-formerName": "Q8_14_2",
+      "x-questionID": 1611,
+      "x-pii": false,
+      "x-unit": "days"
+    },
+    "R0_AspirinRecentUse": {
+      "title": "Whether aspirin was taken in the last 7 days",
+      "description": "Whether the participant has taken any aspirin or products containing aspirin in the 7 days pre-entry to the study.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1149",
+          "S02:p.27 Q8:15 Have you taken aspirin or any products containing aspirin in the last 7 days? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_15_1_1",
+      "x-questionID": 1612,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_AspirinDays": {
+      "title": "Days on aspirin in the last 7 days",
+      "description": "Number of days that the participant took aspirin in the 7 days pre-entry into the study.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1150",
+          "S02:p.27 Q8:15 If yes, on how many days did you take it in the last 7 days? days"
+        ],
+        "minimum": "S01:Questions row 1150",
+        "maximum": "S01:Questions row 1150"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when aspirin was taken in the last 7 days (R0_AspirinRecentUse = 1); the form says 'If yes, on how many days'.",
+      "x-formerName": "Q8_15_2",
+      "x-questionID": 1613,
+      "x-pii": false,
+      "x-unit": "days"
+    },
+    "AspirinRegularUse": {
+      "title": "Periods of regular aspirin use",
+      "description": "One entry per period of regular use of aspirin or products containing aspirin (every day or almost every day for 6 months or longer), up to 5, in the order reported. The first two are printed on pages 28 and 29; further ones go on page 15:1.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 2",
+          "S02:p.28 Q8:16 Have you ever taken aspirin or products containing aspirin regularly?"
+        ],
+        "minItems": "S01:ArrayDef row 2",
+        "maxItems": "S01:ArrayDef row 2"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 5,
+      "x-universe": "Only completed when the participant has taken aspirin or products containing aspirin regularly (the entry's own yes/no is 1); 8:16 says 'If yes, please fill in details of any periods'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_AspirinOccasion_Num": {
+            "x-role": "entity key",
+            "title": "Which occasion this entry refers to (1st to 5th)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 2",
+              "maximum": "S01:ArrayDef row 2"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "x-pii": false
+          },
+          "R0_AspirinRegularEp": {
+            "title": "Whether aspirin or products containing aspirin was ever taken regularly (every day or almost every day for 6 months or longer)",
+            "description": "Whether the participant has taken aspirin regularly over a period of time of at least 6 months.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. The dictionary has this answer for the 1st, 3rd, 4th and 5th occasion only; the 2nd carries -999 (the form asks the question once). The old names listed are those of the occasions that have it.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1151",
+                "S02:p.28 Q8:16 Have you ever taken aspirin or products containing aspirin regularly? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q8_16_1",
+              "use3Aspirin",
+              "use4Aspirin",
+              "use5Aspirin"
+            ],
+            "x-questionID": 1614,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false,
+            "x-slots": [
+              [
+                1
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          "R0_AspirinStartAgeEp": {
+            "title": "Age at the start of this period (years)",
+            "description": "Participant's starting age of taking aspirin regularly for this instance.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1152",
+                "S02:p.28 Q8:16 1) Age at start years"
+              ],
+              "minimum": "S01:Questions row 1152"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken aspirin or products containing aspirin regularly (the entry's own yes/no is 1); 8:16 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_16_A_1",
+              "Q8_16_A_2",
+              "fromage3Aspirin",
+              "fromage4Aspirin",
+              "fromage5Aspirin"
+            ],
+            "x-questionID": 1615,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_AspirinEndAgeEp": {
+            "title": "Age at the end of this period (years)",
+            "description": "Participant's ending age of taking aspirin regularly for this instance.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1153",
+                "S02:p.28 Q8:16 Age at end years or Still using"
+              ],
+              "minimum": "S01:Questions row 1153"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken aspirin or products containing aspirin regularly (the entry's own yes/no is 1); 8:16 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_16_B_1",
+              "Q8_16_B_2",
+              "toage3Aspirin",
+              "toage4Aspirin",
+              "toage5Aspirin"
+            ],
+            "x-questionID": 1616,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_AspirinOngoingEp": {
+            "title": "Still taking it regularly",
+            "description": "Participant is still taking aspiring regularly during entry to study for this instance.",
+            "$comment": "Source coding: 0 No; 1 Still taking (AnswerID 804).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1154",
+                "S02:p.28 Q8:16 ... or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Still taking"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken aspirin or products containing aspirin regularly (the entry's own yes/no is 1); 8:16 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_16_C_1",
+              "Q8_16_C_2",
+              "curr3Aspirin",
+              "curr4Aspirin",
+              "curr5Aspirin"
+            ],
+            "x-questionID": 1617,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 804
+            },
+            "x-pii": false
+          },
+          "R0_AspirinType": {
+            "title": "Type of aspirin taken in this period (3rd to 5th period only)",
+            "description": "Type of aspirin-containing product taken during this period of regular use.",
+            "$comment": "The dictionary lists this field only for the 3rd to 5th period and gives it no array; it is folded into the entry. The 1st and 2nd period carry the missing-string sentinel. The old names listed are those of the periods that have it.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1167",
+                "S01:Questions row 1176",
+                "S01:Questions row 1185"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed for the 3rd to 5th period of regular aspirin use; the form does not print it.",
+            "x-formerName": [
+              "type3Aspirin",
+              "type4Aspirin",
+              "type5Aspirin"
+            ],
+            "x-questionID": 1630,
+            "x-pii": false,
+            "x-slots": [
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          "AspirinRegularUseExtra": {
+            "title": "Further timing details of the 3rd to 5th period",
+            "description": "Month and year of the start and the end of the 3rd to the 5th period.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 22"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ]
+            ],
+            "x-universe": "Only the 3rd to 5th occasion have it (the dictionary block AspirinRegularUseExtra); page 15:1 of the form, not in the questionnaire PDF.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_Aspirin_Start_Shifted": {
+                  "title": "R0_Aspirin_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_AspirinStartMnth",
+                    "R0_AspirinStartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_Aspirin_End_Shifted": {
+                  "title": "R0_Aspirin_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_AspirinEndMnth",
+                    "R0_AspirinEndYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_Aspirin_Start_Shifted",
+                "R0_Aspirin_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_AspirinOccasion_Num",
+          "R0_AspirinRegularEp",
+          "R0_AspirinStartAgeEp",
+          "R0_AspirinEndAgeEp",
+          "R0_AspirinOngoingEp",
+          "R0_AspirinType",
+          "AspirinRegularUseExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_Q8_16_more": {
+      "title": "More periods of regular aspirin use than the two printed",
+      "description": "Whether the participant took aspirin or aspirin-containing products regularly on other occasions.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'Provided details').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1158",
+          "S02:p.28 Q8:16 If there were other periods in your life where you took aspirin regularly, please cross this box and give details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when aspirin was taken regularly (the first occasion's yes/no is 1).",
+      "x-formerName": "Q8_16_more",
+      "x-questionID": 1621,
+      "x-answerIDs": {
+        "1": 1314
+      },
+      "x-pii": false
+    },
+    "R0_AspirinMoreEpisodes": {
+      "title": "More than 5 periods of regular aspirin use",
+      "description": "Whether the participant had more than 2 episode of taking aspiring regularly.",
+      "$comment": "Not printed on the questionnaire pages 27 to 29; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1186"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "morethan5Aspirin",
+      "x-questionID": 1649,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_IbuprofenRecentUse": {
+      "title": "Whether ibuprofen was taken in the last 7 days",
+      "description": "Whether the participant has taken any ibuprofen or products containing ibuprofen in the 7 days pre-entry to the study.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1187",
+          "S02:p.28 Q8:17 Have you taken any products containing ibuprofen in the last 7 days? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_17_1_1",
+      "x-questionID": 1650,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_IbuprofenDays": {
+      "title": "Days on ibuprofen in the last 7 days",
+      "description": "Number of days that the participant took ibuprofen in the 7 days pre-entry into the study.",
+      "$comment": "Dictionary maximum 7 (the days in the last 7 days).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1188",
+          "S02:p.28 Q8:17 If yes, on how many days did you take it in the last 7 days? days"
+        ],
+        "minimum": "S01:Questions row 1188",
+        "maximum": "S01:Questions row 1188"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when ibuprofen was taken in the last 7 days (R0_IbuprofenRecentUse = 1); the form says 'If yes, on how many days'.",
+      "x-formerName": "Q8_17_2",
+      "x-questionID": 1651,
+      "x-pii": false,
+      "x-unit": "days"
+    },
+    "IbuprofenRegularUse": {
+      "title": "Periods of regular ibuprofen use",
+      "description": "One entry per period of regular use of ibuprofen or medication containing ibuprofen (every day or almost every day for 6 months or longer), up to 5, in the order reported. The first two are printed on pages 28 and 29; further ones go on page 15:1.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 9",
+          "S02:p.28 Q8:18 Have you ever taken ibuprofen or medication containing ibuprofen regularly?"
+        ],
+        "minItems": "S01:ArrayDef row 9",
+        "maxItems": "S01:ArrayDef row 9"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 5,
+      "x-universe": "Only completed when the participant has taken ibuprofen or medication containing ibuprofen regularly (the entry's own yes/no is 1); 8:18 says 'If yes, please fill in details of any periods'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_IbuprofenOccasion_Num": {
+            "x-role": "entity key",
+            "title": "Which occasion this entry refers to (1st to 5th)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 9",
+              "maximum": "S01:ArrayDef row 9"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "x-pii": false
+          },
+          "R0_IbuprofenRegularEp": {
+            "title": "Whether ibuprofen or medication containing ibuprofen was ever taken regularly (every day or almost every day for 6 months or longer)",
+            "description": "Whether the participant has ever taken ibuprofen regularly for at least 6 months.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. The dictionary has this answer for the 1st, 3rd, 4th and 5th occasion only; the 2nd carries -999 (the form asks the question once). The old names listed are those of the occasions that have it.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1189",
+                "S02:p.28 Q8:18 Have you ever taken ibuprofen or medication containing ibuprofen regularly? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q8_18_1",
+              "use3Ibuprofen",
+              "use4Ibuprofen",
+              "use5Ibuprofen"
+            ],
+            "x-questionID": 1652,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false,
+            "x-slots": [
+              [
+                1
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          "R0_IbuprofenStartAgeEp": {
+            "title": "Age at the start of this period (years)",
+            "description": "Age participant started taking ibuprofen regularly for this instance.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1190",
+                "S02:p.28 Q8:18 1) Age at start years"
+              ],
+              "minimum": "S01:Questions row 1190"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken ibuprofen or medication containing ibuprofen regularly (the entry's own yes/no is 1); 8:18 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_18_A_1",
+              "Q8_18_A_2",
+              "fromage3Ibuprofen",
+              "fromage4Ibuprofen",
+              "fromage5Ibuprofen"
+            ],
+            "x-questionID": 1653,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_IbuprofenEndAgeEp": {
+            "title": "Age at the end of this period (years)",
+            "description": "Age participant stopped taking ibuprofen regularly for this instance.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1191",
+                "S02:p.28 Q8:18 Age at end years or Still using"
+              ],
+              "minimum": "S01:Questions row 1191"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken ibuprofen or medication containing ibuprofen regularly (the entry's own yes/no is 1); 8:18 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_18_B_1",
+              "Q8_18_B_2",
+              "toage3Ibuprofen",
+              "toage4Ibuprofen",
+              "toage5Ibuprofen"
+            ],
+            "x-questionID": 1654,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_IbuprofenOngoingEp": {
+            "title": "Still taking it regularly",
+            "description": "Whether the participant is still taking ibuprofen regularly at entry to study.",
+            "$comment": "Source coding: 0 No; 1 Still taking (AnswerID 804).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1192",
+                "S02:p.28 Q8:18 ... or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Still taking"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken ibuprofen or medication containing ibuprofen regularly (the entry's own yes/no is 1); 8:18 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_18_C_1",
+              "Q8_18_C_2",
+              "curr3Ibuprofen",
+              "curr4Ibuprofen",
+              "curr5Ibuprofen"
+            ],
+            "x-questionID": 1655,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 804
+            },
+            "x-pii": false
+          },
+          "R0_IbuprofenType": {
+            "title": "Type of ibuprofen taken in this period (3rd to 5th period only)",
+            "description": "Type of ibuprofen-containing product taken during this period of regular use.",
+            "$comment": "The dictionary lists this field only for the 3rd to 5th period and gives it no array; it is folded into the entry. The 1st and 2nd period carry the missing-string sentinel. The old names listed are those of the periods that have it.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1205",
+                "S01:Questions row 1214",
+                "S01:Questions row 1223"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed for the 3rd to 5th period of regular ibuprofen use; the form does not print it.",
+            "x-formerName": [
+              "type3Ibuprofen",
+              "type4Ibuprofen",
+              "type5Ibuprofen"
+            ],
+            "x-questionID": 1668,
+            "x-pii": false,
+            "x-slots": [
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          "IbuprofenRegularUseExtra": {
+            "title": "Further timing details of the 3rd to 5th period",
+            "description": "Month and year of the start and the end of the 3rd to the 5th period.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 37"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ]
+            ],
+            "x-universe": "Only the 3rd to 5th occasion have it (the dictionary block IbuprofenRegularUseExtra); page 15:1 of the form, not in the questionnaire PDF.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_Ibuprofen_Start_Shifted": {
+                  "title": "R0_Ibuprofen_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_IbuprofenStartMnthEp",
+                    "R0_IbuprofenStartYrEp"
+                  ],
+                  "x-pii": false
+                },
+                "R0_Ibuprofen_End_Shifted": {
+                  "title": "R0_Ibuprofen_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_IbuprofenEndMnthEp",
+                    "R0_IbuprofenEndYrEp"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_Ibuprofen_Start_Shifted",
+                "R0_Ibuprofen_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_IbuprofenOccasion_Num",
+          "R0_IbuprofenRegularEp",
+          "R0_IbuprofenStartAgeEp",
+          "R0_IbuprofenEndAgeEp",
+          "R0_IbuprofenOngoingEp",
+          "R0_IbuprofenType",
+          "IbuprofenRegularUseExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_IbuprofenMoreEpisodes": {
+      "title": "More periods of regular ibuprofen use than the two printed",
+      "description": "Indicator if there were more than two occasions when the participant took ibuprofen regularly.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'Yes, more than two occasions').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1196",
+          "S02:p.28 Q8:18 If there were other periods in your life where you took ibuprofen regularly, please cross this box and give details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when ibuprofen was taken regularly (the first occasion's yes/no is 1).",
+      "x-formerName": "Q8_18_more",
+      "x-questionID": 1659,
+      "x-answerIDs": {
+        "1": 1324
+      },
+      "x-pii": false
+    },
+    "R0_morethan5Ibuprofen": {
+      "title": "More than 5 periods of regular ibuprofen use",
+      "description": "Whether the participant has had more than 5 occasions of regular ibuprofen-containing medication use.",
+      "$comment": "Not printed on the questionnaire pages 27 to 29; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1224"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "morethan5Ibuprofen",
+      "x-questionID": 1687,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_OtherPainkillersRecentUse": {
+      "title": "Whether other painkillers were taken in the last 7 days",
+      "description": "Whether the participant has taken painkillers in the 7 days pre-study entry.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1225",
+          "S02:p.28 Q8:19 Have you taken any other painkillers in the last 7 days? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_19_1_1",
+      "x-questionID": 1688,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_OtherPainkillersDays": {
+      "title": "Days on other painkillers in the last 7 days",
+      "description": "How many of those 7 days pre-study entry did the participant take other painkillers.",
+      "$comment": "Dictionary maximum 7 (the days in the last 7 days).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1226",
+          "S02:p.28 Q8:19 If yes, on how many days did you take them in the last 7 days? days"
+        ],
+        "minimum": "S01:Questions row 1226",
+        "maximum": "S01:Questions row 1226"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when other painkillers were taken in the last 7 days (R0_OtherPainkillersRecentUse = 1); the form says 'If yes, on how many days'.",
+      "x-formerName": "Q8_19_2",
+      "x-questionID": 1689,
+      "x-pii": false,
+      "x-unit": "days"
+    },
+    "R0_OtherRecentPainkillerName": {
+      "title": "Name of the painkiller taken in the last 7 days",
+      "description": "The name of the other painkiller the participant took.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1227",
+          "S02:p.28 Q8:19 Name of painkiller"
+        ]
+      },
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_string"
+        }
+      ],
+      "x-universe": "Only completed when other painkillers were taken in the last 7 days (R0_OtherPainkillersRecentUse = 1); the form says 'If yes, on how many days'.",
+      "x-formerName": "Q8_19_3",
+      "x-questionID": 1690,
+      "x-pii": false
+    },
+    "OtherPainkillersRegularUse": {
+      "title": "Periods of regular other painkillers use",
+      "description": "One entry per period of regular use of other painkillers (every day or almost every day for 6 months or longer), up to 5, in the order reported. The first two are printed on pages 28 and 29; further ones go on page 15:1.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 15",
+          "S02:p.29 Q8:20 Have you ever taken other painkillers regularly?"
+        ],
+        "minItems": "S01:ArrayDef row 15",
+        "maxItems": "S01:ArrayDef row 15"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 5,
+      "x-universe": "Only completed when the participant has taken other painkillers regularly (the entry's own yes/no is 1); 8:20 says 'If yes, please fill in details of any periods'.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_PainkillersOccasion_Num": {
+            "x-role": "entity key",
+            "title": "Which occasion this entry refers to (1st to 5th)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 15",
+              "maximum": "S01:ArrayDef row 15"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "x-pii": false
+          },
+          "R0_OtherPainkillersRegular": {
+            "title": "Whether other painkillers was ever taken regularly (every day or almost every day for 6 months or longer)",
+            "description": "Whether the participant has taken other painkillers regularly over at least 6 months.",
+            "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. The dictionary has this answer for the 1st, 3rd, 4th and 5th occasion only; the 2nd carries -999 (the form asks the question once). The old names listed are those of the occasions that have it.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1228",
+                "S02:p.29 Q8:20 Have you ever taken other painkillers regularly? Yes No"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "More than one option chosen"
+              },
+              {
+                "const": 1,
+                "title": "Yes"
+              },
+              {
+                "const": 2,
+                "title": "No"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-formerName": [
+              "Q8_20_1",
+              "use3Painkillers",
+              "use4Painkillers",
+              "use5Painkillers"
+            ],
+            "x-questionID": 1691,
+            "x-answerIDs": {
+              "0": 10,
+              "1": 1,
+              "2": 2
+            },
+            "x-pii": false,
+            "x-slots": [
+              [
+                1
+              ],
+              [
+                3
+              ],
+              [
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          "R0_OtherPainkillersStartAge": {
+            "title": "Age at the start of this period (years)",
+            "description": "Age the participant started taking other painkillers regularly.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1229",
+                "S02:p.29 Q8:20 1) Age at start years"
+              ],
+              "minimum": "S01:Questions row 1229"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken other painkillers regularly (the entry's own yes/no is 1); 8:20 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_20_1_1",
+              "Q8_20_2_1",
+              "fromage3Painkillers",
+              "fromage4Painkillers",
+              "fromage5Painkillers"
+            ],
+            "x-questionID": 1692,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_OtherPainkillersEndAge": {
+            "title": "Age at the end of this period (years)",
+            "description": "Age the participant stopped taking other painkillers regularly.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1230",
+                "S02:p.29 Q8:20 Age at end years or Still using"
+              ],
+              "minimum": "S01:Questions row 1230"
+            },
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken other painkillers regularly (the entry's own yes/no is 1); 8:20 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_20_1_2",
+              "Q8_20_2_2",
+              "toage3Painkillers",
+              "toage4Painkillers",
+              "toage5Painkillers"
+            ],
+            "x-questionID": 1693,
+            "x-pii": false,
+            "x-unit": "years"
+          },
+          "R0_OtherPainkillersOngoing": {
+            "title": "Still taking it regularly",
+            "description": "Whether the participant is still taking other painkillers at study entry.",
+            "$comment": "Source coding: 0 No; 1 Still taking (AnswerID 804).",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1231",
+                "S02:p.29 Q8:20 ... or Still using"
+              ]
+            },
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No"
+              },
+              {
+                "const": 1,
+                "title": "Still taking"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_numeric"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken other painkillers regularly (the entry's own yes/no is 1); 8:20 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_20_1_3",
+              "Q8_20_2_3",
+              "curr3Painkillers",
+              "curr4Painkillers",
+              "curr5Painkillers"
+            ],
+            "x-questionID": 1694,
+            "x-answerIDs": {
+              "0": 2,
+              "1": 804
+            },
+            "x-pii": false
+          },
+          "R0_OtherPainkillersName": {
+            "title": "Name of the painkiller taken regularly",
+            "description": "The name of the painkillers the participant is taking.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1232",
+                "S02:p.29 Q8:20 Name of painkiller"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only completed when the participant has taken other painkillers regularly (the entry's own yes/no is 1); 8:20 says 'If yes, please fill in details of any periods'.",
+            "x-formerName": [
+              "Q8_20_1_4",
+              "Q8_20_2_4",
+              "type3Painkillers",
+              "type4Painkillers",
+              "type5Painkillers"
+            ],
+            "x-questionID": 1695,
+            "x-pii": false
+          },
+          "OtherPainkillersRegularUseExtra": {
+            "title": "Further timing details of the 3rd to 5th period",
+            "description": "Month and year of the start and the end of the 3rd to the 5th period.",
+            "x-provenance": {
+              "default": [
+                "S01:ArrayDef row 44"
+              ]
+            },
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "x-slots": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ]
+            ],
+            "x-universe": "Only the 3rd to 5th occasion have it (the dictionary block OtherPainkillersRegularUseExtra); page 15:1 of the form, not in the questionnaire PDF.",
+            "x-pii": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "R0_OtherPainkillers_Start_Shifted": {
+                  "title": "R0_OtherPainkillers_Start_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OtherPainkillersStartMth",
+                    "R0_OtherPainkillersStartYr"
+                  ],
+                  "x-pii": false
+                },
+                "R0_OtherPainkillers_End_Shifted": {
+                  "title": "R0_OtherPainkillers_End_Shifted (date shifted for pseudonymisation)",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]{4}-[0-9]{2}$"
+                    },
+                    {
+                      "$ref": "../../../defs.json#/$defs/missing_string"
+                    }
+                  ],
+                  "x-shiftedFrom": [
+                    "R0_OtherPainkillersEndMth",
+                    "R0_OtherPainkillersEndYr"
+                  ],
+                  "x-pii": false
+                }
+              },
+              "required": [
+                "R0_OtherPainkillers_Start_Shifted",
+                "R0_OtherPainkillers_End_Shifted"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "R0_PainkillersOccasion_Num",
+          "R0_OtherPainkillersRegular",
+          "R0_OtherPainkillersStartAge",
+          "R0_OtherPainkillersEndAge",
+          "R0_OtherPainkillersOngoing",
+          "R0_OtherPainkillersName",
+          "OtherPainkillersRegularUseExtra"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_OtherPainkillersMoreEpisodes": {
+      "title": "More periods of regular use of other painkillers than the two printed",
+      "description": "Indicator if there were more than two occasions when the participant took other painkillers regularly.",
+      "$comment": "Tick box. Source coding: 1 Flagged (dictionary AnswerText 'Yes, more than two occasions').",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1237",
+          "S02:p.29 Q8:20 If there were other periods in your life where you took other painkillers regularly, please cross this box and give details on page 15:1"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Flagged"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when other painkillers were taken regularly (the first occasion's yes/no is 1).",
+      "x-formerName": "Q8_20_more",
+      "x-questionID": 1700,
+      "x-answerIDs": {
+        "1": 1336
+      },
+      "x-pii": false
+    },
+    "R0_OtherPainkillersMoreThanFive": {
+      "title": "More than 5 periods of regular use of other painkillers",
+      "description": "Indicator if there were more than five occasions when the participant took other painkillers regularly.",
+      "$comment": "Not printed on the questionnaire pages 27 to 29; the dictionary's box for the extra page 15:1. Source coding: 0 No; 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1265"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "No"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "morethan5Painkillers",
+      "x-questionID": 1728,
+      "x-answerIDs": {
+        "0": 2,
+        "1": 1
+      },
+      "x-pii": false
+    },
+    "R0_FolicAcidSuppUse": {
+      "title": "Whether folic acid or folate supplements were ever taken",
+      "description": "Whether the participant has every taken folic acid supplements.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1266",
+          "S02:p.29 Q8:21 Have you ever taken Folic acid or Folate? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_21_A_1_1",
+      "x-questionID": 1729,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_FolicAcidDurationYrs": {
+      "title": "Total years on folic acid or folate supplements",
+      "description": "How many years the participant has taken folic acid supplements, if they have.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1267",
+          "S02:p.29 Q8:21 If yes, total number of years Years"
+        ],
+        "minimum": "S01:Questions row 1267"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when folic acid or folate was taken (R0_FolicAcidSuppUse = 1); the form says 'If yes, total number of years'.",
+      "x-formerName": "Q8_21_B_1",
+      "x-questionID": 1730,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_VitaminDSuppUse": {
+      "title": "Whether vitamin D supplements were ever taken",
+      "description": "Whether the participant has ever taken vitamin D supplements.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1268",
+          "S02:p.29 Q8:21 Have you ever taken Vitamin D? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_21_A_2_1",
+      "x-questionID": 1731,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_VitaminDDurationYrs": {
+      "title": "Total years on vitamin D supplements",
+      "description": "How many years the participant has taken vitamin D supplements, if they have.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1269",
+          "S02:p.29 Q8:21 If yes, total number of years Years"
+        ],
+        "minimum": "S01:Questions row 1269"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when vitamin D was taken (R0_VitaminDSuppUse = 1); the form says 'If yes, total number of years'.",
+      "x-formerName": "Q8_21_B_2",
+      "x-questionID": 1732,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_CalciumSuppUse": {
+      "title": "Whether calcium supplements were ever taken",
+      "description": "Whether the participant has ever taken calcium supplements.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1270",
+          "S02:p.29 Q8:21 Have you ever taken Calcium? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_21_A_3_1",
+      "x-questionID": 1733,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_CalciumDurationYrs": {
+      "title": "Total years on calcium supplements",
+      "description": "How many years the participant has taken calcium supplements, if they have.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1271",
+          "S02:p.29 Q8:21 If yes, total number of years Years"
+        ],
+        "minimum": "S01:Questions row 1271"
+      },
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when calcium was taken (R0_CalciumSuppUse = 1); the form says 'If yes, total number of years'.",
+      "x-formerName": "Q8_21_B_3",
+      "x-questionID": 1734,
+      "x-pii": false,
+      "x-unit": "years"
+    },
+    "R0_VitaminSuppRecentUse": {
+      "title": "Whether any vitamin or other supplement was taken in the last 7 days",
+      "description": "In the 7 days before study entry, whether the participant has taken any other vitamin or supplements.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No. The dictionary gives a maximum of 7 for this yes/no code, which is not used.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1272",
+          "S02:p.29 Q8:22 In the last 7 days, have you taken any vitamin supplements or other supplements? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_22_1_1",
+      "x-questionID": 1735,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_VitaminSuppMultivitamin": {
+      "title": "Took a multivitamin",
+      "description": "If the participant took a multivitamin.",
+      "$comment": "Tick box, one of three sharing a question; the dictionary gives each box its own AnswerCode (1 to 3) with the text Multivitamin. Source coding: 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1273",
+          "S02:p.29 Q8:22 If yes, what was it? Multivitamin"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when a supplement was taken in the last 7 days (R0_VitaminSuppRecentUse = 1); the form says 'If yes, what was it?'.",
+      "x-formerName": "Q8_22_2_1",
+      "x-questionID": 1736,
+      "x-answerIDs": {
+        "1": 1344
+      },
+      "x-pii": false
+    },
+    "R0_VitaminSuppCodLiverOil": {
+      "title": "Took cod liver oil",
+      "description": "If the participant took cod liver oil.",
+      "$comment": "Tick box, one of three sharing a question; the dictionary gives each box its own AnswerCode (1 to 3) with the text Cod liver oil. Source coding: 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1274",
+          "S02:p.29 Q8:22 If yes, what was it? Cod liver oil"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when a supplement was taken in the last 7 days (R0_VitaminSuppRecentUse = 1); the form says 'If yes, what was it?'.",
+      "x-formerName": "Q8_22_2_2",
+      "x-questionID": 1737,
+      "x-answerIDs": {
+        "1": 1345
+      },
+      "x-pii": false
+    },
+    "R0_VitaminSuppOther": {
+      "title": "Took another vitamin supplement",
+      "description": "If the participant took any other vitamin supplement.",
+      "$comment": "Tick box, one of three sharing a question; the dictionary gives each box its own AnswerCode (1 to 3) with the text Other vitamin supplement. Source coding: 1 Yes.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1275",
+          "S02:p.29 Q8:22 If yes, what was it? Other, specify"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-universe": "Only completed when a supplement was taken in the last 7 days (R0_VitaminSuppRecentUse = 1); the form says 'If yes, what was it?'.",
+      "x-formerName": "Q8_22_2_3",
+      "x-questionID": 1738,
+      "x-answerIDs": {
+        "1": 13
+      },
+      "x-pii": false
+    },
+    "VitaminSuppOther": {
+      "title": "Other vitamin or supplements taken in the last 7 days",
+      "description": "The other vitamins or supplements, in words, up to 2.",
+      "x-provenance": {
+        "default": [
+          "S01:ArrayDef row 54",
+          "S02:p.29 Q8:22 Other, specify:-"
+        ],
+        "minItems": "S01:ArrayDef row 54",
+        "maxItems": "S01:ArrayDef row 54"
+      },
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "R0_VitaminSuppOther_Num": {
+            "x-role": "entity key",
+            "title": "Which other supplement this entry refers to (1st, 2nd)",
+            "x-provenance": {
+              "default": "S01:ArrayDef row 54",
+              "maximum": "S01:ArrayDef row 54"
+            },
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2,
+            "x-pii": false
+          },
+          "R0_VitaminTextSuppOther": {
+            "title": "The other supplement, in words",
+            "description": "Text of the other vitamin supplement taken by the participant.",
+            "x-provenance": {
+              "default": [
+                "S01:Questions row 1276",
+                "S02:p.29 Q8:22 Other, specify:-"
+              ]
+            },
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "../../../defs.json#/$defs/missing_string"
+              }
+            ],
+            "x-universe": "Only when the 'Other' box is ticked (R0_VitaminSuppOther = 1); the form says 'Other, specify'.",
+            "x-formerName": [
+              "Q8_22_3",
+              "Q8_22_4"
+            ],
+            "x-questionID": 1739,
+            "x-pii": false
+          }
+        },
+        "required": [
+          "R0_VitaminSuppOther_Num",
+          "R0_VitaminTextSuppOther"
+        ],
+        "additionalProperties": false
+      },
+      "x-pii": false
+    },
+    "R0_MelatoninUse": {
+      "title": "Whether the drug melatonin was ever taken",
+      "description": "Whether the participant has ever taken melatonin.",
+      "$comment": "Source coding: 1 Yes; 2 No (the dictionary has no 'more than one option' answer).",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1278",
+          "S02:p.29 Q8:23 Have you ever taken a drug called melatonin? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_23_1",
+      "x-questionID": 1741,
+      "x-answerIDs": {
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    },
+    "R0_StatinUse": {
+      "title": "Whether cholesterol-lowering drugs (statins) were ever taken",
+      "description": "Whether the participant has ever taken statins.",
+      "$comment": "Source coding: 0 More than one option chosen; 1 Yes; 2 No.",
+      "x-provenance": {
+        "default": [
+          "S01:Questions row 1279",
+          "S02:p.29 Q8:24 Have you ever taken cholesterol lowering drugs called statins? Yes No"
+        ]
+      },
+      "oneOf": [
+        {
+          "const": 0,
+          "title": "More than one option chosen"
+        },
+        {
+          "const": 1,
+          "title": "Yes"
+        },
+        {
+          "const": 2,
+          "title": "No"
+        },
+        {
+          "$ref": "../../../defs.json#/$defs/missing_numeric"
+        }
+      ],
+      "x-formerName": "Q8_24_1",
+      "x-questionID": 1742,
+      "x-answerIDs": {
+        "0": 10,
+        "1": 1,
+        "2": 2
+      },
+      "x-pii": false
+    }
+  },
+  "required": [
+    "TCode",
+    "R0_NonBCTamoxRaloxUse",
+    "R0_NonBCDrugType",
+    "R0_NonBCDrugStartAge",
+    "R0_NonBCDrugDurationYrs",
+    "R0_NonBCDrugDurationMnths",
+    "R0_NonBCDrugOngoing",
+    "R0_NonBCDrugEpisodes",
+    "R0_GrowthHormoneUse",
+    "R0_AcneMedsPrescribed",
+    "R0_AcneMedsStartAge",
+    "R0_AntibioticsRecentUse",
+    "R0_AntibioticsDays",
+    "R0_AspirinRecentUse",
+    "R0_AspirinDays",
+    "AspirinRegularUse",
+    "R0_Q8_16_more",
+    "R0_AspirinMoreEpisodes",
+    "R0_IbuprofenRecentUse",
+    "R0_IbuprofenDays",
+    "IbuprofenRegularUse",
+    "R0_IbuprofenMoreEpisodes",
+    "R0_morethan5Ibuprofen",
+    "R0_OtherPainkillersRecentUse",
+    "R0_OtherPainkillersDays",
+    "R0_OtherRecentPainkillerName",
+    "OtherPainkillersRegularUse",
+    "R0_OtherPainkillersMoreEpisodes",
+    "R0_OtherPainkillersMoreThanFive",
+    "R0_FolicAcidSuppUse",
+    "R0_FolicAcidDurationYrs",
+    "R0_VitaminDSuppUse",
+    "R0_VitaminDDurationYrs",
+    "R0_CalciumSuppUse",
+    "R0_CalciumDurationYrs",
+    "R0_VitaminSuppRecentUse",
+    "R0_VitaminSuppMultivitamin",
+    "R0_VitaminSuppCodLiverOil",
+    "R0_VitaminSuppOther",
+    "VitaminSuppOther",
+    "R0_MelatoninUse",
+    "R0_StatinUse"
+  ],
+  "allOf": [
+    {
+      "$comment": "Skip pattern R089: tamoxifen or raloxifene was not used other than for breast cancer (0 or 2), so the drug, the age, the duration, 'still using' and the 'more than one episode' box are structurally not applicable and carry the missing-numeric sentinel. Questionnaire p.27 Q8:11: 'If yes, what was the drug?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.27 Q8:11 If yes, what was the drug?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_NonBCTamoxRaloxUse"
+        ],
+        "properties": {
+          "R0_NonBCTamoxRaloxUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_NonBCDrugType": {
+            "const": -999
+          },
+          "R0_NonBCDrugStartAge": {
+            "const": -999
+          },
+          "R0_NonBCDrugDurationYrs": {
+            "const": -999
+          },
+          "R0_NonBCDrugDurationMnths": {
+            "const": -999
+          },
+          "R0_NonBCDrugOngoing": {
+            "const": -999
+          },
+          "R0_NonBCDrugEpisodes": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R090: no acne tablets were prescribed (0 or 2), so the age at the start is structurally not applicable. Questionnaire p.27 Q8:13: 'If yes, at what age did you start treatment?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.27 Q8:13 If yes, at what age did you start treatment?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_AcneMedsPrescribed"
+        ],
+        "properties": {
+          "R0_AcneMedsPrescribed": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_AcneMedsStartAge": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R091: no antibiotics were taken in the last 12 months (0 or 2), so the number of days is structurally not applicable. Questionnaire p.27 Q8:14: 'If yes, on how many days in the last 12 months?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.27 Q8:14 If yes, on how many days in the last 12 months?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_AntibioticsRecentUse"
+        ],
+        "properties": {
+          "R0_AntibioticsRecentUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_AntibioticsDays": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R092: no aspirin was taken in the last 7 days (0 or 2), so the number of days is structurally not applicable. Questionnaire p.27 Q8:15: 'If yes, on how many days did you take it in the last 7 days?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.27 Q8:15 If yes, on how many days did you take it in the last 7 days?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_AspirinRecentUse"
+        ],
+        "properties": {
+          "R0_AspirinRecentUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_AspirinDays": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R093: no ibuprofen was taken in the last 7 days (0 or 2), so the number of days is structurally not applicable. Questionnaire p.28 Q8:17: 'If yes, on how many days did you take it in the last 7 days?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.28 Q8:17 If yes, on how many days did you take it in the last 7 days?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_IbuprofenRecentUse"
+        ],
+        "properties": {
+          "R0_IbuprofenRecentUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_IbuprofenDays": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R094: no other painkillers were taken in the last 7 days (2 No), so the number of days and the name are structurally not applicable. Questionnaire p.28 Q8:19: 'If yes, on how many days did you take them in the last 7 days?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.28 Q8:19 If yes, on how many days did you take them in the last 7 days?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_OtherPainkillersRecentUse"
+        ],
+        "properties": {
+          "R0_OtherPainkillersRecentUse": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_OtherPainkillersDays": {
+            "const": -999
+          },
+          "R0_OtherRecentPainkillerName": {
+            "const": "MISSING"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R095: in each aspirin entry whose own yes/no is not Yes (0 or 2), the ages, 'still taking' and the further timing details are structurally not applicable. Questionnaire p.28 Q8:16: 'If yes, please fill in details of any periods in your life'. It is written here, not in the entry's own allOf, to keep the medicine routings together.",
+      "x-provenance": {
+        "default": [
+          "S02:p.28 Q8:16 If yes, please fill in details of any periods in your life"
+        ]
+      },
+      "properties": {
+        "AspirinRegularUse": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_AspirinRegularEp"
+              ],
+              "properties": {
+                "R0_AspirinRegularEp": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_AspirinStartAgeEp": {
+                  "const": -999
+                },
+                "R0_AspirinEndAgeEp": {
+                  "const": -999
+                },
+                "R0_AspirinOngoingEp": {
+                  "const": -999
+                },
+                "AspirinRegularUseExtra": {
+                  "items": {
+                    "properties": {
+                      "R0_AspirinStartMnth": {
+                        "const": -999
+                      },
+                      "R0_AspirinStartYr": {
+                        "const": -999
+                      },
+                      "R0_AspirinEndMnth": {
+                        "const": -999
+                      },
+                      "R0_AspirinEndYr": {
+                        "const": -999
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R096: when the first aspirin entry is not Yes (0 or 2), no further period exists and the 'more periods' box is structurally not applicable -- AspirinRegularUse holds at most one entry and R0_Q8_16_more carries the missing-numeric sentinel. Questionnaire p.28 Q8:16: the box is under 'If yes'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.28 Q8:16 If there were other periods in your life where you took aspirin regularly"
+        ]
+      },
+      "if": {
+        "properties": {
+          "AspirinRegularUse": {
+            "prefixItems": [
+              {
+                "required": [
+                  "R0_AspirinRegularEp"
+                ],
+                "properties": {
+                  "R0_AspirinRegularEp": {
+                    "enum": [
+                      0,
+                      2
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "AspirinRegularUse": {
+            "maxItems": 1
+          },
+          "R0_Q8_16_more": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R097: in each ibuprofen entry whose own yes/no is not Yes (0 or 2), the ages, 'still taking' and the further timing details are structurally not applicable. Questionnaire p.28 Q8:18: 'If yes, please fill in details of any periods in your life'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.28 Q8:18 If yes, please fill in details of any periods in your life"
+        ]
+      },
+      "properties": {
+        "IbuprofenRegularUse": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_IbuprofenRegularEp"
+              ],
+              "properties": {
+                "R0_IbuprofenRegularEp": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_IbuprofenStartAgeEp": {
+                  "const": -999
+                },
+                "R0_IbuprofenEndAgeEp": {
+                  "const": -999
+                },
+                "R0_IbuprofenOngoingEp": {
+                  "const": -999
+                },
+                "IbuprofenRegularUseExtra": {
+                  "items": {
+                    "properties": {
+                      "R0_IbuprofenStartMnthEp": {
+                        "const": -999
+                      },
+                      "R0_IbuprofenStartYrEp": {
+                        "const": -999
+                      },
+                      "R0_IbuprofenEndMnthEp": {
+                        "const": -999
+                      },
+                      "R0_IbuprofenEndYrEp": {
+                        "const": -999
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R098: when the first ibuprofen entry is not Yes (0 or 2), no further period exists and the 'more periods' box is structurally not applicable -- IbuprofenRegularUse holds at most one entry and R0_IbuprofenMoreEpisodes carries the missing-numeric sentinel. Questionnaire p.28 Q8:18: the box is under 'If yes'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.28 Q8:18 If there were other periods in your life where you took ibuprofen regularly"
+        ]
+      },
+      "if": {
+        "properties": {
+          "IbuprofenRegularUse": {
+            "prefixItems": [
+              {
+                "required": [
+                  "R0_IbuprofenRegularEp"
+                ],
+                "properties": {
+                  "R0_IbuprofenRegularEp": {
+                    "enum": [
+                      0,
+                      2
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "IbuprofenRegularUse": {
+            "maxItems": 1
+          },
+          "R0_IbuprofenMoreEpisodes": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R099: in each other-painkiller entry whose own yes/no is not Yes (0 or 2), the ages, 'still taking', the name and the further timing details are structurally not applicable. Questionnaire p.29 Q8:20: 'If yes, please fill in details of the periods in your life'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.29 Q8:20 If yes, please fill in details of the periods in your life"
+        ]
+      },
+      "properties": {
+        "OtherPainkillersRegularUse": {
+          "items": {
+            "if": {
+              "required": [
+                "R0_OtherPainkillersRegular"
+              ],
+              "properties": {
+                "R0_OtherPainkillersRegular": {
+                  "enum": [
+                    0,
+                    2
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "R0_OtherPainkillersStartAge": {
+                  "const": -999
+                },
+                "R0_OtherPainkillersEndAge": {
+                  "const": -999
+                },
+                "R0_OtherPainkillersOngoing": {
+                  "const": -999
+                },
+                "R0_OtherPainkillersName": {
+                  "const": "MISSING"
+                },
+                "OtherPainkillersRegularUseExtra": {
+                  "items": {
+                    "properties": {
+                      "R0_OtherPainkillersStartMth": {
+                        "const": -999
+                      },
+                      "R0_OtherPainkillersStartYr": {
+                        "const": -999
+                      },
+                      "R0_OtherPainkillersEndMth": {
+                        "const": -999
+                      },
+                      "R0_OtherPainkillersEndYr": {
+                        "const": -999
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R100: when the first other-painkiller entry is not Yes (0 or 2), no further period exists and the 'more periods' box is structurally not applicable -- OtherPainkillersRegularUse holds at most one entry and R0_OtherPainkillersMoreEpisodes carries the missing-numeric sentinel. Questionnaire p.29 Q8:20: the box is under 'If yes'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.29 Q8:20 If there were other periods in your life where you took other painkillers regularly"
+        ]
+      },
+      "if": {
+        "properties": {
+          "OtherPainkillersRegularUse": {
+            "prefixItems": [
+              {
+                "required": [
+                  "R0_OtherPainkillersRegular"
+                ],
+                "properties": {
+                  "R0_OtherPainkillersRegular": {
+                    "enum": [
+                      0,
+                      2
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "OtherPainkillersRegularUse": {
+            "maxItems": 1
+          },
+          "R0_OtherPainkillersMoreEpisodes": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R101: folic acid or folate was never taken (2 No), so the total years are structurally not applicable. Questionnaire p.29 Q8:21: 'If yes, total number of years'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.29 Q8:21 If yes, total number of years"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_FolicAcidSuppUse"
+        ],
+        "properties": {
+          "R0_FolicAcidSuppUse": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_FolicAcidDurationYrs": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R102: vitamin D was never taken (2 No), so the total years are structurally not applicable. Questionnaire p.29 Q8:21: 'If yes, total number of years'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.29 Q8:21 If yes, total number of years"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_VitaminDSuppUse"
+        ],
+        "properties": {
+          "R0_VitaminDSuppUse": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_VitaminDDurationYrs": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R103: calcium was never taken (2 No), so the total years are structurally not applicable. Questionnaire p.29 Q8:21: 'If yes, total number of years'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.29 Q8:21 If yes, total number of years"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_CalciumSuppUse"
+        ],
+        "properties": {
+          "R0_CalciumSuppUse": {
+            "enum": [
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_CalciumDurationYrs": {
+            "const": -999
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R104: no vitamin or other supplement was taken in the last 7 days (0 or 2), so the three boxes are structurally not applicable and VitaminSuppOther is empty. Questionnaire p.29 Q8:22: 'If yes, what was it?'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.29 Q8:22 If yes, what was it?"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_VitaminSuppRecentUse"
+        ],
+        "properties": {
+          "R0_VitaminSuppRecentUse": {
+            "enum": [
+              0,
+              2
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "R0_VitaminSuppMultivitamin": {
+            "const": -999
+          },
+          "R0_VitaminSuppCodLiverOil": {
+            "const": -999
+          },
+          "R0_VitaminSuppOther": {
+            "const": -999
+          },
+          "VitaminSuppOther": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Skip pattern R105: the 'Other' supplement box is not ticked (anything but 1), so there is nothing to specify -- VitaminSuppOther is empty. Questionnaire p.29 Q8:22: 'Other, specify'.",
+      "x-provenance": {
+        "default": [
+          "S02:p.29 Q8:22 Other, specify"
+        ]
+      },
+      "if": {
+        "required": [
+          "R0_VitaminSuppOther"
+        ],
+        "properties": {
+          "R0_VitaminSuppOther": {
+            "not": {
+              "const": 1
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "VitaminSuppOther": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
+}

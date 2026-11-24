@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "file:///N:/CancerEpidem/BrBreakthrough/DeliveryProcess/Schema_and_Derivation_utils/Administration/schemas/pseudo_anon/administration_pseudo_anon_root_schema.json",
+  "title": "Administrative event years and Study ID codes (pseudonymised)",
+  "description": "Array of pseudonymised records. One element is one participant: the administrative events and the pseudo-anonymised ID codes side by side, joined on TCode.",
+  "$comment": "All twelve codes are required together; TCode is declared in the administrative-events topic.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "title": "Administrative event years and Study ID codes (pseudonymised) record",
+    "allOf": [
+      {
+        "$ref": "admin_events_pseudo_anon.json"
+      },
+      {
+        "$ref": "sid_codes_pseudo_anon.json"
+      }
+    ],
+    "unevaluatedProperties": false
+  },
+  "x-version": "1.2.0",
+  "x-dataVersion": "v20261124",
+  "x-schemaProvenance": {
+    "x-lastModified": "2026-11-24",
+    "x-repository": "https://github.com/UK-Generations-Study/Schema_and_Derivation_Utils",
+    "x-maintainer": "UK Generations Study"
+  }
+}
